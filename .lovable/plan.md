@@ -47,20 +47,29 @@ Hard rules for every finding and recommendation:
 - Do not recommend code splitting, lazy loading, tree shaking, image optimization, caching, or SSR improvements unless a specific measured asset, component, request, or trace event proves the opportunity.
 
 
-## Phase 3 — Deliverable
+## Phase 4 — Deliverables
 
-A markdown report at `/mnt/documents/perf/report.md` containing:
-- Score table per route (desktop + mobile), before-numbers only in this phase.
-- Evidence section: waterfalls, coverage numbers, trace findings, screenshots.
-- **Ranked optimization list**, each item with: measured cost, estimated saving, implementation effort, risk, and rollback note. Split into Quick wins / Medium / Structural, e.g. candidates to be confirmed by data:
-  - trim unused entry-chunk JS (route-level splitting of shell chrome, drop unused shadcn/radix imports),
-  - drop or lazy-load heavy deps that only one app screen uses,
-  - CSS slimming: Tailwind output audit, per-theme token CSS loaded only for the active OS,
-  - eliminate hydration forced reflow by caching window/desktop measurements,
-  - image pipeline: AVIF variants alongside WebP, correct `sizes`, Openverse thumbnail sizing,
-  - animation cost: promote transforms only, avoid layout-triggering properties in drag/snap,
-  - prefetch tuning (intent vs. viewport) and SSR/streaming opportunities.
-- Explicit confidence labels (measured fact vs. hypothesis) on every recommendation.
+Written to `/mnt/documents/perf/<date>/`:
+
+1. `report.md` — human-readable findings, per-route score tables (desktop + mobile), budget PASS/FAIL, and evidence summaries.
+2. `summary.json` — raw measurements for all routes, machine-readable and diffable across runs.
+3. `opportunities.csv` — ranked optimization backlog with columns: `rank, category, route, metric, current_value, estimated_saving, effort, risk, confidence, evidence_path`.
+4. `evidence/` — Lighthouse reports, coverage output, performance traces, screenshots, bundle analysis artifacts.
+
+Every optimization entry includes: ID, Title, Routes affected, Evidence file, Measured cost, Estimated savings, User metric impacted, Confidence (MEASURED | LIKELY | HYPOTHESIS), Effort (S | M | L), Risk (Low | Medium | High), Rollback strategy.
+
+Example of the required shape:
+
+```text
+ID: OPP-004  [MEASURED]
+Title: Unused radix-dropdown-menu code in shell chunk
+Routes: /fruit, /android
+Chunk: assets/shell-fruit-<hash>.js
+Cost: 18 KiB Brotli   Saving: 14 KiB   Metric: INP
+Effort: S   Risk: Low   Evidence: evidence/coverage/fruit.json
+Rollback: revert the single import change
+```
+
 
 No production behavior changes in this plan — it is measurement plus a prioritized backlog. Implementation happens in follow-up passes you approve item by item.
 
