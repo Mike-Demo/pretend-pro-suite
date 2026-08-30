@@ -18,8 +18,15 @@ export const Route = createFileRoute("/fos")({
         content: "Eleven fake apps on a glossy pretend phone. Swipe up to accomplish nothing.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://pretend.pro/fos" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "PretendPro 3000 — fOS Edition" },
+      {
+        name: "twitter:description",
+        content: "Eleven fake apps on a glossy pretend phone. Swipe up to accomplish nothing.",
+      },
     ],
+    links: [{ rel: "canonical", href: "https://pretend.pro/fos" }],
   }),
   component: FosPage,
 });

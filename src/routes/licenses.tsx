@@ -15,8 +15,15 @@ export const Route = createFileRoute("/licenses")({
         content: "Every open source work used in PretendPro 3000, with author, license, and link.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://pretend.pro/licenses" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Open Source Licenses — PretendPro 3000" },
+      {
+        name: "twitter:description",
+        content: "Every open source work used in PretendPro 3000, with author, license, and link.",
+      },
     ],
+    links: [{ rel: "canonical", href: "https://pretend.pro/licenses" }],
   }),
   component: LicensesPage,
 });
@@ -54,14 +61,24 @@ const assets: Entry[] = [
 ];
 
 const libraries: Entry[] = [
-  { name: "React", author: "Meta and contributors", license: "MIT", url: "https://github.com/facebook/react" },
+  {
+    name: "React",
+    author: "Meta and contributors",
+    license: "MIT",
+    url: "https://github.com/facebook/react",
+  },
   {
     name: "TanStack Router / Start / Query",
     author: "Tanner Linsley and contributors",
     license: "MIT",
     url: "https://github.com/TanStack",
   },
-  { name: "Tailwind CSS", author: "Tailwind Labs", license: "MIT", url: "https://github.com/tailwindlabs/tailwindcss" },
+  {
+    name: "Tailwind CSS",
+    author: "Tailwind Labs",
+    license: "MIT",
+    url: "https://github.com/tailwindlabs/tailwindcss",
+  },
   { name: "shadcn/ui", author: "shadcn", license: "MIT", url: "https://github.com/shadcn-ui/ui" },
   {
     name: "Fluent UI (Fluent 2 design system)",
@@ -70,9 +87,24 @@ const libraries: Entry[] = [
     url: "https://github.com/microsoft/fluentui",
     note: "Fluent 2 design language used for this site's pages and the Apperture window style. Contributions follow the Microsoft Open Source Code of Conduct. No Fluent UI packages are bundled; tokens were recreated in CSS.",
   },
-  { name: "Radix UI", author: "WorkOS", license: "MIT", url: "https://github.com/radix-ui/primitives" },
-  { name: "Sonner", author: "Emil Kowalski", license: "MIT", url: "https://github.com/emilkowalski/sonner" },
-  { name: "Vite", author: "Evan You and contributors", license: "MIT", url: "https://github.com/vitejs/vite" },
+  {
+    name: "Radix UI",
+    author: "WorkOS",
+    license: "MIT",
+    url: "https://github.com/radix-ui/primitives",
+  },
+  {
+    name: "Sonner",
+    author: "Emil Kowalski",
+    license: "MIT",
+    url: "https://github.com/emilkowalski/sonner",
+  },
+  {
+    name: "Vite",
+    author: "Evan You and contributors",
+    license: "MIT",
+    url: "https://github.com/vitejs/vite",
+  },
 ];
 
 const references: Entry[] = [
@@ -112,7 +144,6 @@ const references: Entry[] = [
     note: "Design reference for the fOS phone edition (rounded icons, dock, home indicator). No Material packages are bundled.",
   },
 ];
-
 
 function Section({ title, entries }: { title: string; entries: Entry[] }) {
   return (

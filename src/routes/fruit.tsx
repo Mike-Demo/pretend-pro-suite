@@ -15,11 +15,20 @@ export const Route = createFileRoute("/fruit")({
       { property: "og:title", content: "PretendPro 3000 — Fruit Edition" },
       {
         property: "og:description",
-        content: "Aqua-tinted fake productivity: DocuFaker, SheetShenanigans, BrowserBuddy, Inbox Mirage.",
+        content:
+          "Aqua-tinted fake productivity: DocuFaker, SheetShenanigans, BrowserBuddy, Inbox Mirage.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://pretend.pro/fruit" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "PretendPro 3000 — Fruit Edition" },
+      {
+        name: "twitter:description",
+        content:
+          "Aqua-tinted fake productivity: DocuFaker, SheetShenanigans, BrowserBuddy, Inbox Mirage.",
+      },
     ],
+    links: [{ rel: "canonical", href: "https://pretend.pro/fruit" }],
   }),
   component: FruitPage,
 });

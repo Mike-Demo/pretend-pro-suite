@@ -18,8 +18,15 @@ export const Route = createFileRoute("/android")({
         content: "Pretend productivity in your pocket: eleven fake apps on a Material-style phone.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://pretend.pro/android" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "PretendPro 3000 — Android Edition" },
+      {
+        name: "twitter:description",
+        content: "Pretend productivity in your pocket: eleven fake apps on a Material-style phone.",
+      },
     ],
+    links: [{ rel: "canonical", href: "https://pretend.pro/android" }],
   }),
   component: AndroidPage,
 });
