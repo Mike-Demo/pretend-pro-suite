@@ -123,6 +123,33 @@ function Index() {
             {pageView ? "Page Tabs On" : "Page View Mode"}
           </button>
         </div>
+
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5">
+          <span className="mr-1 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+            Window Style
+          </span>
+          {osThemes.map((theme) => {
+            const ThemeIcon =
+              theme.id === "fruit" ? Apple : theme.id === "apperture" ? AppWindow : Chrome;
+            const isActive = theme.id === osTheme;
+            return (
+              <button
+                key={theme.id}
+                onClick={() => setOsTheme(theme.id)}
+                className={cn(
+                  "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold shadow-sm transition-colors",
+                  isActive
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-foreground hover:bg-muted",
+                )}
+                aria-pressed={isActive}
+              >
+                <ThemeIcon className="h-3.5 w-3.5" />
+                {theme.name}
+              </button>
+            );
+          })}
+        </div>
       </header>
 
       <main className="relative z-10 mx-auto mt-8 max-w-4xl">
@@ -150,7 +177,9 @@ function Index() {
 
         <section className="relative mt-5" aria-label={activeApp?.name ?? "PretendPro app"}>
           <StickyNote />
-          <ActiveScreen animated={animated} />
+          <WindowFrame osTheme={osTheme} appName={activeApp?.name ?? "PretendPro"}>
+            <ActiveScreen animated={animated} />
+          </WindowFrame>
         </section>
 
         <StuckProgress />
