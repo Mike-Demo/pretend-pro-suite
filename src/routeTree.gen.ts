@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AndroidRouteImport } from './routes/android'
 import { Route as AppertureRouteImport } from './routes/apperture'
 import { Route as BufferiumRouteImport } from './routes/bufferium'
+import { Route as FosRouteImport } from './routes/fos'
 import { Route as FruitRouteImport } from './routes/fruit'
 import { Route as LicensesRouteImport } from './routes/licenses'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -36,6 +37,11 @@ const AppertureRoute = AppertureRouteImport.update({
 const BufferiumRoute = BufferiumRouteImport.update({
   id: '/bufferium',
   path: '/bufferium',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FosRoute = FosRouteImport.update({
+  id: '/fos',
+  path: '/fos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FruitRoute = FruitRouteImport.update({
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
   '/bufferium': typeof BufferiumRoute
+  '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
   '/bufferium': typeof BufferiumRoute
+  '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
   '/bufferium': typeof BufferiumRoute
+  '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/android'
     | '/apperture'
     | '/bufferium'
+    | '/fos'
     | '/fruit'
     | '/licenses'
     | '/sitemap.xml'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/android'
     | '/apperture'
     | '/bufferium'
+    | '/fos'
     | '/fruit'
     | '/licenses'
     | '/sitemap.xml'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/android'
     | '/apperture'
     | '/bufferium'
+    | '/fos'
     | '/fruit'
     | '/licenses'
     | '/sitemap.xml'
@@ -128,6 +140,7 @@ export interface RootRouteChildren {
   AndroidRoute: typeof AndroidRoute
   AppertureRoute: typeof AppertureRoute
   BufferiumRoute: typeof BufferiumRoute
+  FosRoute: typeof FosRoute
   FruitRoute: typeof FruitRoute
   LicensesRoute: typeof LicensesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -162,6 +175,13 @@ declare module '@tanstack/react-router' {
       path: '/bufferium'
       fullPath: '/bufferium'
       preLoaderRoute: typeof BufferiumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fos': {
+      id: '/fos'
+      path: '/fos'
+      fullPath: '/fos'
+      preLoaderRoute: typeof FosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fruit': {
@@ -200,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   AndroidRoute: AndroidRoute,
   AppertureRoute: AppertureRoute,
   BufferiumRoute: BufferiumRoute,
+  FosRoute: FosRoute,
   FruitRoute: FruitRoute,
   LicensesRoute: LicensesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
