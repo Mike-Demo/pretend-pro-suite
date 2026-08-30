@@ -1,4 +1,8 @@
-import type { PointerEvent as ReactPointerEvent, ReactNode } from "react";
+import type {
+  KeyboardEvent as ReactKeyboardEvent,
+  PointerEvent as ReactPointerEvent,
+  ReactNode,
+} from "react";
 import { Minus, Square, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -17,23 +21,30 @@ type BarProps = {
   onMinimize: () => void;
   onToggleMaximize: () => void;
   onPointerDown: (e: ReactPointerEvent<HTMLDivElement>) => void;
+  onKeyDown?: (e: ReactKeyboardEvent<HTMLDivElement>) => void;
+  titleBarLabel?: string;
 };
 
-function FruitBar({
-  appName,
-  focused,
-  onClose,
-  onMinimize,
-  onToggleMaximize,
-  onPointerDown,
-}: BarProps) {
+/** Shared props that make a title bar a keyboard-operable move handle. */
+function grabProps({ onPointerDown, onKeyDown, titleBarLabel, onToggleMaximize }: BarProps) {
+  return {
+    onPointerDown,
+    onKeyDown,
+    onDoubleClick: onToggleMaximize,
+    tabIndex: 0,
+    role: "button" as const,
+    "aria-label": titleBarLabel,
+  };
+}
+
+function FruitBar(props: BarProps) {
+  const { appName, focused, onClose, onMinimize, onToggleMaximize } = props;
   const light = "h-3.5 w-3.5 rounded-full border border-foreground/10 transition-opacity";
   return (
     <div
-      onPointerDown={onPointerDown}
-      onDoubleClick={onToggleMaximize}
+      {...grabProps(props)}
       className={cn(
-        "relative flex cursor-grab touch-none select-none items-center gap-2 rounded-t-[var(--os-radius)] border-b border-border/60 bg-[var(--os-titlebar)] px-3 py-2 backdrop-blur active:cursor-grabbing",
+        "relative flex cursor-grab touch-none select-none items-center gap-2 rounded-t-[var(--os-radius)] border-b border-border/60 bg-[var(--os-titlebar)] px-3 py-2 backdrop-blur active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
         !focused && "opacity-80",
       )}
     >
@@ -62,23 +73,16 @@ function FruitBar({
   );
 }
 
-function AppertureBar({
-  appName,
-  focused,
-  onClose,
-  onMinimize,
-  onToggleMaximize,
-  onPointerDown,
-}: BarProps) {
+function AppertureBar(props: BarProps) {
+  const { appName, focused, onClose, onMinimize, onToggleMaximize } = props;
   // Fluent 2 caption buttons: 46x32 hit targets, thin glyphs, red close hover.
   const btn =
     "fluent-focus flex h-8 w-[46px] items-center justify-center text-foreground/80 transition-colors hover:bg-foreground/10 active:bg-foreground/[0.06]";
   return (
     <div
-      onPointerDown={onPointerDown}
-      onDoubleClick={onToggleMaximize}
+      {...grabProps(props)}
       className={cn(
-        "flex cursor-grab touch-none select-none items-center rounded-t-[var(--os-radius)] border-b border-border/70 bg-[var(--os-titlebar)] backdrop-blur-xl active:cursor-grabbing",
+        "flex cursor-grab touch-none select-none items-center rounded-t-[var(--os-radius)] border-b border-border/70 bg-[var(--os-titlebar)] backdrop-blur-xl active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
         !focused && "opacity-80",
       )}
     >
@@ -116,19 +120,13 @@ function AppertureBar({
   );
 }
 
-function BufferiumBar({
-  appName,
-  focused,
-  onClose,
-  onToggleMaximize,
-  onPointerDown,
-}: BarProps) {
+function BufferiumBar(props: BarProps) {
+  const { appName, focused, onClose, onToggleMaximize } = props;
   return (
     <div
-      onPointerDown={onPointerDown}
-      onDoubleClick={onToggleMaximize}
+      {...grabProps(props)}
       className={cn(
-        "flex cursor-grab touch-none select-none items-end gap-1 rounded-t-[var(--os-radius)] bg-[var(--os-titlebar)] px-2 pt-1.5 active:cursor-grabbing",
+        "flex cursor-grab touch-none select-none items-end gap-1 rounded-t-[var(--os-radius)] bg-[var(--os-titlebar)] px-2 pt-1.5 active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
         !focused && "opacity-80",
       )}
     >
@@ -155,6 +153,8 @@ export function WindowFrame({
   onMinimize,
   onToggleMaximize,
   onTitlePointerDown,
+  onTitleKeyDown,
+  titleBarLabel,
   className,
   children,
 }: {
@@ -165,6 +165,8 @@ export function WindowFrame({
   onMinimize?: () => void;
   onToggleMaximize?: () => void;
   onTitlePointerDown?: (e: ReactPointerEvent<HTMLDivElement>) => void;
+  onTitleKeyDown?: (e: ReactKeyboardEvent<HTMLDivElement>) => void;
+  titleBarLabel?: string;
   className?: string;
   children: ReactNode;
 }) {
@@ -175,6 +177,8 @@ export function WindowFrame({
     onMinimize: onMinimize ?? (() => {}),
     onToggleMaximize: onToggleMaximize ?? (() => {}),
     onPointerDown: onTitlePointerDown ?? (() => {}),
+    onKeyDown: onTitleKeyDown ?? (() => {}),
+    titleBarLabel: titleBarLabel ?? `${appName} title bar`,
   };
 
   return (
