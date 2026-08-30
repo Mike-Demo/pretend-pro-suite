@@ -12,7 +12,6 @@ export { themeRoutes } from "@/components/pretendpro/desktop/shell-shared";
 // licenses page never download it.
 const Toaster = lazy(() => import("@/components/ui/sonner").then((m) => ({ default: m.Toaster })));
 
-
 const editionHeadings: Record<OsTheme, string> = {
   fruit: "PretendPro 3000 — Fruit (Mac OS X) Edition: a fake desktop for looking busy",
   apperture: "PretendPro 3000 — Apperture (Windows) Edition: a fake desktop for looking busy",
