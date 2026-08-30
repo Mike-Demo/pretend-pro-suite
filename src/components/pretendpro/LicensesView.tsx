@@ -33,6 +33,13 @@ const assets: Entry[] = [
     license: "ISC",
     url: "https://lucide.dev/license",
   },
+  {
+    name: "Klingon icon",
+    author: "Pictogrammers",
+    license: "Apache License 2.0",
+    url: "https://iconbuddy.com/mdi/klingon",
+    note: "Used as the Klingon locale flag in the language picker.",
+  },
 ];
 
 const libraries: Entry[] = [
