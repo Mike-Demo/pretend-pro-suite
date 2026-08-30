@@ -35,7 +35,8 @@ const loaders: Record<AppId, () => Promise<ScreenModule>> = {
     import("@/components/pretendpro/PhotoPretender").then((m) => ({ default: m.PhotoPretender })),
   reels: () =>
     import("@/components/pretendpro/ReelPretender").then((m) => ({ default: m.ReelPretender })),
-  sound: () => import("@/components/pretendpro/SoundStage").then((m) => ({ default: m.SoundStage })),
+  sound: () =>
+    import("@/components/pretendpro/SoundStage").then((m) => ({ default: m.SoundStage })),
 };
 
 const lazyScreens = Object.fromEntries(

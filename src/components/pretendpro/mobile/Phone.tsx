@@ -1,23 +1,30 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import type { MobileOsTheme } from "@/components/pretendpro/WindowFrame";
 import { apps, SparklesLayer, StickyNote, type AppId } from "@/components/pretendpro/chrome";
-import { screens } from "@/components/pretendpro/app-screens";
-import { CommandPalette } from "@/components/pretendpro/desktop/CommandPalette";
-import { ShortcutsOverlay } from "@/components/pretendpro/desktop/ShortcutsOverlay";
+import { AppScreen, preloadAppScreen } from "@/components/pretendpro/app-screens";
 import { useClock } from "@/components/pretendpro/desktop/shell-shared";
 import { PowerProvider } from "@/components/pretendpro/power/PowerProvider";
 import { useFunMode } from "@/lib/pretendpro/fun-mode";
 import { usePhone } from "@/lib/pretendpro/phone";
-import { AndroidShell } from "./AndroidShell";
-import { FosShell } from "./FosShell";
 import { HomeScreen } from "./HomeScreen";
 import { Recents } from "./Recents";
 import type { MobileShellProps } from "./shell-shared";
 
-const shells: Record<MobileOsTheme, (props: MobileShellProps) => React.ReactNode> = {
-  android: AndroidShell,
-  fos: FosShell,
+const shells: Record<MobileOsTheme, React.ComponentType<MobileShellProps>> = {
+  android: lazy(() => import("./AndroidShell").then((m) => ({ default: m.AndroidShell }))),
+  fos: lazy(() => import("./FosShell").then((m) => ({ default: m.FosShell }))),
 };
+
+const CommandPalette = lazy(() =>
+  import("@/components/pretendpro/desktop/CommandPalette").then((m) => ({
+    default: m.CommandPalette,
+  })),
+);
+const ShortcutsOverlay = lazy(() =>
+  import("@/components/pretendpro/desktop/ShortcutsOverlay").then((m) => ({
+    default: m.ShortcutsOverlay,
+  })),
+);
 
 function isTyping(target: EventTarget | null): boolean {
   const el = target as HTMLElement | null;
@@ -113,7 +120,6 @@ export function Phone({
 
   const Shell = shells[osTheme];
   const app = apps.find((a) => a.id === foreground);
-  const Screen = foreground ? screens[foreground] : null;
 
   return (
     <PowerProvider osTheme={osTheme} funMode={funMode}>
@@ -124,67 +130,75 @@ export function Phone({
       >
         <SparklesLayer enabled={funMode} />
 
-        <Shell
-          osTheme={osTheme}
-          active={foreground ?? initialApp}
-          appName={app?.name ?? "PretendPro"}
-          view={view}
-          clock={clock}
-          funMode={funMode}
-          onToggleFunMode={toggleFunMode}
-          onShowShortcuts={() => setShortcutsOpen(true)}
-          onOpenPalette={() => setPaletteOpen(true)}
-          onHome={goHome}
-          onBack={back}
-          onRecents={showRecents}
-        >
-          <div className="relative h-full w-full">
-            {funMode && <StickyNote />}
+        <Suspense fallback={null}>
+          <Shell
+            osTheme={osTheme}
+            active={foreground ?? initialApp}
+            appName={app?.name ?? "PretendPro"}
+            view={view}
+            clock={clock}
+            funMode={funMode}
+            onToggleFunMode={toggleFunMode}
+            onShowShortcuts={() => setShortcutsOpen(true)}
+            onOpenPalette={() => setPaletteOpen(true)}
+            onHome={goHome}
+            onBack={back}
+            onRecents={showRecents}
+          >
+            <div className="relative h-full w-full">
+              {funMode && <StickyNote />}
 
-            {view === "home" && (
-              <HomeScreen
-                osTheme={osTheme}
-                onLaunch={handleLaunch}
-                onOpenPalette={() => setPaletteOpen(true)}
-              />
-            )}
+              {view === "home" && (
+                <HomeScreen
+                  osTheme={osTheme}
+                  onLaunch={handleLaunch}
+                  onOpenPalette={() => setPaletteOpen(true)}
+                />
+              )}
 
-            {view === "recents" && (
-              <Recents
-                osTheme={osTheme}
-                tasks={tasks}
-                onResume={handleLaunch}
-                onClose={closeTask}
-              />
-            )}
+              {view === "recents" && (
+                <Recents
+                  osTheme={osTheme}
+                  tasks={tasks}
+                  onResume={handleLaunch}
+                  onClose={closeTask}
+                />
+              )}
 
-            {view === "app" &&
-              (Screen ? (
-                <div
-                  key={foreground}
-                  className="h-full overflow-y-auto bg-card p-3 pretend-app-enter sm:p-5"
-                >
-                  <div className="mx-auto max-w-3xl">
-                    <Screen animated={funMode} />
+              {view === "app" &&
+                (foreground ? (
+                  <div
+                    key={foreground}
+                    className="h-full overflow-y-auto bg-card p-3 pretend-app-enter sm:p-5"
+                  >
+                    <div className="mx-auto max-w-3xl">
+                      <AppScreen id={foreground} animated={funMode} />
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <p className="pt-10 text-center text-xs text-foreground/70">
-                  Nothing open. Tap home and pick an app.
-                </p>
-              ))}
-          </div>
-        </Shell>
+                ) : (
+                  <p className="pt-10 text-center text-xs text-foreground/70">
+                    Nothing open. Tap home and pick an app.
+                  </p>
+                ))}
+            </div>
+          </Shell>
+        </Suspense>
 
-        <CommandPalette
-          open={paletteOpen}
-          onClose={() => setPaletteOpen(false)}
-          onSelect={handleLaunch}
-        />
+        <Suspense fallback={null}>
+          {paletteOpen && (
+            <CommandPalette
+              open={paletteOpen}
+              onClose={() => setPaletteOpen(false)}
+              onSelect={handleLaunch}
+            />
+          )}
+          {shortcutsOpen && (
+            <ShortcutsOverlay open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
+          )}
+        </Suspense>
         <p aria-live="polite" role="status" className="sr-only">
           {announcement}
         </p>
-        <ShortcutsOverlay open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
       </div>
     </PowerProvider>
   );
