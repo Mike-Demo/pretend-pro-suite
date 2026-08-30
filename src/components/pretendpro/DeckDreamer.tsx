@@ -62,7 +62,7 @@ export function DeckDreamer({ animated }: { animated: boolean }) {
               <MediaPlaceholder label="Inspiring stock photo loading…" className="absolute inset-0" />
             )}
             <div className="relative px-6 text-center">
-              <h2 className="text-xl font-bold tracking-tight sm:text-2xl">{slideTitles[current]}</h2>
+              <h3 className="text-xl font-bold tracking-tight sm:text-2xl">{slideTitles[current]}</h3>
               <p className="mt-2 text-xs text-muted-foreground sm:text-sm">
                 Presented with confidence. Understood by no one.
               </p>

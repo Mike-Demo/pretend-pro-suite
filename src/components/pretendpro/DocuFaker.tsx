@@ -63,9 +63,9 @@ export function DocuFaker({ animated }: { animated: boolean }) {
       </div>
 
       <div className="space-y-3 px-5 py-4 sm:px-8 sm:py-6">
-        <h2 className="text-lg font-bold text-card-foreground">
+        <h3 className="text-lg font-bold text-card-foreground">
           Quarterly Synergy Pancake Alignment Memo
-        </h2>
+        </h3>
         {paragraphs.map((p, i) => (
           <p key={`${p}-${i}`} className="text-sm leading-relaxed text-muted-foreground">
             {p}

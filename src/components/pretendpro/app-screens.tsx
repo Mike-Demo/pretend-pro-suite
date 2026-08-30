@@ -1,5 +1,5 @@
 import { lazy, Suspense, type ComponentType } from "react";
-import type { AppId } from "@/components/pretendpro/chrome";
+import { apps, type AppId } from "@/components/pretendpro/chrome";
 
 type ScreenProps = { animated: boolean };
 type ScreenModule = { default: ComponentType<ScreenProps> };
@@ -70,9 +70,15 @@ function ScreenSkeleton() {
 /** Renders one fake app screen, streaming in its chunk on first use. */
 export function AppScreen({ id, animated }: { id: AppId; animated: boolean }) {
   const Screen = lazyScreens[id];
+  const name = apps.find((a) => a.id === id)?.name ?? "PretendPro app";
   return (
-    <Suspense fallback={<ScreenSkeleton />}>
-      <Screen animated={animated} />
-    </Suspense>
+    // Each open app is a section under the page H1, giving crawlers and screen
+    // readers a single, correctly nested heading per fake app.
+    <section aria-label={name} className="h-full w-full">
+      <h2 className="sr-only">{name}</h2>
+      <Suspense fallback={<ScreenSkeleton />}>
+        <Screen animated={animated} />
+      </Suspense>
+    </section>
   );
 }
