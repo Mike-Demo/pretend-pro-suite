@@ -18,7 +18,9 @@ export default defineConfig({
     // client accepts (br > gzip > identity). apply: "build" keeps dev untouched.
     compression({
       algorithms: ["brotliCompress", "gzip"],
-      exclude: [/\.(br|gz|png|jpe?g|webp|ico|webmanifest|xml|txt|map)$/],
+      // Only precompress hashed build assets; public/ files are merged by
+      // Nitro after this hook and would not exist yet.
+      include: /assets\/.+\.(js|css|svg)$/,
       threshold: 1024,
       deleteOriginalAssets: false,
     }),
