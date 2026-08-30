@@ -5,6 +5,7 @@
 //     React/TanStack dedupe, error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { compression } from "vite-plugin-compression2";
 
 export default defineConfig({
   tanstackStart: {
@@ -12,4 +13,14 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  plugins: [
+    // Precompress production assets; the edge serves the best encoding the
+    // client accepts (br > gzip > identity). apply: "build" keeps dev untouched.
+    compression({
+      algorithms: ["brotliCompress", "gzip"],
+      exclude: [/\.(br|gz|png|jpe?g|webp|ico|webmanifest|xml|txt|map)$/],
+      threshold: 1024,
+      deleteOriginalAssets: false,
+    }),
+  ],
 });
