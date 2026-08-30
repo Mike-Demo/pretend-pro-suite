@@ -60,15 +60,15 @@ export function BufferiumShell({
                   className={cn(
                     "flex h-8 w-8 items-center justify-center rounded-lg transition-colors",
                     app.chip,
-                    isActive && "ring-2 ring-primary",
+                    isActive ? "ring-2 ring-primary" : isRunning && "ring-1 ring-primary/40",
                   )}
                 >
                   <Icon className="h-4 w-4" />
                 </span>
                 <span
                   className={cn(
-                    "mt-1 h-1 w-4 rounded-full",
-                    isActive ? "bg-primary" : "bg-transparent",
+                    "mt-1 h-1 w-4 rounded-full transition-colors duration-200",
+                    isActive ? "bg-primary" : isRunning ? "bg-primary/40" : "bg-transparent",
                   )}
                 />
               </button>

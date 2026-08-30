@@ -72,14 +72,14 @@ export function AppertureShell({
                 title={app.name}
                 aria-label={app.name}
                 aria-pressed={isActive}
-                className={cn(taskbarButton, isActive && "bg-foreground/[0.08]")}
+                className={cn(taskbarButton, isActive ? "bg-foreground/[0.08]" : isRunning && "bg-foreground/[0.04]")}
               >
                 <Icon className="h-4 w-4" strokeWidth={1.75} />
                 <span className="hidden lg:inline">{app.name}</span>
                 <span
                   className={cn(
-                    "absolute bottom-0 left-1/2 h-[3px] -translate-x-1/2 rounded-full bg-primary transition-all",
-                    isActive ? "w-4" : "w-0",
+                    "absolute bottom-0 left-1/2 h-[3px] -translate-x-1/2 rounded-full bg-primary transition-all duration-200",
+                    isActive ? "w-4 opacity-100" : isRunning ? "w-1.5 opacity-70" : "w-0 opacity-0",
                   )}
                 />
               </button>

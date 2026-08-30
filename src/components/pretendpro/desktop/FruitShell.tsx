@@ -114,15 +114,19 @@ export function FruitShell({
                   className={cn(
                     "flex h-11 w-11 items-center justify-center rounded-xl shadow-md transition-transform duration-150 group-hover:-translate-y-2 group-hover:scale-125",
                     app.chip,
-                    isActive && "ring-2 ring-primary",
+                    isActive ? "ring-2 ring-primary" : isRunning && "ring-1 ring-primary/40",
                   )}
                 >
                   <Icon className="h-5 w-5" />
                 </span>
                 <span
                   className={cn(
-                    "mt-1 h-1 w-1 rounded-full",
-                    isActive ? "bg-foreground/70" : "bg-transparent",
+                    "mt-1 h-1 w-1 rounded-full transition-colors duration-200",
+                    isActive
+                      ? "bg-foreground/80"
+                      : isRunning
+                        ? "bg-foreground/40"
+                        : "bg-transparent",
                   )}
                 />
               </button>
