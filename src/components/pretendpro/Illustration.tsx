@@ -18,6 +18,15 @@ import chillinWebp from "@/assets/transhumans/chillin.webp?url";
 import waitingWebp from "@/assets/transhumans/waiting.webp?url";
 import felizWebp from "@/assets/transhumans/feliz.webp?url";
 
+import ponderingColorWebp from "@/assets/transhumans/pondering-color.webp?url";
+import coffeeColorWebp from "@/assets/transhumans/coffee-color.webp?url";
+import growthColorWebp from "@/assets/transhumans/growth-color.webp?url";
+import experimentsColorWebp from "@/assets/transhumans/experiments-color.webp?url";
+import lookingAheadColorWebp from "@/assets/transhumans/looking-ahead-color.webp?url";
+import chillinColorWebp from "@/assets/transhumans/chillin-color.webp?url";
+import waitingColorWebp from "@/assets/transhumans/waiting-color.webp?url";
+import felizColorWebp from "@/assets/transhumans/feliz-color.webp?url";
+
 export type IllustrationName =
   | "pondering"
   | "coffee"
@@ -43,6 +52,18 @@ export const illustrations: Record<IllustrationName, { webp: string; svg: string
   feliz: { webp: felizWebp, svg: felizSvg },
 };
 
+/** Colored (AI-recolored) variants, shown when a card is selected. */
+export const coloredIllustrations: Record<IllustrationName, string> = {
+  pondering: ponderingColorWebp,
+  coffee: coffeeColorWebp,
+  growth: growthColorWebp,
+  experiments: experimentsColorWebp,
+  lookingAhead: lookingAheadColorWebp,
+  chillin: chillinColorWebp,
+  waiting: waitingColorWebp,
+  feliz: felizColorWebp,
+};
+
 /**
  * Decorative illustration. Renders the compact WebP first and keeps explicit
  * dimensions so the card never shifts while the image arrives.
@@ -52,17 +73,21 @@ export function Illustration({
   className,
   priority = false,
   height = 320,
+  color = false,
 }: {
   name: IllustrationName;
   className?: string;
+  /** Render the colored variant (used for selected onboarding cards). */
+  color?: boolean;
   /** Mark the single above-the-fold illustration so it loads eagerly. */
   priority?: boolean;
   height?: number;
 }) {
   const art = illustrations[name];
+  const webp = color ? coloredIllustrations[name] : art.webp;
   return (
-    <picture>
-      <source srcSet={art.webp} type="image/webp" />
+    <picture key={color ? "color" : "mono"}>
+      <source srcSet={webp} type="image/webp" />
       <img
         src={art.svg}
         alt=""
