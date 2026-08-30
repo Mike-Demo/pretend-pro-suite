@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/start-client-core";
+import { localeIds } from "@/lib/i18n/locales";
 
 const BASE_URL = "https://pretend.pro";
 
@@ -9,14 +10,26 @@ interface SitemapEntry {
   priority?: string;
 }
 
+const pages: SitemapEntry[] = [
+  { path: "", changefreq: "weekly", priority: "1.0" },
+  { path: "fruit", changefreq: "monthly", priority: "0.8" },
+  { path: "apperture", changefreq: "monthly", priority: "0.8" },
+  { path: "bufferium", changefreq: "monthly", priority: "0.8" },
+  { path: "android", changefreq: "monthly", priority: "0.8" },
+  { path: "fos", changefreq: "monthly", priority: "0.8" },
+  { path: "licenses", changefreq: "yearly", priority: "0.3" },
+];
+
+// The unprefixed home page is the x-default entry; every other URL is
+// locale-prefixed, one entry per locale.
 const entries: SitemapEntry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
-  { path: "/fruit", changefreq: "monthly", priority: "0.8" },
-  { path: "/apperture", changefreq: "monthly", priority: "0.8" },
-  { path: "/bufferium", changefreq: "monthly", priority: "0.8" },
-  { path: "/android", changefreq: "monthly", priority: "0.8" },
-  { path: "/fos", changefreq: "monthly", priority: "0.8" },
-  { path: "/licenses", changefreq: "yearly", priority: "0.3" },
+  ...localeIds.flatMap((locale) =>
+    pages.map((page) => ({
+      ...page,
+      path: `/${locale}${page.path ? `/${page.path}` : ""}`,
+    })),
+  ),
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
