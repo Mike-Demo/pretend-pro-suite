@@ -97,6 +97,14 @@ export function Desktop({
     [focus, focused, launch, measure, minimize, windows],
   );
 
+  /** Palette / launcher: always show the app, never minimize it. */
+  const handleLaunch = useCallback(
+    (id: AppId) => {
+      launch(id, measure());
+    },
+    [launch, measure],
+  );
+
   const focusedWindow = windows.find((w) => w.id === focused);
 
   useEffect(() => {
@@ -219,7 +227,7 @@ export function Desktop({
       <CommandPalette
         open={paletteOpen}
         onClose={() => setPaletteOpen(false)}
-        onSelect={(id) => handleDockSelect(id)}
+        onSelect={handleLaunch}
       />
       <ShortcutsOverlay open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
     </div>
