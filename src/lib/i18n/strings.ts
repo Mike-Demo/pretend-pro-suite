@@ -52,11 +52,21 @@ export interface Strings {
     references: string;
     disclaimer: string;
   };
+  privacy: {
+    back: string;
+    title: string;
+    intro: string;
+    loading: string;
+    fallbackLink: string;
+    fallbackLabel: string;
+  };
   meta: {
     homeTitle: string;
     homeDescription: string;
     licensesTitle: string;
     licensesDescription: string;
+    privacyTitle: string;
+    privacyDescription: string;
     editionTitle: Record<OsTheme, string>;
     editionDescription: Record<OsTheme, string>;
   };
