@@ -20,6 +20,7 @@ export const Route = createFileRoute("/apperture")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pretend.pro/apperture" },
+      { property: "og:image", content: "https://pretend.pro/og/apperture.png" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "PretendPro 3000 — Apperture Edition" },
       {
@@ -27,8 +28,27 @@ export const Route = createFileRoute("/apperture")({
         content:
           "Fluent-flavored fake work: DocuFaker, SheetShenanigans, BrowserBuddy, Inbox Mirage.",
       },
+      { name: "twitter:image", content: "https://pretend.pro/og/apperture.png" },
     ],
     links: [{ rel: "canonical", href: "https://pretend.pro/apperture" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://pretend.pro/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Apperture Edition",
+              item: "https://pretend.pro/apperture",
+            },
+          ],
+        }),
+      },
+    ],
   }),
   component: ApperturePage,
 });

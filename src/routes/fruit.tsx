@@ -20,6 +20,7 @@ export const Route = createFileRoute("/fruit")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pretend.pro/fruit" },
+      { property: "og:image", content: "https://pretend.pro/og/fruit.png" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "PretendPro 3000 — Fruit Edition" },
       {
@@ -27,8 +28,27 @@ export const Route = createFileRoute("/fruit")({
         content:
           "Aqua-tinted fake productivity: DocuFaker, SheetShenanigans, BrowserBuddy, Inbox Mirage.",
       },
+      { name: "twitter:image", content: "https://pretend.pro/og/fruit.png" },
     ],
     links: [{ rel: "canonical", href: "https://pretend.pro/fruit" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://pretend.pro/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Fruit Edition",
+              item: "https://pretend.pro/fruit",
+            },
+          ],
+        }),
+      },
+    ],
   }),
   component: FruitPage,
 });

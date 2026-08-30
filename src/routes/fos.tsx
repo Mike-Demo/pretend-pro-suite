@@ -19,14 +19,34 @@ export const Route = createFileRoute("/fos")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pretend.pro/fos" },
+      { property: "og:image", content: "https://pretend.pro/og/fos.png" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "PretendPro 3000 — fOS Edition" },
       {
         name: "twitter:description",
         content: "Eleven fake apps on a glossy pretend phone. Swipe up to accomplish nothing.",
       },
+      { name: "twitter:image", content: "https://pretend.pro/og/fos.png" },
     ],
     links: [{ rel: "canonical", href: "https://pretend.pro/fos" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://pretend.pro/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "fOS Edition",
+              item: "https://pretend.pro/fos",
+            },
+          ],
+        }),
+      },
+    ],
   }),
   component: FosPage,
 });
