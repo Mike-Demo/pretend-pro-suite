@@ -11,6 +11,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import { AppearanceEffect } from "@/components/pretendpro/AppearanceToggle";
+import { getCaptchaGate } from "@/lib/captcha/verify.functions";
 import { captchaClientFlag, isOpenPath } from "@/lib/captcha/session";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -82,11 +83,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       return;
     }
 
-    // Static import: the shared server-function client chunk is already pulled in
-    // by the Start entry itself, so deferring this only adds a round trip.
-    const { getCaptchaGate } = await import("@/lib/captcha/verify.functions");
     const gate = await getCaptchaGate();
-
 
     if (!gate.configured) return;
     if (gate.verified) {
