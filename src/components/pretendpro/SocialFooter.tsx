@@ -37,12 +37,12 @@ export function SocialFooter({ className }: { className?: string }) {
         className,
       )}
     >
-      <span className="w-full text-center sm:w-auto">Made by Mike Demopoulos</span>
+      <span className="w-full text-center sm:w-auto">Made by MikeDemo</span>
       <a
         href={linkedInUrl}
         target="_blank"
         rel="noreferrer noopener"
-        aria-label="Mike Demopoulos on LinkedIn (opens in new tab)"
+        aria-label="MikeDemo on LinkedIn (opens in new tab)"
         className="fluent-focus inline-flex items-center gap-1.5 rounded px-1.5 py-1 font-medium text-foreground/80 hover:text-foreground"
       >
         <LinkedInIcon />
