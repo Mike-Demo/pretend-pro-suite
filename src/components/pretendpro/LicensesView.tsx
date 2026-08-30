@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { SocialFooter } from "@/components/pretendpro/SocialFooter";
+import { BrandLockup } from "@/components/pretendpro/BrandLockup";
 import { LocalePicker } from "@/components/pretendpro/LocalePicker";
 import { useI18n } from "@/lib/i18n/context";
 
@@ -160,6 +161,7 @@ export function LicensesView() {
     <div data-design="fluent" className="min-h-screen bg-background px-4 py-10 sm:px-8">
       <div className="mx-auto max-w-3xl">
         <div className="flex flex-wrap items-center gap-3">
+          <BrandLockup markOnly />
           <Link
             to="/$locale"
             params={{ locale }}
