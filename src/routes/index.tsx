@@ -1,9 +1,16 @@
 import { createFileRoute, Link, useNavigate, useRouter } from "@tanstack/react-router";
-import { useState } from "react";
-import { ArrowLeft, Check } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowLeft, Check, Maximize } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  isFullscreenSupported,
+  loadFullscreenPreference,
+  requestDeviceFullscreen,
+  saveFullscreenPreference,
+} from "@/lib/pretendpro/fullscreen";
 import type { AppId } from "@/components/pretendpro/chrome";
 import { osThemes, type OsTheme } from "@/components/pretendpro/WindowFrame";
 import { themeRoutes } from "@/components/pretendpro/Suite";
@@ -198,6 +205,19 @@ function Onboarding() {
   const [step, setStep] = useState<1 | 2>(1);
   const [work, setWork] = useState<AppId | null>(null);
   const [style, setStyle] = useState<OsTheme | null>(null);
+  const [fillScreen, setFillScreen] = useState(false);
+  const [fullscreenAvailable, setFullscreenAvailable] = useState(false);
+
+  // Read the remembered preference and capability after hydration (browser-only).
+  useEffect(() => {
+    setFillScreen(loadFullscreenPreference());
+    setFullscreenAvailable(isFullscreenSupported());
+  }, []);
+
+  const toggleFillScreen = (checked: boolean) => {
+    setFillScreen(checked);
+    saveFullscreenPreference(checked);
+  };
 
   // Phones see the phone editions first; wide screens see the desktop ones first.
   const styleGroups = isMobile
@@ -218,6 +238,8 @@ function Onboarding() {
       return;
     }
     if (style && work) {
+      // Must fire inside this click — the Fullscreen API requires a user gesture.
+      if (fillScreen) requestDeviceFullscreen();
       navigate({ to: themeRoutes[style], search: { app: work } });
     }
   };
@@ -308,6 +330,24 @@ function Onboarding() {
               >
                 {step === 1 ? "Continue" : "Start pretending"}
               </button>
+              {fullscreenAvailable && (
+                <label
+                  htmlFor="fill-screen"
+                  className="flex cursor-pointer items-center gap-2 text-xs text-muted-foreground"
+                >
+                  <Checkbox
+                    id="fill-screen"
+                    checked={fillScreen}
+                    onCheckedChange={(checked) => toggleFillScreen(checked === true)}
+                    aria-describedby="fill-screen-hint"
+                  />
+                  <span className="flex items-center gap-1.5 font-medium text-foreground">
+                    <Maximize className="h-3.5 w-3.5" strokeWidth={1.75} />
+                    Fill my entire device screen
+                  </span>
+                  <span id="fill-screen-hint">(press Esc anytime to leave)</span>
+                </label>
+              )}
               {step === 2 && (
                 <button
                   onClick={() => setStep(1)}

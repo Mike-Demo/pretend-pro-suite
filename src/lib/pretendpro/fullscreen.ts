@@ -1,0 +1,74 @@
+// Browser Fullscreen API helper (see https://wiki.mozilla.org/Gecko:FullScreenAPI).
+// Fullscreen can only be entered from a user gesture, so callers invoke
+// requestDeviceFullscreen() from a click handler. Failures (unsupported
+// browsers, denied permission) are intentionally swallowed — the app works
+// fine windowed.
+
+const STORAGE_KEY = "pretendpro:fullscreen";
+
+type FullscreenDocument = Document & {
+  webkitFullscreenElement?: Element | null;
+  webkitExitFullscreen?: () => Promise<void> | void;
+};
+
+type FullscreenElement = HTMLElement & {
+  webkitRequestFullscreen?: () => Promise<void> | void;
+};
+
+export const isFullscreenSupported = (): boolean => {
+  if (typeof document === "undefined") return false;
+  const el = document.documentElement as FullscreenElement;
+  return typeof el.requestFullscreen === "function" || typeof el.webkitRequestFullscreen === "function";
+};
+
+export const isFullscreenActive = (): boolean => {
+  if (typeof document === "undefined") return false;
+  const doc = document as FullscreenDocument;
+  return Boolean(doc.fullscreenElement ?? doc.webkitFullscreenElement);
+};
+
+export const requestDeviceFullscreen = (): void => {
+  if (typeof document === "undefined") return;
+  const el = document.documentElement as FullscreenElement;
+  try {
+    const request = el.requestFullscreen ?? el.webkitRequestFullscreen;
+    const result = request?.call(el);
+    if (result instanceof Promise) result.catch(() => undefined);
+  } catch {
+    // Not supported or blocked — continue windowed.
+  }
+};
+
+export const exitDeviceFullscreen = (): void => {
+  if (typeof document === "undefined") return;
+  const doc = document as FullscreenDocument;
+  try {
+    const exit = doc.exitFullscreen ?? doc.webkitExitFullscreen;
+    const result = exit?.call(doc);
+    if (result instanceof Promise) result.catch(() => undefined);
+  } catch {
+    // Ignore.
+  }
+};
+
+export const loadFullscreenPreference = (): boolean => {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.localStorage.getItem(STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+};
+
+export const saveFullscreenPreference = (enabled: boolean): void => {
+  if (typeof window === "undefined") return;
+  try {
+    if (enabled) {
+      window.localStorage.setItem(STORAGE_KEY, "1");
+    } else {
+      window.localStorage.removeItem(STORAGE_KEY);
+    }
+  } catch {
+    // Private mode etc. — preference just won't persist.
+  }
+};
