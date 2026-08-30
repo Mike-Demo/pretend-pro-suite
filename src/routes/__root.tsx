@@ -148,6 +148,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
       { rel: "manifest", href: "/manifest.webmanifest" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "PretendPro 3000",
+          url: "https://pretend.pro",
+          logo: "https://pretend.pro/apple-touch-icon.png",
+          sameAs: [
+            "https://www.linkedin.com/in/mikedemopoulos",
+            "https://x.com/mike_demo",
+            "https://www.threads.com/@mdemop",
+          ],
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
