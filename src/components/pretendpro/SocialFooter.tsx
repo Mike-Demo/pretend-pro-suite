@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 
 const linkedInUrl = "https://www.linkedin.com/in/mikedemopoulos";
 const xUrl = "https://x.com/mike_demo";
+const threadsUrl = "https://www.threads.com/@mdemop";
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -25,6 +26,19 @@ function XIcon({ className }: { className?: string }) {
       aria-hidden="true"
     >
       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+function ThreadsIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={cn("h-4 w-4", className)}
+      aria-hidden="true"
+    >
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c3.87 0 7 3.13 7 7 0 1.7-.6 3.26-1.6 4.48l-.9-1.04c.7-.9 1.1-2.02 1.1-3.2 0-2.76-2.24-5-5-5s-5 2.24-5 5c0 1.18.4 2.3 1.1 3.2l-.9 1.04C7.6 18.26 7 16.7 7 15c0-3.87 3.13-7 7-7zm0 2c-2.76 0-5 2.24-5 5 0 .55.45 1 1 1s1-.45 1-1c0-1.66 1.34-3 3-3s3 1.34 3 3c0 .55.45 1 1 1s1-.45 1-1c0-2.76-2.24-5-5-5z" />
     </svg>
   );
 }
@@ -60,6 +74,16 @@ export function SocialFooter({ className }: { className?: string }) {
       >
         <XIcon />
         X
+      </a>
+      <a
+        href={threadsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="MikeDemo on Threads (opens in new tab)"
+        className="fluent-focus inline-flex items-center gap-1.5 rounded px-1.5 py-1 font-medium text-foreground/80 hover:text-foreground"
+      >
+        <ThreadsIcon />
+        Threads
       </a>
     </footer>
   );
