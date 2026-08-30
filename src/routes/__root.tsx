@@ -130,13 +130,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     styles: [
       {
         children:
-          "html{background:oklch(0.965 0.02 95)}html.dark{background:oklch(0.2 0.03 280)}body{margin:0;font-family:system-ui,-apple-system,'Segoe UI',sans-serif}",
+          "html{background:oklch(0.965 0.02 95)}html.dark{background:oklch(0.2 0.03 280)}body{margin:0;font-family:'Nebula Sans',system-ui,-apple-system,'Segoe UI',sans-serif}",
       },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: nebulaBook.url,
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: nebulaSemibold.url,
+        crossOrigin: "anonymous",
       },
       {
         rel: "stylesheet",
