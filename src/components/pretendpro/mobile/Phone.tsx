@@ -5,6 +5,7 @@ import { screens } from "@/components/pretendpro/app-screens";
 import { CommandPalette } from "@/components/pretendpro/desktop/CommandPalette";
 import { ShortcutsOverlay } from "@/components/pretendpro/desktop/ShortcutsOverlay";
 import { useClock } from "@/components/pretendpro/desktop/shell-shared";
+import { PowerProvider } from "@/components/pretendpro/power/PowerProvider";
 import { useFunMode } from "@/lib/pretendpro/fun-mode";
 import { usePhone } from "@/lib/pretendpro/phone";
 import { AndroidShell } from "./AndroidShell";
@@ -115,74 +116,76 @@ export function Phone({
   const Screen = foreground ? screens[foreground] : null;
 
   return (
-    <div
-      data-os-theme={osTheme}
-      className="os-desktop-bg relative h-screen overflow-hidden"
-      aria-label={`PretendPro ${osTheme} phone`}
-    >
-      <SparklesLayer enabled={funMode} />
-
-      <Shell
-        osTheme={osTheme}
-        active={foreground ?? initialApp}
-        appName={app?.name ?? "PretendPro"}
-        view={view}
-        clock={clock}
-        funMode={funMode}
-        onToggleFunMode={toggleFunMode}
-        onShowShortcuts={() => setShortcutsOpen(true)}
-        onOpenPalette={() => setPaletteOpen(true)}
-        onHome={goHome}
-        onBack={back}
-        onRecents={showRecents}
+    <PowerProvider osTheme={osTheme} funMode={funMode}>
+      <div
+        data-os-theme={osTheme}
+        className="os-desktop-bg relative h-screen overflow-hidden"
+        aria-label={`PretendPro ${osTheme} phone`}
       >
-        <div className="relative h-full w-full">
-          {funMode && <StickyNote />}
+        <SparklesLayer enabled={funMode} />
 
-          {view === "home" && (
-            <HomeScreen
-              osTheme={osTheme}
-              onLaunch={handleLaunch}
-              onOpenPalette={() => setPaletteOpen(true)}
-            />
-          )}
+        <Shell
+          osTheme={osTheme}
+          active={foreground ?? initialApp}
+          appName={app?.name ?? "PretendPro"}
+          view={view}
+          clock={clock}
+          funMode={funMode}
+          onToggleFunMode={toggleFunMode}
+          onShowShortcuts={() => setShortcutsOpen(true)}
+          onOpenPalette={() => setPaletteOpen(true)}
+          onHome={goHome}
+          onBack={back}
+          onRecents={showRecents}
+        >
+          <div className="relative h-full w-full">
+            {funMode && <StickyNote />}
 
-          {view === "recents" && (
-            <Recents
-              osTheme={osTheme}
-              tasks={tasks}
-              onResume={handleLaunch}
-              onClose={closeTask}
-            />
-          )}
+            {view === "home" && (
+              <HomeScreen
+                osTheme={osTheme}
+                onLaunch={handleLaunch}
+                onOpenPalette={() => setPaletteOpen(true)}
+              />
+            )}
 
-          {view === "app" &&
-            (Screen ? (
-              <div
-                key={foreground}
-                className="h-full overflow-y-auto bg-card p-3 pretend-app-enter sm:p-5"
-              >
-                <div className="mx-auto max-w-3xl">
-                  <Screen animated={funMode} />
+            {view === "recents" && (
+              <Recents
+                osTheme={osTheme}
+                tasks={tasks}
+                onResume={handleLaunch}
+                onClose={closeTask}
+              />
+            )}
+
+            {view === "app" &&
+              (Screen ? (
+                <div
+                  key={foreground}
+                  className="h-full overflow-y-auto bg-card p-3 pretend-app-enter sm:p-5"
+                >
+                  <div className="mx-auto max-w-3xl">
+                    <Screen animated={funMode} />
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <p className="pt-10 text-center text-xs text-foreground/70">
-                Nothing open. Tap home and pick an app.
-              </p>
-            ))}
-        </div>
-      </Shell>
+              ) : (
+                <p className="pt-10 text-center text-xs text-foreground/70">
+                  Nothing open. Tap home and pick an app.
+                </p>
+              ))}
+          </div>
+        </Shell>
 
-      <CommandPalette
-        open={paletteOpen}
-        onClose={() => setPaletteOpen(false)}
-        onSelect={handleLaunch}
-      />
-      <p aria-live="polite" role="status" className="sr-only">
-        {announcement}
-      </p>
-      <ShortcutsOverlay open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
-    </div>
+        <CommandPalette
+          open={paletteOpen}
+          onClose={() => setPaletteOpen(false)}
+          onSelect={handleLaunch}
+        />
+        <p aria-live="polite" role="status" className="sr-only">
+          {announcement}
+        </p>
+        <ShortcutsOverlay open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
+      </div>
+    </PowerProvider>
   );
 }

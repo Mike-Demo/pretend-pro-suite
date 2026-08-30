@@ -13,8 +13,12 @@ const shortcuts: Array<[string, string]> = [
   ["Arrows (resize handle)", "Resize window on the snap grid"],
   ["A", "Toggle Fun Mode (easter eggs)"],
   ["?", "Show this cheat sheet"],
-  ["Esc", "Close overlays / restore window"],
-
+  ["Esc", "Close overlays / restore window / cancel power sequence"],
+  ["Ctrl / ⌘ + Shift + P", "Power actions palette"],
+  ["Ctrl / ⌘ + Shift + Q", "Pretend shutdown (screen stays off)"],
+  ["Ctrl / ⌘ + Shift + R", "Restart PretendPro"],
+  ["Ctrl / ⌘ + Shift + L", "Lock pretend screen"],
+  ["Ctrl / ⌘ + Shift + U", "Update pretend software"],
 ];
 
 export function ShortcutsOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {

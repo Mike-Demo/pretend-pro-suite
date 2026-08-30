@@ -1,32 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import type { OsTheme } from "./WindowFrame";
+import { SparklesLayer } from "./chrome";
 import { cn } from "@/lib/utils";
-
-const MESSAGE_MS = 1600;
-const OFF_BEAT_MS = 900;
-
-const steps: Record<OsTheme, { normal: string[]; fun: string[] }> = {
-  fruit: {
-    normal: ["Shutting down PretendPro…", "Restarting for no reason…"],
-    fun: ["Polishing the fruit logo…", "Restarting with extra courage…"],
-  },
-  apperture: {
-    normal: ["Locking…", "Saving pretend work…", "Turning off…"],
-    fun: ["Applying 47 pretend updates…", "Do not turn off your pretend PC…", "Turning off…"],
-  },
-  bufferium: {
-    normal: ["Putting ChromeOS-ish to sleep…", "Syncing nothing to the cloud…"],
-    fun: ["Syncing your tabs to a potato…", "Goodnight, little browser…"],
-  },
-  android: {
-    normal: ["Optimizing pretend apps (1 of 3)…", "Optimizing pretend apps (2 of 3)…", "Optimizing pretend apps (3 of 3)…"],
-    fun: ["Feeding the robot…", "Charging to 99% forever…", "Powering down, eventually…"],
-  },
-  fos: {
-    normal: ["Shutting down…", "See you soon…"],
-    fun: ["Wiping the dynamic island…", "Spinning up the spinner…"],
-  },
-};
 
 function SpokeLoader({ className }: { className?: string }) {
   return (
@@ -117,66 +92,51 @@ const chromeByTheme: Record<OsTheme, string> = {
   fos: "bg-black text-white",
 };
 
+export type OverlayMode = "running" | "off" | "locked";
+
 /**
- * Fake OS shutdown/loading overlay. Plays a slow, OS-styled animation, then
- * calls onClose. Nothing actually powers off — this is PretendPro.
+ * Presentational OS-styled power screen. All timing lives in the power
+ * provider; this only paints the current message or terminal screen.
  */
 export function PowerOverlay({
   osTheme,
-  funMode,
-  onClose,
+  mode,
+  message,
+  sparkles,
+  onCancel,
+  onWake,
 }: {
   osTheme: OsTheme;
-  funMode: boolean;
-  onClose: () => void;
+  mode: OverlayMode;
+  message: string;
+  sparkles: boolean;
+  onCancel: () => void;
+  onWake: () => void;
 }) {
-  const messages = steps[osTheme][funMode ? "fun" : "normal"];
-  const [index, setIndex] = useState(0);
-  const [off, setOff] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     ref.current?.focus();
   }, []);
 
-  useEffect(() => {
-    if (off) return;
-    if (index < messages.length - 1) {
-      const id = window.setTimeout(() => setIndex((i) => i + 1), MESSAGE_MS);
-      return () => window.clearTimeout(id);
-    }
-    const id = window.setTimeout(() => setOff(true), MESSAGE_MS);
-    return () => window.clearTimeout(id);
-  }, [index, messages.length, off]);
-
-  useEffect(() => {
-    if (!off) return;
-    const id = window.setTimeout(onClose, OFF_BEAT_MS);
-    return () => window.clearTimeout(id);
-  }, [off, onClose]);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  const running = mode === "running";
 
   return (
     <div
       ref={ref}
       role="dialog"
       aria-modal="true"
-      aria-label="Pretend shutdown"
+      aria-label="Pretend power screen"
       tabIndex={-1}
-      onClick={onClose}
+      onClick={running ? onCancel : onWake}
       className={cn(
         "fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 outline-none animate-fade-in",
-        off ? "bg-black" : chromeByTheme[osTheme],
+        mode === "off" ? "bg-black text-white" : chromeByTheme[osTheme],
       )}
     >
-      {!off && (
+      {running && sparkles && <SparklesLayer enabled />}
+
+      {running && (
         <>
           <Loader osTheme={osTheme} />
           <p
@@ -186,14 +146,33 @@ export function PowerOverlay({
               osTheme === "apperture" && "text-base font-light tracking-wide",
             )}
           >
-            {messages[index]}
+            {message}
           </p>
           <p className="absolute bottom-8 text-[11px] opacity-50">
             Click or press Esc to cancel pretending
           </p>
         </>
       )}
-      {off && <span className="sr-only">PretendPro is pretending to be off…</span>}
+
+      {mode === "off" && (
+        <>
+          <span className="sr-only" aria-live="polite">
+            PretendPro is pretending to be off
+          </span>
+          <p className="text-[11px] uppercase tracking-[0.3em] text-white/40">
+            Press any key to pretend to power on
+          </p>
+        </>
+      )}
+
+      {mode === "locked" && (
+        <>
+          <p aria-live="polite" className="text-sm font-semibold">
+            Pretend screen locked
+          </p>
+          <p className="text-[11px] opacity-60">Click or press any key to unlock</p>
+        </>
+      )}
     </div>
   );
 }
