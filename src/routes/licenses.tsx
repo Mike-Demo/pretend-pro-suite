@@ -39,6 +39,13 @@ const assets: Entry[] = [
     note: "Procrastinate icons created by Parzival' 1997 - Flaticon. Used as the site favicon.",
   },
   {
+    name: "Openverse media catalog",
+    author: "WordPress / Openverse and CC creators",
+    license: "Various Creative Commons licenses",
+    url: "https://openverse.org/",
+    note: "Stock photos and audio shown in the fake apps are fetched live from the Openverse API. Each asset displays its own creator and license with a link to the source.",
+  },
+  {
     name: "Lucide icons",
     author: "Lucide contributors",
     license: "ISC",

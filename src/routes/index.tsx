@@ -61,6 +61,48 @@ const workOptions: Array<{ id: AppId; title: string; description: string; art: s
     description: "Imaginary coworkers, imaginary deadlines.",
     art: experimentsUrl,
   },
+  {
+    id: "codeweb",
+    title: "Code — Web",
+    description: "TypeScript that compiles. Understanding optional.",
+    art: lookingAheadUrl,
+  },
+  {
+    id: "codegame",
+    title: "Code — Game",
+    description: "A game loop that loops. A game, eventually.",
+    art: felizUrl,
+  },
+  {
+    id: "deck",
+    title: "Presentation",
+    description: "Slides with real stock photos and fake confidence.",
+    art: growthUrl,
+  },
+  {
+    id: "reader",
+    title: "Reading Documents",
+    description: "Very important PDFs. Read at your own pace. Forever.",
+    art: ponderingUrl,
+  },
+  {
+    id: "photos",
+    title: "Editing Photos",
+    description: "Sliders that actually slide on real CC images.",
+    art: waitingUrl,
+  },
+  {
+    id: "reels",
+    title: "Editing Videos",
+    description: "A timeline of clips, a render of dreams.",
+    art: chillinUrl,
+  },
+  {
+    id: "sound",
+    title: "Editing Sound",
+    description: "Waveforms, transport, and real CC-licensed audio.",
+    art: coffeeUrl,
+  },
 ];
 
 const styleOptions: Array<{ id: OsTheme; description: string; art: string }> = [
@@ -163,6 +205,7 @@ function Onboarding() {
               className={cn(
                 "mt-8 grid gap-3",
                 step === 1 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3",
+                step === 1 && "max-h-[55vh] overflow-y-auto pr-1",
               )}
             >
               {step === 1
