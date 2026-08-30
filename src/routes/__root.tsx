@@ -121,6 +121,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-title", content: "PretendPro" },
       { name: "application-name", content: "PretendPro 3000" },
     ],
+    // Critical CSS: paints the correct background and font instantly while the
+    // (small, Brotli-compressed) stylesheet is still in flight — no flash of
+    // unstyled or wrong-scheme background on first paint.
+    styles: [
+      {
+        children:
+          "html{background:oklch(0.965 0.02 95)}html.dark{background:oklch(0.2 0.03 280)}body{margin:0;font-family:system-ui,-apple-system,'Segoe UI',sans-serif}",
+      },
+    ],
     links: [
       {
         rel: "stylesheet",
