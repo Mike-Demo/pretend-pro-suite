@@ -5,6 +5,7 @@ import { screens } from "@/components/pretendpro/app-screens";
 import { CommandPalette } from "@/components/pretendpro/desktop/CommandPalette";
 import { ShortcutsOverlay } from "@/components/pretendpro/desktop/ShortcutsOverlay";
 import { useClock } from "@/components/pretendpro/desktop/shell-shared";
+import { PowerProvider } from "@/components/pretendpro/power/PowerProvider";
 import { useFunMode } from "@/lib/pretendpro/fun-mode";
 import { usePhone } from "@/lib/pretendpro/phone";
 import { AndroidShell } from "./AndroidShell";
@@ -115,6 +116,7 @@ export function Phone({
   const Screen = foreground ? screens[foreground] : null;
 
   return (
+    <PowerProvider osTheme={osTheme} funMode={funMode}>
     <div
       data-os-theme={osTheme}
       className="os-desktop-bg relative h-screen overflow-hidden"
@@ -184,5 +186,6 @@ export function Phone({
       </p>
       <ShortcutsOverlay open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
     </div>
+    </PowerProvider>
   );
 }

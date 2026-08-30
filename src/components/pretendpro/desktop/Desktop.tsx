@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import type { DesktopOsTheme } from "@/components/pretendpro/WindowFrame";
 import { apps, SparklesLayer, StickyNote, type AppId } from "@/components/pretendpro/chrome";
 import { screens } from "@/components/pretendpro/app-screens";
+import { PowerProvider } from "@/components/pretendpro/power/PowerProvider";
 import { useFunMode } from "@/lib/pretendpro/fun-mode";
 import { useWindowManager, type Bounds } from "@/lib/pretendpro/windows";
 import { FruitShell } from "./FruitShell";
@@ -170,6 +171,7 @@ export function Desktop({
   const Shell = shells[osTheme];
 
   return (
+    <PowerProvider osTheme={osTheme} funMode={funMode}>
     <div
       data-os-theme={osTheme}
       className="os-desktop-bg relative h-screen overflow-hidden"
@@ -238,5 +240,6 @@ export function Desktop({
       </p>
       <ShortcutsOverlay open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
     </div>
+    </PowerProvider>
   );
 }
