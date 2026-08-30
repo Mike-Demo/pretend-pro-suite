@@ -33,7 +33,7 @@ export function BufferiumShell({
     <div className="flex h-full flex-col">
       <div className="relative min-h-0 flex-1 overflow-hidden">{children}</div>
 
-      <div className="relative z-30 flex items-center gap-2 border-t border-border/50 bg-[var(--os-chrome)] px-3 py-2 backdrop-blur">
+      <div className="relative z-50 flex items-center gap-2 border-t border-border/50 bg-[var(--os-chrome)] px-3 py-2 backdrop-blur">
         <button
           onClick={() => setLauncherOpen((v) => !v)}
           className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card hover:bg-muted"

@@ -39,7 +39,7 @@ export function SystemMenu({
   const item = "rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted";
 
   return (
-    <span className="relative flex items-center gap-1">
+    <span className="relative z-50 flex items-center gap-1">
       <AppearanceToggle variant="icon" />
       <button
         onClick={() => setOpen((v) => !v)}

@@ -32,7 +32,7 @@ export function FruitShell({
 
   return (
     <div className="flex h-full flex-col">
-      <div className="relative flex items-center gap-3 border-b border-border/40 bg-[var(--os-chrome)] px-3 py-1.5 text-xs backdrop-blur">
+      <div className="relative z-50 flex items-center gap-3 border-b border-border/40 bg-[var(--os-chrome)] px-3 py-1.5 text-xs backdrop-blur">
         <button
           onClick={() => setOpenMenu(openMenu === "apple" ? null : "apple")}
           className="rounded-md p-1 hover:bg-muted"
