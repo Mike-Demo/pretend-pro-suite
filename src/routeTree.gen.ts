@@ -10,33 +10,73 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppertureRouteImport } from './routes/apperture'
+import { Route as BufferiumRouteImport } from './routes/bufferium'
+import { Route as FruitRouteImport } from './routes/fruit'
+import { Route as LicensesRouteImport } from './routes/licenses'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppertureRoute = AppertureRouteImport.update({
+  id: '/apperture',
+  path: '/apperture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BufferiumRoute = BufferiumRouteImport.update({
+  id: '/bufferium',
+  path: '/bufferium',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FruitRoute = FruitRouteImport.update({
+  id: '/fruit',
+  path: '/fruit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LicensesRoute = LicensesRouteImport.update({
+  id: '/licenses',
+  path: '/licenses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/apperture': typeof AppertureRoute
+  '/bufferium': typeof BufferiumRoute
+  '/fruit': typeof FruitRoute
+  '/licenses': typeof LicensesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/apperture': typeof AppertureRoute
+  '/bufferium': typeof BufferiumRoute
+  '/fruit': typeof FruitRoute
+  '/licenses': typeof LicensesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/apperture': typeof AppertureRoute
+  '/bufferium': typeof BufferiumRoute
+  '/fruit': typeof FruitRoute
+  '/licenses': typeof LicensesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/apperture' | '/bufferium' | '/fruit' | '/licenses'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/apperture' | '/bufferium' | '/fruit' | '/licenses'
+  id: '__root__' | '/' | '/apperture' | '/bufferium' | '/fruit' | '/licenses'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppertureRoute: typeof AppertureRoute
+  BufferiumRoute: typeof BufferiumRoute
+  FruitRoute: typeof FruitRoute
+  LicensesRoute: typeof LicensesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +88,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apperture': {
+      id: '/apperture'
+      path: '/apperture'
+      fullPath: '/apperture'
+      preLoaderRoute: typeof AppertureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bufferium': {
+      id: '/bufferium'
+      path: '/bufferium'
+      fullPath: '/bufferium'
+      preLoaderRoute: typeof BufferiumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fruit': {
+      id: '/fruit'
+      path: '/fruit'
+      fullPath: '/fruit'
+      preLoaderRoute: typeof FruitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/licenses': {
+      id: '/licenses'
+      path: '/licenses'
+      fullPath: '/licenses'
+      preLoaderRoute: typeof LicensesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppertureRoute: AppertureRoute,
+  BufferiumRoute: BufferiumRoute,
+  FruitRoute: FruitRoute,
+  LicensesRoute: LicensesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

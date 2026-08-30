@@ -1,242 +1,228 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Expand, X, Play, Square, LayoutGrid, Layers, Apple, AppWindow, Chrome } from "lucide-react";
-import { osThemes, WindowFrame, type OsTheme } from "@/components/pretendpro/WindowFrame";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { ArrowLeft, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  apps,
-  Dock,
-  LicenseAlert,
-  SparklesLayer,
-  StickyNote,
-  StuckProgress,
-  type AppId,
-} from "@/components/pretendpro/chrome";
-import { DocuFaker } from "@/components/pretendpro/DocuFaker";
-import { SheetShenanigans } from "@/components/pretendpro/SheetShenanigans";
-import { BrowserBuddy } from "@/components/pretendpro/BrowserBuddy";
-import { InboxMirage } from "@/components/pretendpro/InboxMirage";
+import type { AppId } from "@/components/pretendpro/chrome";
+import { osThemes, type OsTheme } from "@/components/pretendpro/WindowFrame";
+import { themeRoutes } from "@/components/pretendpro/Suite";
+import ponderingUrl from "@/assets/transhumans/pondering.svg?url";
+import coffeeUrl from "@/assets/transhumans/coffee.svg?url";
+import growthUrl from "@/assets/transhumans/growth.svg?url";
+import experimentsUrl from "@/assets/transhumans/experiments.svg?url";
+import lookingAheadUrl from "@/assets/transhumans/looking-ahead.svg?url";
+import chillinUrl from "@/assets/transhumans/chillin.svg?url";
+import waitingUrl from "@/assets/transhumans/waiting.svg?url";
+import felizUrl from "@/assets/transhumans/feliz.svg?url";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PretendPro 3000 — Productivity Suite for Getting Nothing Done" },
+      { title: "PretendPro 3000 — Set Up Your Fake Workday" },
       {
         name: "description",
         content:
-          "PretendPro 3000 is the world's most advanced parody productivity suite: fake docs, absurd spreadsheets, pretend browsing, and auto-generated urgent emails.",
+          "Answer two questions and PretendPro 3000 builds your ideal fake workday: pick the work you want to mimic and the window style that feels most like your job.",
       },
-      { property: "og:title", content: "PretendPro 3000 — Get Absolutely Nothing Done" },
+      { property: "og:title", content: "PretendPro 3000 — Set Up Your Fake Workday" },
       {
         property: "og:description",
         content:
-          "A lovable parody office suite: DocuFaker, SheetShenanigans, BrowserBuddy, and Inbox Mirage. Wholesome fake productivity.",
+          "A wholesome parody office suite onboarding: choose your pretend work and your pretend operating system.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: Index,
+  component: Onboarding,
 });
 
-const screens: Record<AppId, (props: { animated: boolean }) => React.ReactNode> = {
-  docufaker: DocuFaker,
-  sheets: SheetShenanigans,
-  browser: BrowserBuddy,
-  inbox: InboxMirage,
-};
+const workOptions: Array<{ id: AppId; title: string; description: string; art: string }> = [
+  {
+    id: "docufaker",
+    title: "Deep Document Work",
+    description: "Type nonsense paragraphs with total conviction.",
+    art: ponderingUrl,
+  },
+  {
+    id: "sheets",
+    title: "Spreadsheet Theater",
+    description: "Formulas that mean nothing, charts that mean less.",
+    art: growthUrl,
+  },
+  {
+    id: "browser",
+    title: "Research Browsing",
+    description: "Tabs that look important. Mostly cat videos.",
+    art: coffeeUrl,
+  },
+  {
+    id: "inbox",
+    title: "Urgent Inbox Triage",
+    description: "Imaginary coworkers, imaginary deadlines.",
+    art: experimentsUrl,
+  },
+];
 
-function Index() {
-  const [active, setActive] = useState<AppId>("docufaker");
-  const [fullScreen, setFullScreen] = useState(false);
-  const [animated, setAnimated] = useState(true);
-  const [pageView, setPageView] = useState(false);
-  const [osTheme, setOsTheme] = useState<OsTheme>("fruit");
+const styleOptions: Array<{ id: OsTheme; description: string; art: string }> = [
+  { id: "fruit", description: "Soft translucent bar, three little traffic lights.", art: lookingAheadUrl },
+  { id: "apperture", description: "Crisp corners, glyph buttons in the top-right.", art: chillinUrl },
+  { id: "bufferium", description: "A tab strip that is eternally almost loaded.", art: waitingUrl },
+];
 
-  const ActiveScreen = screens[active];
-  const activeApp = apps.find((a) => a.id === active);
+function OptionCard({
+  title,
+  description,
+  art,
+  selected,
+  onSelect,
+  children,
+}: {
+  title: string;
+  description: string;
+  art: string;
+  selected: boolean;
+  onSelect: () => void;
+  children?: React.ReactNode;
+}) {
+  return (
+    <button
+      onClick={onSelect}
+      aria-pressed={selected}
+      className={cn(
+        "relative flex w-full flex-col items-center rounded-2xl border bg-card p-4 text-center transition-all",
+        selected
+          ? "border-primary shadow-md ring-2 ring-primary/40"
+          : "border-border hover:border-primary/50 hover:shadow-sm",
+      )}
+    >
+      <span
+        className={cn(
+          "absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border",
+          selected ? "border-primary bg-primary text-primary-foreground" : "border-border",
+        )}
+      >
+        {selected && <Check className="h-3 w-3" />}
+      </span>
+      <img src={art} alt="" aria-hidden="true" className="h-28 w-auto object-contain" loading="lazy" />
+      <span className="mt-3 text-sm font-bold text-foreground">{title}</span>
+      <span className="mt-1 text-xs text-muted-foreground">{description}</span>
+      {children}
+    </button>
+  );
+}
 
-  useEffect(() => {
-    if (!fullScreen) return undefined;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setFullScreen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [fullScreen]);
+function Onboarding() {
+  const navigate = useNavigate();
+  const [step, setStep] = useState<1 | 2>(1);
+  const [work, setWork] = useState<AppId | null>(null);
+  const [style, setStyle] = useState<OsTheme | null>(null);
+
+  const canContinue = step === 1 ? work !== null : style !== null;
+
+  const onContinue = () => {
+    if (step === 1) {
+      setStep(2);
+      return;
+    }
+    if (style && work) {
+      navigate({ to: themeRoutes[style], search: { app: work } });
+    }
+  };
 
   return (
-    <div className="relative min-h-screen px-4 py-8 sm:px-8">
-      <SparklesLayer enabled={animated} />
-
-      <header className="relative z-10 mx-auto max-w-4xl text-center">
-        <p className="text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">
-          Est. whenever you sat down
-        </p>
-        <h1
-          className={cn(
-            "mt-2 text-4xl font-extrabold tracking-tight text-foreground sm:text-6xl",
-            animated && "animate-pretend-wiggle",
-          )}
+    <div className="min-h-screen bg-background px-4 py-10 sm:px-8">
+      <header className="mx-auto flex max-w-5xl items-center gap-2 text-sm font-bold text-foreground">
+        Onboarding in
+        <span className="rounded-lg bg-primary px-2 py-0.5 text-primary-foreground">PretendPro 3000</span>
+        <Link
+          to="/licenses"
+          className="ml-auto text-xs font-semibold text-muted-foreground underline hover:text-foreground"
         >
-          PretendPro{" "}
-          <span className="rounded-2xl bg-primary px-3 py-1 align-middle text-primary-foreground">
-            3000
-          </span>
-        </h1>
-        <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
-          The world's most advanced productivity suite for getting absolutely nothing done.
-        </p>
-
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
-          <button
-            onClick={() => setFullScreen(true)}
-            className="flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground shadow-sm transition-colors hover:bg-muted"
-          >
-            <Expand className="h-3.5 w-3.5" />
-            Full-Screen Window
-          </button>
-          <button
-            onClick={() => setAnimated((v) => !v)}
-            className={cn(
-              "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold shadow-sm transition-colors",
-              animated
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-border bg-card text-foreground hover:bg-muted",
-            )}
-            aria-pressed={animated}
-          >
-            {animated ? <Square className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
-            Animation Mode {animated ? "On" : "Off"}
-          </button>
-          <button
-            onClick={() => setPageView((v) => !v)}
-            className={cn(
-              "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold shadow-sm transition-colors",
-              pageView
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-border bg-card text-foreground hover:bg-muted",
-            )}
-            aria-pressed={pageView}
-          >
-            {pageView ? <LayoutGrid className="h-3.5 w-3.5" /> : <Layers className="h-3.5 w-3.5" />}
-            {pageView ? "Page Tabs On" : "Page View Mode"}
-          </button>
-        </div>
-
-        <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5">
-          <span className="mr-1 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-            Window Style
-          </span>
-          {osThemes.map((theme) => {
-            const ThemeIcon =
-              theme.id === "fruit" ? Apple : theme.id === "apperture" ? AppWindow : Chrome;
-            const isActive = theme.id === osTheme;
-            return (
-              <button
-                key={theme.id}
-                onClick={() => setOsTheme(theme.id)}
-                className={cn(
-                  "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold shadow-sm transition-colors",
-                  isActive
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card text-foreground hover:bg-muted",
-                )}
-                aria-pressed={isActive}
-              >
-                <ThemeIcon className="h-3.5 w-3.5" />
-                {theme.name}
-              </button>
-            );
-          })}
-        </div>
+          Open source licenses
+        </Link>
       </header>
 
-      <main className="relative z-10 mx-auto mt-8 max-w-4xl">
-        {pageView ? (
-          <nav className="mb-4 flex flex-wrap justify-center gap-1 rounded-2xl border border-border bg-card p-1.5 shadow-sm">
-            {apps.map((app) => (
+      <main className="mx-auto mt-8 max-w-5xl">
+        <div className="relative overflow-hidden rounded-3xl border border-border bg-muted/40 px-4 py-10 sm:px-10 sm:py-14">
+          <div className="mx-auto max-w-3xl">
+            <p className="text-center text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">
+              Step {step} of 2
+            </p>
+            <h1 className="mt-3 text-center text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
+              {step === 1
+                ? "How are you planning to pretend to work?"
+                : "Which window style feels most like your job?"}
+            </h1>
+            <p className="mt-2 text-center text-sm text-muted-foreground">
+              {step === 1
+                ? "We'll streamline your fake setup experience accordingly."
+                : "Purely cosmetic. Like most productivity decisions."}
+            </p>
+
+            <div
+              className={cn(
+                "mt-8 grid gap-3",
+                step === 1 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3",
+              )}
+            >
+              {step === 1
+                ? workOptions.map((option) => (
+                    <OptionCard
+                      key={option.id}
+                      title={option.title}
+                      description={option.description}
+                      art={option.art}
+                      selected={work === option.id}
+                      onSelect={() => setWork(option.id)}
+                    />
+                  ))
+                : styleOptions.map((option) => {
+                    const name = osThemes.find((t) => t.id === option.id)?.name ?? option.id;
+                    return (
+                      <OptionCard
+                        key={option.id}
+                        title={name}
+                        description={option.description}
+                        art={option.art}
+                        selected={style === option.id}
+                        onSelect={() => setStyle(option.id)}
+                      />
+                    );
+                  })}
+            </div>
+
+            <div className="mt-8 flex flex-col items-center gap-3">
               <button
-                key={app.id}
-                onClick={() => setActive(app.id)}
-                className={cn(
-                  "rounded-xl px-3 py-1.5 text-xs font-semibold transition-colors",
-                  app.id === active
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-muted",
-                )}
-                aria-pressed={app.id === active}
+                onClick={onContinue}
+                disabled={!canContinue}
+                className="w-full max-w-xs rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground transition-opacity disabled:opacity-40"
               >
-                {app.name}
+                {step === 1 ? "Continue" : "Start pretending"}
               </button>
-            ))}
-          </nav>
-        ) : (
-          <Dock active={active} onSelect={setActive} animated={animated} />
-        )}
+              {step === 2 && (
+                <button
+                  onClick={() => setStep(1)}
+                  className="flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground"
+                >
+                  <ArrowLeft className="h-3.5 w-3.5" />
+                  Back
+                </button>
+              )}
+            </div>
+          </div>
 
-        <section className="relative mt-5" aria-label={activeApp?.name ?? "PretendPro app"}>
-          <StickyNote />
-          <WindowFrame osTheme={osTheme} appName={activeApp?.name ?? "PretendPro"}>
-            <ActiveScreen animated={animated} />
-          </WindowFrame>
-        </section>
-
-        <StuckProgress />
+          <img
+            src={felizUrl}
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-0 left-2 hidden h-32 w-auto lg:block"
+          />
+        </div>
       </main>
 
-      <footer className="relative z-10 mx-auto mt-10 max-w-4xl text-center text-[11px] text-muted-foreground">
-        PretendPro 3000 — no actual work was performed in the making of this suite.
+      <footer className="mx-auto mt-8 max-w-5xl text-center text-[11px] text-muted-foreground">
+        Illustrations by Pablo Stanley (Transhumans), released under CC0 1.0.
       </footer>
-
-      {fullScreen && (
-        <div
-          className="fixed inset-0 z-50 flex flex-col bg-background"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${activeApp?.name ?? "App"} full screen`}
-        >
-          <div className="flex items-center gap-2 border-b border-border bg-card px-4 py-2">
-            <span className="text-sm font-bold text-card-foreground">
-              {activeApp?.name ?? "PretendPro"} — Full Screen
-            </span>
-            <span className="text-xs text-muted-foreground">(Press Esc to exit)</span>
-            <div className="ml-auto flex items-center gap-1">
-              {apps.map((app) => (
-                <button
-                  key={app.id}
-                  onClick={() => setActive(app.id)}
-                  className={cn(
-                    "rounded-lg px-2.5 py-1 text-[11px] font-semibold transition-colors",
-                    app.id === active
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:bg-muted",
-                  )}
-                  aria-pressed={app.id === active}
-                >
-                  {app.name}
-                </button>
-              ))}
-              <button
-                onClick={() => setFullScreen(false)}
-                className="ml-2 rounded-lg border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted"
-                aria-label="Exit full screen"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-            <div className="mx-auto max-w-5xl">
-              <WindowFrame osTheme={osTheme} appName={activeApp?.name ?? "PretendPro"}>
-                <ActiveScreen animated={animated} />
-              </WindowFrame>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <LicenseAlert />
     </div>
   );
 }
