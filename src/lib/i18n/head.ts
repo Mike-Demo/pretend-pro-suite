@@ -4,7 +4,16 @@ import { locales, localeMeta, type LocaleId } from "./locales";
 import { stringsFor } from "./strings";
 
 /** Page slug within a locale folder: "" is the onboarding page. */
-export type PageSlug = "" | "fruit" | "apperture" | "bufferium" | "android" | "fos" | "licenses" | "privacy";
+export type PageSlug =
+  | ""
+  | "fruit"
+  | "apperture"
+  | "bufferium"
+  | "android"
+  | "fos"
+  | "licenses"
+  | "privacy"
+  | "terms";
 
 function pageUrl(locale: LocaleId, page: PageSlug): string {
   return `${siteUrl}/${locale}${page ? `/${page}` : ""}`;
@@ -135,6 +144,33 @@ export function localePrivacyHead(locale: LocaleId) {
       {
         type: "application/ld+json",
         children: breadcrumbJsonLd(t.meta.privacyTitle, url),
+      },
+    ],
+  };
+}
+
+/** Terms of service metadata. Legal copy is not translated. */
+export function localeTermsHead(locale: LocaleId) {
+  const url = pageUrl(locale, "terms");
+  const title = "Terms of Service — PretendPro 3000";
+  const description =
+    "Read the PretendPro 3000 terms of service, powered by Termageddon and kept current automatically.";
+  return {
+    meta: socialMeta(title, description, url, homeOgImage),
+    links: [{ rel: "canonical", href: url }, ...alternateLinks("terms")],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: webPageJsonLd({
+          name: title,
+          url,
+          description,
+          inLanguage: localeMeta(locale).htmlLang,
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: breadcrumbJsonLd(title, url),
       },
     ],
   };
