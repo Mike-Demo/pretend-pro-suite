@@ -177,7 +177,7 @@ export function WindowFrame({
     onMinimize: onMinimize ?? (() => {}),
     onToggleMaximize: onToggleMaximize ?? (() => {}),
     onPointerDown: onTitlePointerDown ?? (() => {}),
-    onKeyDown: onTitleKeyDown,
+    onKeyDown: onTitleKeyDown ?? (() => {}),
     titleBarLabel: titleBarLabel ?? `${appName} title bar`,
   };
 
