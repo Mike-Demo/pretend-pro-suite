@@ -24,13 +24,14 @@ export function SocialFooter({ className, locale }: { className?: string; locale
         aria-label="Legal and social links"
         className="flex flex-wrap items-center justify-center gap-4"
       >
-        <a
-          href="/us-en/privacy"
+        <Link
+          to="/$locale/privacy"
+          params={{ locale: locale ?? "us-en" }}
           className="fluent-focus inline-flex items-center gap-1.5 rounded px-1.5 py-1 font-medium text-foreground/80 hover:text-foreground"
         >
           <i className="fa-solid fa-shield-halved h-4 w-4 text-[14px]" aria-hidden="true" />
           Privacy
-        </a>
+        </Link>
         <a
           href={linkedInUrl}
           target="_blank"
