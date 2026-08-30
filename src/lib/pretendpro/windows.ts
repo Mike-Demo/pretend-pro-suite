@@ -135,6 +135,7 @@ export function useWindowManager(storageKey?: string): WindowManager {
   const [order, setOrder] = useState<AppId[]>([]);
   const [restored, setRestored] = useState(false);
   const hydrated = useRef(false);
+  const [ready, setReady] = useState(!storageKey);
 
   // Hydrate after mount so SSR markup and the first client render match.
   useEffect(() => {
@@ -148,8 +149,6 @@ export function useWindowManager(storageKey?: string): WindowManager {
     }
     setReady(true);
   }, [storageKey]);
-
-  const [ready, setReady] = useState(!storageKey);
 
   useEffect(() => {
     if (!storageKey || !ready) return;
