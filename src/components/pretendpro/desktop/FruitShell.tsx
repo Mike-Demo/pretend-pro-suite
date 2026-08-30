@@ -12,6 +12,7 @@ import {
   useClock,
   type ShellProps,
 } from "./shell-shared";
+import { useStrings } from "@/lib/i18n/context";
 
 const menus = ["File", "Edit", "Pretend", "Help"];
 
@@ -27,6 +28,7 @@ export function FruitShell({
   onOpenPalette,
   children,
 }: ShellProps) {
+  const strings = useStrings();
   const clock = useClock();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const activeApp = apps.find((a) => a.id === active);

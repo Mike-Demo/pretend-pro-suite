@@ -13,6 +13,7 @@ import {
   useClock,
   type ShellProps,
 } from "./shell-shared";
+import { useStrings } from "@/lib/i18n/context";
 
 export function BufferiumShell({
   osTheme,
@@ -26,6 +27,7 @@ export function BufferiumShell({
   onOpenPalette,
   children,
 }: ShellProps) {
+  const strings = useStrings();
   const clock = useClock();
   const [launcherOpen, setLauncherOpen] = useState(false);
   const [trayOpen, setTrayOpen] = useState(false);

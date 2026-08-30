@@ -13,6 +13,7 @@ import {
   useClock,
   type ShellProps,
 } from "./shell-shared";
+import { useStrings } from "@/lib/i18n/context";
 
 /**
  * Windows-flavoured shell styled with Fluent 2 conventions: centered taskbar,
@@ -30,6 +31,7 @@ export function AppertureShell({
   onOpenPalette,
   children,
 }: ShellProps) {
+  const strings = useStrings();
   const clock = useClock();
   const [startOpen, setStartOpen] = useState(false);
   const [trayOpen, setTrayOpen] = useState(false);
