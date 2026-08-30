@@ -164,11 +164,24 @@ function OptionCard({
 
 function Onboarding() {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [step, setStep] = useState<1 | 2>(1);
   const [work, setWork] = useState<AppId | null>(null);
   const [style, setStyle] = useState<OsTheme | null>(null);
 
+  // Phones see the phone editions first; wide screens see the desktop ones first.
+  const styleGroups = isMobile
+    ? [
+        { heading: "Recommended for your device", options: mobileStyles },
+        { heading: "Desktop styles", options: desktopStyles },
+      ]
+    : [
+        { heading: "Desktop styles", options: desktopStyles },
+        { heading: "Mobile styles", options: mobileStyles },
+      ];
+
   const canContinue = step === 1 ? work !== null : style !== null;
+
 
   const onContinue = () => {
     if (step === 1) {
