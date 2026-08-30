@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Expand, X, Play, Square, LayoutGrid, Layers } from "lucide-react";
+import { Expand, X, Play, Square, LayoutGrid, Layers, Apple, AppWindow, Chrome } from "lucide-react";
+import { osThemes, WindowFrame, type OsTheme } from "@/components/pretendpro/WindowFrame";
 import { cn } from "@/lib/utils";
 import {
   apps,
@@ -50,6 +51,7 @@ function Index() {
   const [fullScreen, setFullScreen] = useState(false);
   const [animated, setAnimated] = useState(true);
   const [pageView, setPageView] = useState(false);
+  const [osTheme, setOsTheme] = useState<OsTheme>("fruit");
 
   const ActiveScreen = screens[active];
   const activeApp = apps.find((a) => a.id === active);
