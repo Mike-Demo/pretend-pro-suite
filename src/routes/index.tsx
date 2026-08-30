@@ -106,11 +106,19 @@ const workOptions: Array<{ id: AppId; title: string; description: string; art: s
   },
 ];
 
-const styleOptions: Array<{ id: OsTheme; description: string; art: string }> = [
+type StyleOption = { id: OsTheme; description: string; art: string };
+
+const desktopStyles: StyleOption[] = [
   { id: "fruit", description: "Soft translucent bar, three little traffic lights.", art: lookingAheadUrl },
   { id: "apperture", description: "Crisp corners, glyph buttons in the top-right.", art: chillinUrl },
   { id: "bufferium", description: "A tab strip that is eternally almost loaded.", art: waitingUrl },
 ];
+
+const mobileStyles: StyleOption[] = [
+  { id: "android", description: "Home screen grid, back / home / recents bar.", art: growthUrl },
+  { id: "fos", description: "Notch, rounded icons, a dock, a home indicator.", art: felizUrl },
+];
+
 
 function OptionCard({
   title,
