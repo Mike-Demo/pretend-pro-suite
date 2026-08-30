@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -149,18 +149,23 @@ function OptionCard({
   selected,
   onSelect,
   priority = false,
+  onPrefetch,
   children,
 }: {
   title: string;
   description: string;
-  art: string;
+  art: IllustrationName;
   selected: boolean;
   onSelect: () => void;
+  priority?: boolean;
+  onPrefetch?: () => void;
   children?: React.ReactNode;
 }) {
   return (
     <button
       onClick={onSelect}
+      onMouseEnter={onPrefetch}
+      onFocus={onPrefetch}
       aria-pressed={selected}
       className={cn(
         "fluent-focus relative flex w-full flex-col items-center rounded-lg border bg-card p-4 text-center transition-all",
@@ -187,6 +192,7 @@ function OptionCard({
 
 function Onboarding() {
   const navigate = useNavigate();
+  const router = useRouter();
   const isMobile = useIsMobile();
   const [step, setStep] = useState<1 | 2>(1);
   const [work, setWork] = useState<AppId | null>(null);
@@ -250,12 +256,13 @@ function Onboarding() {
 
             {step === 1 ? (
               <div className="mt-8 grid max-h-[55vh] gap-3 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-4">
-                {workOptions.map((option) => (
+                {workOptions.map((option, i) => (
                   <OptionCard
                     key={option.id}
                     title={option.title}
                     description={option.description}
                     art={option.art}
+                    priority={i === 0}
                     selected={work === option.id}
                     onSelect={() => setWork(option.id)}
                   />
@@ -277,6 +284,10 @@ function Onboarding() {
                           art={option.art}
                           selected={style === option.id}
                           onSelect={() => setStyle(option.id)}
+                          onPrefetch={() => {
+                            // Warm the edition's route chunk before the user commits.
+                            void router.preloadRoute({ to: themeRoutes[option.id] });
+                          }}
                         />
                       ))}
                     </div>
