@@ -237,6 +237,14 @@ const base: Strings = {
     disclaimer:
       "PretendPro 3000 is not affiliated with Apple, Microsoft, or Google. All OS styles are affectionate parodies.",
   },
+  privacy: {
+    back: "Back to onboarding",
+    title: "Privacy Policy",
+    intro: "Our privacy policy is provided below. It loads directly from Termageddon so it stays up to date.",
+    loading: "Please wait while the policy is loaded.",
+    fallbackLink: "https://policies.termageddon.com/api/policy/TkV3eGQwSXJRWE5aUmsxd1VHYzlQUT09",
+    fallbackLabel: "click here to view the policy",
+  },
   meta: {
     homeTitle: "PretendPro 3000 — Set Up Your Fake Workday",
     homeDescription:
@@ -244,6 +252,9 @@ const base: Strings = {
     licensesTitle: "Open Source Licenses — PretendPro 3000",
     licensesDescription:
       "Attribution and license information for the open source illustrations, icons, and libraries used to build PretendPro 3000.",
+    privacyTitle: "Privacy Policy — PretendPro 3000",
+    privacyDescription:
+      "Read the PretendPro 3000 privacy policy, powered by Termageddon and kept current automatically.",
     editionTitle: {
       fruit: "PretendPro 3000 — Fruit (Mac OS X) Edition",
       apperture: "PretendPro 3000 — Apperture (Windows) Edition",
