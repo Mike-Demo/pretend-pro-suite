@@ -30,7 +30,7 @@ export function BufferiumShell({
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex-1 overflow-y-auto px-3 pb-24 pt-4 sm:px-6">{children}</div>
+      <div className="relative min-h-0 flex-1 overflow-hidden">{children}</div>
 
       <div className="relative z-30 flex items-center gap-2 border-t border-border/50 bg-[var(--os-chrome)] px-3 py-2 backdrop-blur">
         <button

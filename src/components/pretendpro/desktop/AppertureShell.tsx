@@ -37,7 +37,7 @@ export function AppertureShell({
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex-1 overflow-y-auto px-3 pb-28 pt-4 sm:px-6">{children}</div>
+      <div className="relative min-h-0 flex-1 overflow-hidden">{children}</div>
 
       <div className="relative z-30 flex h-12 items-center gap-1 border-t border-border/60 bg-[var(--os-chrome)] px-2 backdrop-blur-2xl">
         {/* Left: search (Fluent taskbar search box) */}

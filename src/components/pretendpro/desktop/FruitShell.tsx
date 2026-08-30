@@ -93,7 +93,7 @@ export function FruitShell({
         </Popover>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-3 pb-28 pt-4 sm:px-6">{children}</div>
+      <div className="relative min-h-0 flex-1 overflow-hidden">{children}</div>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-3 z-30 flex justify-center px-3">
         <div className="pointer-events-auto flex items-end gap-2 rounded-2xl border border-border/50 bg-[var(--os-chrome)] px-3 py-2 shadow-xl backdrop-blur">
