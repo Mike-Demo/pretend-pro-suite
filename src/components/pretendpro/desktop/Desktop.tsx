@@ -1,16 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { OsTheme } from "@/components/pretendpro/WindowFrame";
+import type { DesktopOsTheme } from "@/components/pretendpro/WindowFrame";
 import { apps, SparklesLayer, StickyNote, type AppId } from "@/components/pretendpro/chrome";
-import { DocuFaker } from "@/components/pretendpro/DocuFaker";
-import { SheetShenanigans } from "@/components/pretendpro/SheetShenanigans";
-import { BrowserBuddy } from "@/components/pretendpro/BrowserBuddy";
-import { InboxMirage } from "@/components/pretendpro/InboxMirage";
-import { CodeFaker } from "@/components/pretendpro/CodeFaker";
-import { DeckDreamer } from "@/components/pretendpro/DeckDreamer";
-import { ReaderRealm } from "@/components/pretendpro/ReaderRealm";
-import { PhotoPretender } from "@/components/pretendpro/PhotoPretender";
-import { ReelPretender } from "@/components/pretendpro/ReelPretender";
-import { SoundStage } from "@/components/pretendpro/SoundStage";
+import { screens } from "@/components/pretendpro/app-screens";
 import { useFunMode } from "@/lib/pretendpro/fun-mode";
 import { useWindowManager, type Bounds } from "@/lib/pretendpro/windows";
 import { FruitShell } from "./FruitShell";
@@ -21,21 +12,7 @@ import { CommandPalette } from "./CommandPalette";
 import { ShortcutsOverlay } from "./ShortcutsOverlay";
 import type { ShellProps } from "./shell-shared";
 
-const screens: Record<AppId, (props: { animated: boolean }) => React.ReactNode> = {
-  docufaker: DocuFaker,
-  sheets: SheetShenanigans,
-  browser: BrowserBuddy,
-  inbox: InboxMirage,
-  codeweb: (props) => <CodeFaker mode="web" {...props} />,
-  codegame: (props) => <CodeFaker mode="game" {...props} />,
-  deck: DeckDreamer,
-  reader: ReaderRealm,
-  photos: PhotoPretender,
-  reels: ReelPretender,
-  sound: SoundStage,
-};
-
-const shells: Record<OsTheme, (props: ShellProps) => React.ReactNode> = {
+const shells: Record<DesktopOsTheme, (props: ShellProps) => React.ReactNode> = {
   fruit: FruitShell,
   apperture: AppertureShell,
   bufferium: BufferiumShell,
@@ -52,7 +29,7 @@ export function Desktop({
   osTheme,
   initialApp = "docufaker",
 }: {
-  osTheme: OsTheme;
+  osTheme: DesktopOsTheme;
   initialApp?: AppId;
 }) {
   const { funMode, toggleFunMode } = useFunMode();

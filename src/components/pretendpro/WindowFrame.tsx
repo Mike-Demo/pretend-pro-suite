@@ -6,13 +6,27 @@ import type {
 import { Minus, Square, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export type OsTheme = "fruit" | "apperture" | "bufferium";
+/** Desktop editions render draggable windows. */
+export type DesktopOsTheme = "fruit" | "apperture" | "bufferium";
+/** Phone editions render one full-screen app at a time. */
+export type MobileOsTheme = "android" | "fos";
+export type OsTheme = DesktopOsTheme | MobileOsTheme;
+
+export const desktopThemeIds: DesktopOsTheme[] = ["fruit", "apperture", "bufferium"];
+export const mobileThemeIds: MobileOsTheme[] = ["android", "fos"];
+
+export function isMobileTheme(theme: OsTheme): theme is MobileOsTheme {
+  return theme === "android" || theme === "fos";
+}
 
 export const osThemes: Array<{ id: OsTheme; name: string }> = [
   { id: "fruit", name: "Fruit" },
   { id: "apperture", name: "Apperture" },
   { id: "bufferium", name: "BufferiumOS" },
+  { id: "android", name: "Android" },
+  { id: "fos", name: "fOS" },
 ];
+
 
 type BarProps = {
   appName: string;

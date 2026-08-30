@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
 import type { AppId } from "@/components/pretendpro/chrome";
 import { osThemes, type OsTheme } from "@/components/pretendpro/WindowFrame";
@@ -106,11 +107,19 @@ const workOptions: Array<{ id: AppId; title: string; description: string; art: s
   },
 ];
 
-const styleOptions: Array<{ id: OsTheme; description: string; art: string }> = [
+type StyleOption = { id: OsTheme; description: string; art: string };
+
+const desktopStyles: StyleOption[] = [
   { id: "fruit", description: "Soft translucent bar, three little traffic lights.", art: lookingAheadUrl },
   { id: "apperture", description: "Crisp corners, glyph buttons in the top-right.", art: chillinUrl },
   { id: "bufferium", description: "A tab strip that is eternally almost loaded.", art: waitingUrl },
 ];
+
+const mobileStyles: StyleOption[] = [
+  { id: "android", description: "Home screen grid, back / home / recents bar.", art: growthUrl },
+  { id: "fos", description: "Notch, rounded icons, a dock, a home indicator.", art: felizUrl },
+];
+
 
 function OptionCard({
   title,
@@ -156,11 +165,24 @@ function OptionCard({
 
 function Onboarding() {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [step, setStep] = useState<1 | 2>(1);
   const [work, setWork] = useState<AppId | null>(null);
   const [style, setStyle] = useState<OsTheme | null>(null);
 
+  // Phones see the phone editions first; wide screens see the desktop ones first.
+  const styleGroups = isMobile
+    ? [
+        { heading: "Recommended for your device", options: mobileStyles },
+        { heading: "Desktop styles", options: desktopStyles },
+      ]
+    : [
+        { heading: "Desktop styles", options: desktopStyles },
+        { heading: "Mobile styles", options: mobileStyles },
+      ];
+
   const canContinue = step === 1 ? work !== null : style !== null;
+
 
   const onContinue = () => {
     if (step === 1) {
@@ -196,7 +218,7 @@ function Onboarding() {
             <h1 className="mt-3 text-center text-2xl font-semibold tracking-tight text-foreground sm:text-[28px]">
               {step === 1
                 ? "How are you planning to pretend to work?"
-                : "Which window style feels most like your job?"}
+                : "Which device style feels most like your job?"}
             </h1>
             <p className="mt-2 text-center text-sm text-muted-foreground">
               {step === 1
@@ -204,38 +226,43 @@ function Onboarding() {
                 : "Purely cosmetic. Like most productivity decisions."}
             </p>
 
-            <div
-              className={cn(
-                "mt-8 grid gap-3",
-                step === 1 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3",
-                step === 1 && "max-h-[55vh] overflow-y-auto pr-1",
-              )}
-            >
-              {step === 1
-                ? workOptions.map((option) => (
-                    <OptionCard
-                      key={option.id}
-                      title={option.title}
-                      description={option.description}
-                      art={option.art}
-                      selected={work === option.id}
-                      onSelect={() => setWork(option.id)}
-                    />
-                  ))
-                : styleOptions.map((option) => {
-                    const name = osThemes.find((t) => t.id === option.id)?.name ?? option.id;
-                    return (
-                      <OptionCard
-                        key={option.id}
-                        title={name}
-                        description={option.description}
-                        art={option.art}
-                        selected={style === option.id}
-                        onSelect={() => setStyle(option.id)}
-                      />
-                    );
-                  })}
-            </div>
+            {step === 1 ? (
+              <div className="mt-8 grid max-h-[55vh] gap-3 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-4">
+                {workOptions.map((option) => (
+                  <OptionCard
+                    key={option.id}
+                    title={option.title}
+                    description={option.description}
+                    art={option.art}
+                    selected={work === option.id}
+                    onSelect={() => setWork(option.id)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="mt-8 space-y-6">
+                {styleGroups.map((group) => (
+                  <section key={group.heading}>
+                    <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                      {group.heading}
+                    </h2>
+                    <div className="mt-3 grid gap-3 sm:grid-cols-3">
+                      {group.options.map((option) => (
+                        <OptionCard
+                          key={option.id}
+                          title={osThemes.find((t) => t.id === option.id)?.name ?? option.id}
+                          description={option.description}
+                          art={option.art}
+                          selected={style === option.id}
+                          onSelect={() => setStyle(option.id)}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                ))}
+              </div>
+            )}
+
 
             <div className="mt-8 flex flex-col items-center gap-3">
               <button

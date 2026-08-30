@@ -201,6 +201,65 @@
   --os-wallpaper: linear-gradient(150deg, oklch(0.26 0.02 250), oklch(0.2 0.03 200));
 }
 
+/* Phone edition tokens.
+   Android references Material Components for Android (Apache 2.0);
+   fOS references Material Components for iOS (Apache 2.0). */
+[data-os-theme="android"] {
+  --os-radius: 1.75rem;
+  --os-statusbar: oklch(0.95 0.02 285 / 88%);
+  --os-surface: oklch(0.98 0.01 285);
+  --os-elevation: 0 1px 3px oklch(0.2 0.02 285 / 20%), 0 4px 8px oklch(0.2 0.02 285 / 12%);
+  --os-wallpaper: radial-gradient(circle at 25% 20%, oklch(0.9 0.08 300), transparent 55%),
+    linear-gradient(165deg, oklch(0.95 0.03 290), oklch(0.9 0.06 250));
+}
+
+[data-os-theme="fos"] {
+  --os-radius: 1.35rem;
+  --os-statusbar: oklch(0.97 0.01 250 / 70%);
+  --os-surface: oklch(0.98 0.005 250 / 88%);
+  --os-elevation: 0 2px 12px oklch(0.2 0.02 250 / 16%);
+  --os-wallpaper: radial-gradient(circle at 70% 20%, oklch(0.9 0.09 30), transparent 55%),
+    radial-gradient(circle at 20% 80%, oklch(0.9 0.08 250), transparent 55%),
+    linear-gradient(180deg, oklch(0.95 0.04 280), oklch(0.9 0.05 220));
+}
+
+.dark [data-os-theme="android"] {
+  --os-statusbar: oklch(0.26 0.02 285 / 90%);
+  --os-surface: oklch(0.3 0.02 285);
+  --os-elevation: 0 1px 3px oklch(0.05 0 0 / 55%), 0 4px 10px oklch(0.05 0 0 / 35%);
+  --os-wallpaper: radial-gradient(circle at 25% 20%, oklch(0.32 0.06 300), transparent 55%),
+    linear-gradient(165deg, oklch(0.22 0.02 290), oklch(0.18 0.03 250));
+}
+
+.dark [data-os-theme="fos"] {
+  --os-statusbar: oklch(0.24 0.01 250 / 75%);
+  --os-surface: oklch(0.28 0.01 250 / 88%);
+  --os-elevation: 0 2px 14px oklch(0.05 0 0 / 50%);
+  --os-wallpaper: radial-gradient(circle at 70% 20%, oklch(0.3 0.06 30), transparent 55%),
+    linear-gradient(180deg, oklch(0.22 0.03 280), oklch(0.17 0.03 220));
+}
+
+@keyframes pretend-app-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.pretend-app-enter {
+  animation: pretend-app-enter 180ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pretend-app-enter {
+    animation: none;
+  }
+}
+
 .os-desktop-bg {
   background-image: var(--os-wallpaper);
   background-attachment: fixed;

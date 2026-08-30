@@ -97,7 +97,22 @@ const references: Entry[] = [
     url: "https://www.chromium.org/user-experience/",
     note: "Inspiration for the BufferiumOS window chrome.",
   },
+  {
+    name: "Material Components for Android",
+    author: "Google and the Material Components authors",
+    license: "Apache License 2.0",
+    url: "https://github.com/material-components/material-components-android",
+    note: "Design reference for the Android phone edition (shape, elevation, navigation bar). No Material packages are bundled.",
+  },
+  {
+    name: "Material Components for iOS",
+    author: "Google and the Material Components authors",
+    license: "Apache License 2.0",
+    url: "https://github.com/material-components/material-components-ios",
+    note: "Design reference for the fOS phone edition (rounded icons, dock, home indicator). No Material packages are bundled.",
+  },
 ];
+
 
 function Section({ title, entries }: { title: string; entries: Entry[] }) {
   return (
