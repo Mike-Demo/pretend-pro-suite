@@ -4,10 +4,7 @@ import { Onboarding } from "@/components/pretendpro/Onboarding";
 import { I18nProvider } from "@/lib/i18n/context";
 import { defaultLocale, detectLocale } from "@/lib/i18n/locales";
 import { alternateLinks } from "@/lib/i18n/head";
-import {
-  Illustration,
-  illustrations,
-} from "@/components/pretendpro/Illustration";
+import { illustrations } from "@/components/pretendpro/Illustration";
 import { homeOgImage, webPageJsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
@@ -81,6 +78,3 @@ function HomePage() {
     </I18nProvider>
   );
 }
-
-// Keeps the illustration module referenced for the preload link above.
-export const _illustration = Illustration;
