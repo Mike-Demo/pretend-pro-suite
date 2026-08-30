@@ -18,6 +18,8 @@ import type { AppId } from "@/components/pretendpro/chrome";
 import { osThemes, type OsTheme } from "@/components/pretendpro/WindowFrame";
 import {
   Illustration,
+  prefetchAllColoredIllustrations,
+  prefetchColoredIllustration,
   type IllustrationName,
 } from "@/components/pretendpro/Illustration";
 import { SocialFooter } from "@/components/pretendpro/SocialFooter";
@@ -136,6 +138,11 @@ export function Onboarding() {
   useEffect(() => {
     setFillScreen(loadFullscreenPreference());
     setFullscreenAvailable(isFullscreenSupported());
+    // Warm all colored illustration variants once the browser is idle so the
+    // mono → color swap on selection paints instantly.
+    const win = window as Window & { requestIdleCallback?: (cb: () => void) => number };
+    if (win.requestIdleCallback) win.requestIdleCallback(() => prefetchAllColoredIllustrations());
+    else prefetchAllColoredIllustrations();
   }, []);
 
   // Default the tab (and its edition) to whatever device is actually viewing.
@@ -209,9 +216,10 @@ export function Onboarding() {
                           art={styleArt[id]}
                           selected={style === id}
                           onSelect={() => setStyle(id)}
-                          onPrefetch={() => {
-                            // Warm the edition's route chunk before the user commits.
-                            void router.preloadRoute({
+                           onPrefetch={() => {
+                             prefetchColoredIllustration(styleArt[id]);
+                             // Warm the edition's route chunk before the user commits.
+                             void router.preloadRoute({
                               to: localeThemeRoutes[id],
                               params: { locale },
                               search: { app: work ?? "docufaker" },
@@ -234,9 +242,10 @@ export function Onboarding() {
                     priority={i === 0}
                     selected={work === id}
                     onSelect={() => setWork(id)}
-                    onPrefetch={() => {
-                      if (!style) return;
-                      void router.preloadRoute({
+                     onPrefetch={() => {
+                       prefetchColoredIllustration(workArt[id]);
+                       if (!style) return;
+                       void router.preloadRoute({
                         to: localeThemeRoutes[style],
                         params: { locale },
                         search: { app: id },
