@@ -7,7 +7,7 @@ export const captchaSessionMaxAge = 60 * 60 * 12;
 export const captchaClientFlag = "pretendpro:verified";
 
 /** Paths that never require the human check. */
-const openPaths = ["/verify", "/licenses", "/robots.txt", "/sitemap.xml", "/manifest.webmanifest"];
+const openPaths = ["/", "/verify", "/licenses", "/robots.txt", "/sitemap.xml", "/manifest.webmanifest"];
 
 export function isOpenPath(pathname: string): boolean {
   if (openPaths.some((p) => pathname === p || pathname.startsWith(`${p}/`))) return true;
