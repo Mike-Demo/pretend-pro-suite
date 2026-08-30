@@ -599,3 +599,42 @@
   --app-tile-from: oklch(0.79 0.13 200);
   --app-tile-to: oklch(0.6 0.14 215);
 }
+
+/* Onboarding step transition — staggered brand panels cover, then reveal.
+   Transition concept inspired by John Heiner (https://codepen.io/johnheiner). */
+@keyframes pretend-panel-cover {
+  from { transform: translateY(101%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes pretend-panel-reveal {
+  from { transform: translateY(0); }
+  to { transform: translateY(-101%); }
+}
+
+@keyframes pretend-loader-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+@utility animate-panel-cover {
+  animation: pretend-panel-cover 0.5s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@utility animate-panel-reveal {
+  animation: pretend-panel-reveal 0.45s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@utility animate-loader-in {
+  animation: pretend-loader-in 0.3s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-panel-cover,
+  .animate-panel-reveal {
+    animation: none;
+  }
+  .animate-loader-in {
+    animation: pretend-loader-in 0.01s linear both;
+  }
+}
