@@ -227,6 +227,8 @@
   --os-wallpaper: radial-gradient(circle at 20% 15%, oklch(0.92 0.07 220), transparent 55%),
     radial-gradient(circle at 80% 25%, oklch(0.92 0.07 320), transparent 50%),
     linear-gradient(160deg, oklch(0.95 0.04 210), oklch(0.9 0.06 265));
+  /* Keeps the Fruit edition looking like the OS it parodies. */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
 }
 
 /* Apperture tokens live in the Fluent layer below. */
@@ -237,6 +239,7 @@
   --os-chrome: oklch(0.95 0.01 260 / 92%);
   --os-wallpaper: radial-gradient(circle at 30% 80%, oklch(0.93 0.06 165), transparent 55%),
     linear-gradient(150deg, oklch(0.96 0.02 250), oklch(0.9 0.04 200));
+  font-family: "Google Sans", Roboto, "Helvetica Neue", system-ui, sans-serif;
 }
 
 .dark [data-os-theme="fruit"] {
