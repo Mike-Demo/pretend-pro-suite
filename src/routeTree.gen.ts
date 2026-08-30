@@ -28,6 +28,7 @@ import { Route as LocaleFosRouteImport } from './routes/$locale/fos'
 import { Route as LocaleFruitRouteImport } from './routes/$locale/fruit'
 import { Route as LocaleLicensesRouteImport } from './routes/$locale/licenses'
 import { Route as LocalePrivacyRouteImport } from './routes/$locale/privacy'
+import { Route as LocaleTermsRouteImport } from './routes/$locale/terms'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -124,6 +125,11 @@ const LocalePrivacyRoute = LocalePrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => LocaleRouteRoute,
 } as any)
+const LocaleTermsRoute = LocaleTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -144,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/$locale/fruit': typeof LocaleFruitRoute
   '/$locale/licenses': typeof LocaleLicensesRoute
   '/$locale/privacy': typeof LocalePrivacyRoute
+  '/$locale/terms': typeof LocaleTermsRoute
   '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRoutesByTo {
@@ -164,6 +171,7 @@ export interface FileRoutesByTo {
   '/$locale/fruit': typeof LocaleFruitRoute
   '/$locale/licenses': typeof LocaleLicensesRoute
   '/$locale/privacy': typeof LocalePrivacyRoute
+  '/$locale/terms': typeof LocaleTermsRoute
   '/$locale': typeof LocaleIndexRoute
 }
 export interface FileRoutesById {
@@ -186,6 +194,7 @@ export interface FileRoutesById {
   '/$locale/fruit': typeof LocaleFruitRoute
   '/$locale/licenses': typeof LocaleLicensesRoute
   '/$locale/privacy': typeof LocalePrivacyRoute
+  '/$locale/terms': typeof LocaleTermsRoute
   '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRouteTypes {
@@ -209,6 +218,7 @@ export interface FileRouteTypes {
     | '/$locale/fruit'
     | '/$locale/licenses'
     | '/$locale/privacy'
+    | '/$locale/terms'
     | '/$locale/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -229,6 +239,7 @@ export interface FileRouteTypes {
     | '/$locale/fruit'
     | '/$locale/licenses'
     | '/$locale/privacy'
+    | '/$locale/terms'
     | '/$locale'
   id:
     | '__root__'
@@ -250,6 +261,7 @@ export interface FileRouteTypes {
     | '/$locale/fruit'
     | '/$locale/licenses'
     | '/$locale/privacy'
+    | '/$locale/terms'
     | '/$locale/'
   fileRoutesById: FileRoutesById
 }
@@ -402,6 +414,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocalePrivacyRouteImport
       parentRoute: typeof LocaleRouteRoute
     }
+    '/$locale/terms': {
+      id: '/$locale/terms'
+      path: '/terms'
+      fullPath: '/$locale/terms'
+      preLoaderRoute: typeof LocaleTermsRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
   }
 }
 
@@ -413,6 +432,7 @@ interface LocaleRouteRouteChildren {
   LocaleFruitRoute: typeof LocaleFruitRoute
   LocaleLicensesRoute: typeof LocaleLicensesRoute
   LocalePrivacyRoute: typeof LocalePrivacyRoute
+  LocaleTermsRoute: typeof LocaleTermsRoute
   LocaleIndexRoute: typeof LocaleIndexRoute
 }
 
@@ -424,6 +444,7 @@ const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
   LocaleFruitRoute: LocaleFruitRoute,
   LocaleLicensesRoute: LocaleLicensesRoute,
   LocalePrivacyRoute: LocalePrivacyRoute,
+  LocaleTermsRoute: LocaleTermsRoute,
   LocaleIndexRoute: LocaleIndexRoute,
 }
 
