@@ -37,6 +37,7 @@ export function SystemMenu({
   "osTheme" | "active" | "funMode" | "onToggleFunMode" | "onShowShortcuts" | "onOpenPalette"
 >) {
   const [open, setOpen] = useState(false);
+  const [powering, setPowering] = useState(false);
   const item = "rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted";
 
   return (
@@ -52,6 +53,16 @@ export function SystemMenu({
       </button>
       <Popover open={open} onClose={() => setOpen(false)} className="right-0 top-7 w-52">
         <div className="flex flex-col">
+          <button
+            className={cn(item, "flex items-center gap-2")}
+            onClick={() => {
+              setOpen(false);
+              setPowering(true);
+            }}
+          >
+            <Power className="h-3.5 w-3.5" />
+            Pretend to power off
+          </button>
           <button
             className={item}
             onClick={() => {
@@ -83,6 +94,9 @@ export function SystemMenu({
           <ThemeSwitchLinks osTheme={osTheme} active={active} itemClassName={item} />
         </div>
       </Popover>
+      {powering && (
+        <PowerOverlay osTheme={osTheme} funMode={funMode} onClose={() => setPowering(false)} />
+      )}
     </span>
   );
 }
