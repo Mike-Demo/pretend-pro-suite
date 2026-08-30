@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Circle, Keyboard } from "lucide-react";
+import { Circle, Keyboard, Power } from "lucide-react";
+import { PowerOverlay } from "@/components/pretendpro/PowerOverlay";
 import { apps } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
@@ -26,6 +27,7 @@ export function BufferiumShell({
   children,
 }: ShellProps) {
   const clock = useClock();
+  const [powering, setPowering] = useState(false);
   const [launcherOpen, setLauncherOpen] = useState(false);
   const [trayOpen, setTrayOpen] = useState(false);
 
@@ -79,6 +81,13 @@ export function BufferiumShell({
 
         <div className="ml-auto flex items-center gap-2">
           <button
+            onClick={() => setPowering(true)}
+            className="rounded-md p-1 text-foreground/60 hover:bg-muted"
+            aria-label="Pretend to shut down"
+          >
+            <Power className="h-3.5 w-3.5" />
+          </button>
+          <button
             onClick={onShowShortcuts}
             className="rounded-md p-1 text-foreground/60 hover:bg-muted"
             aria-label="Keyboard shortcuts"
@@ -131,6 +140,10 @@ export function BufferiumShell({
           </p>
         </Popover>
       </div>
+
+      {powering && (
+        <PowerOverlay osTheme={osTheme} funMode={funMode} onClose={() => setPowering(false)} />
+      )}
     </div>
   );
 }

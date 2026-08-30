@@ -440,3 +440,59 @@
     animation: none;
   }
 }
+
+/* Power overlay loaders */
+@keyframes pretend-spoke-fade {
+  0% { opacity: 1; }
+  100% { opacity: 0.12; }
+}
+
+@keyframes pretend-windows-ring {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pretend-bounce-dot {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pretend-arc-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pretend-arc-dash {
+  0% { stroke-dasharray: 8 78; stroke-dashoffset: 0; }
+  50% { stroke-dasharray: 60 26; stroke-dashoffset: -20; }
+  100% { stroke-dasharray: 8 78; stroke-dashoffset: -84; }
+}
+
+@utility animate-spoke-fade {
+  animation: pretend-spoke-fade 1.2s linear infinite;
+}
+
+@utility animate-windows-ring {
+  animation: pretend-windows-ring 2.6s cubic-bezier(0.45, 0.15, 0.55, 0.85) infinite;
+}
+
+@utility animate-bounce-dot {
+  animation: pretend-bounce-dot 1.4s ease-in-out infinite;
+}
+
+@utility animate-arc-rotate {
+  animation: pretend-arc-rotate 2.4s linear infinite;
+}
+
+@utility animate-arc-dash {
+  animation: pretend-arc-dash 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spoke-fade,
+  .animate-windows-ring,
+  .animate-bounce-dot,
+  .animate-arc-rotate,
+  .animate-arc-dash {
+    animation: none;
+  }
+}
