@@ -8,14 +8,19 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, type ReactNode } from "react";
 
-import { Toaster } from "@/components/ui/sonner";
 import { AppearanceEffect } from "@/components/pretendpro/AppearanceToggle";
-import { getCaptchaGate } from "@/lib/captcha/verify.functions";
 import { captchaClientFlag, isOpenPath } from "@/lib/captcha/session";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+
+// The toast runtime is ~32 KiB of the critical bundle but is never needed for
+// first paint, so it streams in behind Suspense instead of blocking the entry chunk.
+const Toaster = lazy(() =>
+  import("@/components/ui/sonner").then((m) => ({ default: m.Toaster })),
+);
+
 
 function NotFoundComponent() {
   return (
