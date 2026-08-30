@@ -48,7 +48,8 @@ export function Desktop({
   const areaRef = useRef<HTMLDivElement>(null);
   const [bounds, setBounds] = useState<Bounds>({ width: 1200, height: 700 });
 
-  const wm = useWindowManager();
+  const [announcement, setAnnouncement] = useState("");
+  const wm = useWindowManager(`pretendpro:layout:${osTheme}`);
   const { windows, focused, openApps, launch, focus, close, minimize, toggleMaximize, cycle } = wm;
 
   const measure = useCallback((): Bounds => {
@@ -77,8 +78,9 @@ export function Desktop({
     const el = areaRef.current;
     if (!el || el.clientWidth === 0) return;
     bootstrapped.current = true;
+    if (wm.windows.length > 0) return;
     launch(initialApp, { width: el.clientWidth, height: el.clientHeight });
-  }, [initialApp, launch]);
+  }, [initialApp, launch, wm.windows.length]);
 
   /** Dock behaviour: launch, focus, or minimize the already-focused window. */
   const handleDockSelect = useCallback(
@@ -106,6 +108,16 @@ export function Desktop({
   );
 
   const focusedWindow = windows.find((w) => w.id === focused);
+
+  // Announce focus changes for screen-reader users.
+  useEffect(() => {
+    if (!focused) {
+      setAnnouncement("No windows open");
+      return;
+    }
+    const app = apps.find((a) => a.id === focused);
+    setAnnouncement(`${app?.name ?? "Window"} focused`);
+  }, [focused]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -187,7 +199,7 @@ export function Desktop({
         onShowShortcuts={() => setShortcutsOpen(true)}
         onOpenPalette={() => setPaletteOpen(true)}
       >
-        <div ref={areaRef} className="relative h-full w-full">
+        <div ref={areaRef} data-desktop-area className="relative h-full w-full">
           {funMode && <StickyNote />}
           {windows
             .filter((w) => !w.minimized)
@@ -210,6 +222,8 @@ export function Desktop({
                   onToggleMaximize={() => toggleMaximize(w.id)}
                   onMove={(x, y) => wm.move(w.id, x, y)}
                   onResize={(width, height) => wm.resize(w.id, width, height)}
+                  onDock={(zone) => wm.dock(w.id, zone, bounds)}
+                  onAnnounce={setAnnouncement}
                 >
                   <Screen animated={funMode} />
                 </AppWindow>
@@ -229,6 +243,9 @@ export function Desktop({
         onClose={() => setPaletteOpen(false)}
         onSelect={handleLaunch}
       />
+      <p aria-live="polite" role="status" className="sr-only">
+        {announcement}
+      </p>
       <ShortcutsOverlay open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
     </div>
   );
