@@ -17,6 +17,8 @@ import { getCaptchaGate } from "@/lib/captcha/verify.functions";
 import { isLocaleId, localeMeta } from "@/lib/i18n/locales";
 import { captchaClientFlag, isOpenPath } from "@/lib/captcha/session";
 import appCss from "../styles.css?url";
+import nebulaBook from "@/assets/fonts/NebulaSans-Book.woff2.asset.json";
+import nebulaSemibold from "@/assets/fonts/NebulaSans-Semibold.woff2.asset.json";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
