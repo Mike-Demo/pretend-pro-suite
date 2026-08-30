@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppertureRouteImport } from './routes/apperture'
+import { Route as BufferiumRouteImport } from './routes/bufferium'
 import { Route as FruitRouteImport } from './routes/fruit'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const AppertureRoute = AppertureRouteImport.update({
   path: '/apperture',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BufferiumRoute = BufferiumRouteImport.update({
+  id: '/bufferium',
+  path: '/bufferium',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FruitRoute = FruitRouteImport.update({
   id: '/fruit',
   path: '/fruit',
@@ -32,30 +38,34 @@ const FruitRoute = FruitRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/apperture': typeof AppertureRoute
+  '/bufferium': typeof BufferiumRoute
   '/fruit': typeof FruitRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/apperture': typeof AppertureRoute
+  '/bufferium': typeof BufferiumRoute
   '/fruit': typeof FruitRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/apperture': typeof AppertureRoute
+  '/bufferium': typeof BufferiumRoute
   '/fruit': typeof FruitRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/apperture' | '/fruit'
+  fullPaths: '/' | '/apperture' | '/bufferium' | '/fruit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/apperture' | '/fruit'
-  id: '__root__' | '/' | '/apperture' | '/fruit'
+  to: '/' | '/apperture' | '/bufferium' | '/fruit'
+  id: '__root__' | '/' | '/apperture' | '/bufferium' | '/fruit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppertureRoute: typeof AppertureRoute
+  BufferiumRoute: typeof BufferiumRoute
   FruitRoute: typeof FruitRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppertureRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bufferium': {
+      id: '/bufferium'
+      path: '/bufferium'
+      fullPath: '/bufferium'
+      preLoaderRoute: typeof BufferiumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/fruit': {
       id: '/fruit'
       path: '/fruit'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppertureRoute: AppertureRoute,
+  BufferiumRoute: BufferiumRoute,
   FruitRoute: FruitRoute,
 }
 export const routeTree = rootRouteImport
