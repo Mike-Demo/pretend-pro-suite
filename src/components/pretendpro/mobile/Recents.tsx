@@ -18,9 +18,9 @@ export function Recents({
 
   return (
     <div className="flex h-full flex-col items-center justify-center gap-4 px-4">
-      <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/70">
+      <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/70">
         Recent apps
-      </h2>
+      </h3>
       {cards.length === 0 ? (
         <p className="text-xs text-foreground/70">Nothing running. Impressively unproductive.</p>
       ) : (
