@@ -238,6 +238,8 @@ function Onboarding() {
       return;
     }
     if (style && work) {
+      // Must fire inside this click — the Fullscreen API requires a user gesture.
+      if (fillScreen) requestDeviceFullscreen();
       navigate({ to: themeRoutes[style], search: { app: work } });
     }
   };
@@ -328,6 +330,24 @@ function Onboarding() {
               >
                 {step === 1 ? "Continue" : "Start pretending"}
               </button>
+              {fullscreenAvailable && (
+                <label
+                  htmlFor="fill-screen"
+                  className="flex cursor-pointer items-center gap-2 text-xs text-muted-foreground"
+                >
+                  <Checkbox
+                    id="fill-screen"
+                    checked={fillScreen}
+                    onCheckedChange={(checked) => toggleFillScreen(checked === true)}
+                    aria-describedby="fill-screen-hint"
+                  />
+                  <span className="flex items-center gap-1.5 font-medium text-foreground">
+                    <Maximize className="h-3.5 w-3.5" strokeWidth={1.75} />
+                    Fill my entire device screen
+                  </span>
+                  <span id="fill-screen-hint">(press Esc anytime to leave)</span>
+                </label>
+              )}
               {step === 2 && (
                 <button
                   onClick={() => setStep(1)}
