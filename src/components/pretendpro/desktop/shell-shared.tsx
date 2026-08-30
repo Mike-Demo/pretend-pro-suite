@@ -116,11 +116,12 @@ export function AppLauncherGrid({
           >
             <span
               className={cn(
-                "flex h-11 w-11 items-center justify-center rounded-2xl transition-transform group-hover:scale-105",
+                "flex h-11 w-11 items-center justify-center rounded-2xl transition-transform group-hover:animate-icon-pop group-hover:scale-105",
                 app.chip,
+                app.id === active && "scale-105 ring-2 ring-primary/50",
               )}
             >
-              <Icon className="h-5 w-5" />
+              <Icon className="h-5 w-5 transition-transform group-hover:scale-110" />
             </span>
             <span className="line-clamp-2 w-full break-words text-center text-[11px] font-semibold leading-tight text-foreground">
               {app.name}
