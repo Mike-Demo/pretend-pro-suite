@@ -148,3 +148,30 @@ export function localePrivacyHead(locale: LocaleId) {
     ],
   };
 }
+
+/** Terms of service metadata. Legal copy is not translated. */
+export function localeTermsHead(locale: LocaleId) {
+  const url = pageUrl(locale, "terms");
+  const title = "Terms of Service — PretendPro 3000";
+  const description =
+    "Read the PretendPro 3000 terms of service, powered by Termageddon and kept current automatically.";
+  return {
+    meta: socialMeta(title, description, url, homeOgImage),
+    links: [{ rel: "canonical", href: url }, ...alternateLinks("terms")],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: webPageJsonLd({
+          name: title,
+          url,
+          description,
+          inLanguage: localeMeta(locale).htmlLang,
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: breadcrumbJsonLd(title, url),
+      },
+    ],
+  };
+}

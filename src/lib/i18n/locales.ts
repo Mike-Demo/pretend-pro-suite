@@ -74,7 +74,8 @@ export type LocalePagePath =
   | "/$locale/android"
   | "/$locale/fos"
   | "/$locale/licenses"
-  | "/$locale/privacy";
+  | "/$locale/privacy"
+  | "/$locale/terms";
 
 export const localeThemeRoutes: Record<OsTheme, LocalePagePath> = {
   fruit: "/$locale/fruit",
