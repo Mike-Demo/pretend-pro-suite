@@ -32,6 +32,14 @@ export function SocialFooter({ className, locale }: { className?: string; locale
           <i className="fa-solid fa-shield-halved h-4 w-4 text-[14px]" aria-hidden="true" />
           Privacy
         </Link>
+        <Link
+          to="/$locale/terms"
+          params={{ locale: locale ?? "us-en" }}
+          className="fluent-focus inline-flex items-center gap-1.5 rounded px-1.5 py-1 font-medium text-foreground/80 hover:text-foreground"
+        >
+          <i className="fa-solid fa-file-contract h-4 w-4 text-[14px]" aria-hidden="true" />
+          Terms
+        </Link>
         <a
           href={linkedInUrl}
           target="_blank"
