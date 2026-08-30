@@ -1,7 +1,31 @@
 import { useMemo } from "react";
-import { FileText, Table2, Globe, Mail, Sparkles as SparklesIcon } from "lucide-react";
+import {
+  FileText,
+  Table2,
+  Globe,
+  Mail,
+  Code2,
+  Gamepad2,
+  Presentation,
+  BookOpen,
+  Image,
+  Clapperboard,
+  AudioWaveform,
+  Sparkles as SparklesIcon,
+} from "lucide-react";
 
-export type AppId = "docufaker" | "sheets" | "browser" | "inbox";
+export type AppId =
+  | "docufaker"
+  | "sheets"
+  | "browser"
+  | "inbox"
+  | "codeweb"
+  | "codegame"
+  | "deck"
+  | "reader"
+  | "photos"
+  | "reels"
+  | "sound";
 
 export const apps: Array<{
   id: AppId;
@@ -13,6 +37,13 @@ export const apps: Array<{
   { id: "sheets", name: "SheetShenanigans", icon: Table2, chip: "bg-mint text-mint-foreground" },
   { id: "browser", name: "BrowserBuddy", icon: Globe, chip: "bg-grape text-grape-foreground" },
   { id: "inbox", name: "Inbox Mirage", icon: Mail, chip: "bg-bubblegum text-bubblegum-foreground" },
+  { id: "codeweb", name: "CodeFaker", icon: Code2, chip: "bg-grape text-grape-foreground" },
+  { id: "codegame", name: "CodeFaker: Game", icon: Gamepad2, chip: "bg-bubblegum text-bubblegum-foreground" },
+  { id: "deck", name: "DeckDreamer", icon: Presentation, chip: "bg-butter text-butter-foreground" },
+  { id: "reader", name: "ReaderRealm", icon: BookOpen, chip: "bg-sky text-sky-foreground" },
+  { id: "photos", name: "PhotoPretender", icon: Image, chip: "bg-mint text-mint-foreground" },
+  { id: "reels", name: "ReelPretender", icon: Clapperboard, chip: "bg-grape text-grape-foreground" },
+  { id: "sound", name: "SoundStage", icon: AudioWaveform, chip: "bg-bubblegum text-bubblegum-foreground" },
 ];
 
 export function SparklesLayer({ enabled }: { enabled: boolean }) {
