@@ -15,11 +15,11 @@ const assets: Entry[] = [
     note: "Used for the onboarding artwork.",
   },
   {
-    name: "Procrastinate icon (site favicon)",
-    author: "Parzival' 1997",
-    license: "Flaticon Free License (attribution required)",
-    url: "https://www.flaticon.com/free-icons/procrastinate",
-    note: "Procrastinate icons created by Parzival' 1997 - Flaticon. Used as the site favicon.",
+    name: "Nebula Sans",
+    author: "Nebula Entertainment & Broadcasting LLC",
+    license: "SIL Open Font License 1.1",
+    url: "https://www.nebulasans.com/license/",
+    note: "Used as the site's default typeface. Based on Source Sans, with Reserved Font Name 'Nebula'.",
   },
   {
     name: "Openverse media catalog",
