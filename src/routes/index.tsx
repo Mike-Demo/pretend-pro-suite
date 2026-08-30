@@ -32,8 +32,12 @@ export const Route = createFileRoute("/")({
           "A wholesome parody office suite onboarding: choose your pretend work and your pretend operating system.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://pretend.pro/" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: 'PretendPro 3000 — Set Up Your Fake Workday' },
+      { name: "twitter:description", content: 'A wholesome parody office suite onboarding: choose your pretend work and your pretend operating system.' },
     ],
+    links: [{ rel: "canonical", href: "https://pretend.pro/" }],
   }),
   component: Onboarding,
 });

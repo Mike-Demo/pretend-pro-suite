@@ -15,8 +15,12 @@ export const Route = createFileRoute("/licenses")({
         content: "Every open source work used in PretendPro 3000, with author, license, and link.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://pretend.pro/licenses" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: 'Open Source Licenses — PretendPro 3000' },
+      { name: "twitter:description", content: 'Every open source work used in PretendPro 3000, with author, license, and link.' },
     ],
+    links: [{ rel: "canonical", href: "https://pretend.pro/licenses" }],
   }),
   component: LicensesPage,
 });
