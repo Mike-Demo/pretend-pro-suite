@@ -14,6 +14,7 @@ import { Route as AppertureRouteImport } from './routes/apperture'
 import { Route as BufferiumRouteImport } from './routes/bufferium'
 import { Route as FruitRouteImport } from './routes/fruit'
 import { Route as LicensesRouteImport } from './routes/licenses'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const LicensesRoute = LicensesRouteImport.update({
   path: '/licenses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/bufferium': typeof BufferiumRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/bufferium': typeof BufferiumRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,23 @@ export interface FileRoutesById {
   '/bufferium': typeof BufferiumRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/apperture' | '/bufferium' | '/fruit' | '/licenses'
+  fullPaths:
+    '/' | '/apperture' | '/bufferium' | '/fruit' | '/licenses' | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/apperture' | '/bufferium' | '/fruit' | '/licenses'
-  id: '__root__' | '/' | '/apperture' | '/bufferium' | '/fruit' | '/licenses'
+  to:
+    '/' | '/apperture' | '/bufferium' | '/fruit' | '/licenses' | '/sitemap.xml'
+  id:
+    | '__root__'
+    | '/'
+    | '/apperture'
+    | '/bufferium'
+    | '/fruit'
+    | '/licenses'
+    | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +95,7 @@ export interface RootRouteChildren {
   BufferiumRoute: typeof BufferiumRoute
   FruitRoute: typeof FruitRoute
   LicensesRoute: typeof LicensesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +135,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LicensesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +151,7 @@ const rootRouteChildren: RootRouteChildren = {
   BufferiumRoute: BufferiumRoute,
   FruitRoute: FruitRoute,
   LicensesRoute: LicensesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
