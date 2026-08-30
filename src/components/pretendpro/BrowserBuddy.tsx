@@ -68,7 +68,7 @@ export function BrowserBuddy({ animated }: { animated: boolean }) {
       </div>
 
       <div className="px-5 py-6 sm:px-8">
-        <h3 className="text-lg font-bold text-card-foreground">{tab.heading}</h3>
+        <h2 className="text-lg font-bold text-card-foreground">{tab.heading}</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{tab.body}</p>
         <div className="mt-4 flex flex-wrap gap-2">
           {["Totally Legit Sources", "Cite Your Vibes", "Ask a Manager"].map((label, i) => (

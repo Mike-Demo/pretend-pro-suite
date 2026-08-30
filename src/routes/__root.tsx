@@ -78,14 +78,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "PretendPro 3000 — Fake Productivity Suite" },
+      {
+        name: "description",
+        content:
+          "PretendPro 3000 is a playful parody office suite for pretending to work: DocuFaker, SheetShenanigans, BrowserBuddy and Inbox Mirage.",
+      },
+      { name: "author", content: "PretendPro 3000" },
+      { property: "og:title", content: "PretendPro 3000 — Fake Productivity Suite" },
+      {
+        property: "og:description",
+        content:
+          "A cheerful parody office suite for getting absolutely nothing done, in three desktop styles.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "PretendPro 3000" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
