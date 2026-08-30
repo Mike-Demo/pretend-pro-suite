@@ -34,17 +34,17 @@ export const apps: Array<{
   icon: typeof FileText;
   chip: string;
 }> = [
-  { id: "docufaker", name: "DocuFaker", icon: FileText, chip: "bg-sky text-sky-foreground shadow-sm ring-1 ring-inset ring-sky-foreground/25" },
-  { id: "sheets", name: "SheetShenanigans", icon: Table2, chip: "bg-mint text-mint-foreground shadow-sm ring-1 ring-inset ring-mint-foreground/25" },
-  { id: "browser", name: "BrowserBuddy", icon: Globe, chip: "bg-grape text-grape-foreground shadow-sm ring-1 ring-inset ring-grape-foreground/25" },
-  { id: "inbox", name: "Inbox Mirage", icon: Mail, chip: "bg-bubblegum text-bubblegum-foreground shadow-sm ring-1 ring-inset ring-bubblegum-foreground/25" },
-  { id: "codeweb", name: "CodeFaker", icon: Code2, chip: "bg-grape text-grape-foreground shadow-sm ring-1 ring-inset ring-grape-foreground/25" },
-  { id: "codegame", name: "CodeFaker: Game", icon: Gamepad2, chip: "bg-bubblegum text-bubblegum-foreground shadow-sm ring-1 ring-inset ring-bubblegum-foreground/25" },
-  { id: "deck", name: "DeckDreamer", icon: Presentation, chip: "bg-butter text-butter-foreground shadow-sm ring-1 ring-inset ring-butter-foreground/25" },
-  { id: "reader", name: "ReaderRealm", icon: BookOpen, chip: "bg-sky text-sky-foreground shadow-sm ring-1 ring-inset ring-sky-foreground/25" },
-  { id: "photos", name: "PhotoPretender", icon: Image, chip: "bg-mint text-mint-foreground shadow-sm ring-1 ring-inset ring-mint-foreground/25" },
-  { id: "reels", name: "ReelPretender", icon: Clapperboard, chip: "bg-grape text-grape-foreground shadow-sm ring-1 ring-inset ring-grape-foreground/25" },
-  { id: "sound", name: "SoundStage", icon: AudioWaveform, chip: "bg-bubblegum text-bubblegum-foreground shadow-sm ring-1 ring-inset ring-bubblegum-foreground/25" },
+  { id: "docufaker", name: "DocuFaker", icon: FileText, chip: "app-tile app-tile-blue" },
+  { id: "sheets", name: "SheetShenanigans", icon: Table2, chip: "app-tile app-tile-green" },
+  { id: "browser", name: "BrowserBuddy", icon: Globe, chip: "app-tile app-tile-violet" },
+  { id: "inbox", name: "Inbox Mirage", icon: Mail, chip: "app-tile app-tile-teal" },
+  { id: "codeweb", name: "CodeFaker", icon: Code2, chip: "app-tile app-tile-violet" },
+  { id: "codegame", name: "CodeFaker: Game", icon: Gamepad2, chip: "app-tile app-tile-teal" },
+  { id: "deck", name: "DeckDreamer", icon: Presentation, chip: "app-tile app-tile-orange" },
+  { id: "reader", name: "ReaderRealm", icon: BookOpen, chip: "app-tile app-tile-blue" },
+  { id: "photos", name: "PhotoPretender", icon: Image, chip: "app-tile app-tile-green" },
+  { id: "reels", name: "ReelPretender", icon: Clapperboard, chip: "app-tile app-tile-violet" },
+  { id: "sound", name: "SoundStage", icon: AudioWaveform, chip: "app-tile app-tile-orange" },
 ];
 
 export function SparklesLayer({ enabled }: { enabled: boolean }) {
