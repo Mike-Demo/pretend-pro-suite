@@ -106,6 +106,18 @@ function OptionCard({
   );
 }
 
+type DeviceKind = "desktop" | "mobile";
+
+const deviceDefaults: Record<DeviceKind, OsTheme> = {
+  desktop: "fruit",
+  mobile: "android",
+};
+
+const deviceOptions: Record<DeviceKind, OsTheme[]> = {
+  desktop: desktopStyleOrder,
+  mobile: mobileStyleOrder,
+};
+
 export function Onboarding() {
   const navigate = useNavigate();
   const router = useRouter();
@@ -113,7 +125,8 @@ export function Onboarding() {
   const { locale, t } = useI18n();
   const [step, setStep] = useState<1 | 2>(1);
   const [work, setWork] = useState<AppId | null>(null);
-  const [style, setStyle] = useState<OsTheme | null>(null);
+  const [device, setDevice] = useState<DeviceKind>("desktop");
+  const [style, setStyle] = useState<OsTheme | null>(deviceDefaults.desktop);
   const [fillScreen, setFillScreen] = useState(false);
   const [fullscreenAvailable, setFullscreenAvailable] = useState(false);
 
@@ -123,23 +136,25 @@ export function Onboarding() {
     setFullscreenAvailable(isFullscreenSupported());
   }, []);
 
+  // Default the tab (and its edition) to whatever device is actually viewing.
+  useEffect(() => {
+    const kind: DeviceKind = isMobile ? "mobile" : "desktop";
+    setDevice(kind);
+    setStyle(deviceDefaults[kind]);
+  }, [isMobile]);
+
   const toggleFillScreen = (checked: boolean) => {
     setFillScreen(checked);
     saveFullscreenPreference(checked);
   };
 
-  // Phones see the phone editions first; wide screens see the desktop ones first.
-  const styleGroups = isMobile
-    ? [
-        { heading: t.onboarding.recommendedHeading, options: mobileStyleOrder },
-        { heading: t.onboarding.desktopHeading, options: desktopStyleOrder },
-      ]
-    : [
-        { heading: t.onboarding.desktopHeading, options: desktopStyleOrder },
-        { heading: t.onboarding.mobileHeading, options: mobileStyleOrder },
-      ];
+  const onDeviceChange = (value: string) => {
+    const kind: DeviceKind = value === "mobile" ? "mobile" : "desktop";
+    setDevice(kind);
+    setStyle(deviceDefaults[kind]);
+  };
 
-  const canContinue = step === 1 ? work !== null : style !== null;
+  const canContinue = step === 1 ? style !== null : work !== null;
 
   const onContinue = () => {
     if (step === 1) {
