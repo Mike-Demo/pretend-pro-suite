@@ -100,7 +100,11 @@ export function useStepTransition(): StepTransition {
 
           {phase !== "revealing" && (
             <div className="animate-loader-in relative flex flex-col items-center gap-4 text-primary-foreground">
-              <BrandLockup className="text-primary-foreground" />
+              <span className="flex items-center gap-2">
+                <BrandLockup markOnly className="scale-125" />
+                <span className="text-base font-semibold tracking-tight">PretendPro 3000</span>
+              </span>
+
               <svg viewBox="0 0 36 36" className="animate-arc-rotate h-9 w-9" aria-hidden="true">
                 <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeOpacity="0.25" strokeWidth="3" />
                 <circle
