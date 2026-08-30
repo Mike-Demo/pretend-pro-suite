@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { LayoutGrid, Keyboard, Power, Search } from "lucide-react";
-import { PowerOverlay } from "@/components/pretendpro/PowerOverlay";
+import { LayoutGrid, Keyboard, Search } from "lucide-react";
+import { PowerMenuItems } from "@/components/pretendpro/power/PowerMenuItems";
+import { PowerStatus } from "@/components/pretendpro/power/PowerStatus";
 import { apps } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
@@ -31,7 +32,6 @@ export function AppertureShell({
   children,
 }: ShellProps) {
   const clock = useClock();
-  const [powering, setPowering] = useState(false);
   const [startOpen, setStartOpen] = useState(false);
   const [trayOpen, setTrayOpen] = useState(false);
 
@@ -92,13 +92,7 @@ export function AppertureShell({
 
         {/* Right: tray */}
         <div className="ml-auto flex items-center gap-1">
-          <button
-            onClick={() => setPowering(true)}
-            className="fluent-focus rounded p-1.5 text-foreground/70 hover:bg-foreground/[0.06]"
-            aria-label="Pretend to shut down"
-          >
-            <Power className="h-3.5 w-3.5" strokeWidth={1.75} />
-          </button>
+          <PowerStatus />
           <button
             onClick={onShowShortcuts}
             className="fluent-focus rounded p-1.5 text-foreground/70 hover:bg-foreground/[0.06]"
@@ -145,12 +139,11 @@ export function AppertureShell({
           <p className="mt-1 text-[11px] text-muted-foreground">
             Network: pretending to be online.
           </p>
+          <div className="mt-2 border-t border-border pt-2">
+            <PowerMenuItems onDone={() => setTrayOpen(false)} itemClassName="fluent-focus" />
+          </div>
         </Popover>
       </div>
-
-      {powering && (
-        <PowerOverlay osTheme={osTheme} funMode={funMode} onClose={() => setPowering(false)} />
-      )}
     </div>
   );
 }

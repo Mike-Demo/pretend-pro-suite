@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Apple, Keyboard, Power } from "lucide-react";
-import { PowerOverlay } from "@/components/pretendpro/PowerOverlay";
+import { Apple, Keyboard } from "lucide-react";
+import { PowerMenuItems } from "@/components/pretendpro/power/PowerMenuItems";
+import { PowerStatus } from "@/components/pretendpro/power/PowerStatus";
 import { apps } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
@@ -28,7 +29,6 @@ export function FruitShell({
   children,
 }: ShellProps) {
   const clock = useClock();
-  const [powering, setPowering] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const activeApp = apps.find((a) => a.id === active);
 
@@ -62,22 +62,14 @@ export function FruitShell({
           >
             <Keyboard className="h-3.5 w-3.5" />
           </button>
+          <PowerStatus />
           <TrayGlyphs />
           <span className="font-semibold text-foreground/80">{clock}</span>
         </div>
 
         <Popover open={openMenu === "apple"} onClose={() => setOpenMenu(null)} className="left-2 top-8 w-56">
           <p className="px-2 py-1 text-[11px] text-muted-foreground">{licenseJoke}</p>
-          <button
-            onClick={() => {
-              setOpenMenu(null);
-              setPowering(true);
-            }}
-            className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted"
-          >
-            <Power className="h-3.5 w-3.5" />
-            Pretend to Shut Down…
-          </button>
+          <PowerMenuItems onDone={() => setOpenMenu(null)} />
           <ThemeSwitchLinks osTheme={osTheme} active={active} />
         </Popover>
         <Popover
@@ -148,10 +140,6 @@ export function FruitShell({
           })}
         </div>
       </div>
-
-      {powering && (
-        <PowerOverlay osTheme={osTheme} funMode={funMode} onClose={() => setPowering(false)} />
-      )}
     </div>
   );
 }

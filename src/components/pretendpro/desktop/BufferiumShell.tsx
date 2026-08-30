@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Circle, Keyboard, Power } from "lucide-react";
-import { PowerOverlay } from "@/components/pretendpro/PowerOverlay";
+import { Circle, Keyboard } from "lucide-react";
+import { PowerMenuItems } from "@/components/pretendpro/power/PowerMenuItems";
+import { PowerStatus } from "@/components/pretendpro/power/PowerStatus";
 import { apps } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
@@ -27,7 +28,6 @@ export function BufferiumShell({
   children,
 }: ShellProps) {
   const clock = useClock();
-  const [powering, setPowering] = useState(false);
   const [launcherOpen, setLauncherOpen] = useState(false);
   const [trayOpen, setTrayOpen] = useState(false);
 
@@ -80,13 +80,7 @@ export function BufferiumShell({
         </div>
 
         <div className="ml-auto flex items-center gap-2">
-          <button
-            onClick={() => setPowering(true)}
-            className="rounded-md p-1 text-foreground/60 hover:bg-muted"
-            aria-label="Pretend to shut down"
-          >
-            <Power className="h-3.5 w-3.5" />
-          </button>
+          <PowerStatus />
           <button
             onClick={onShowShortcuts}
             className="rounded-md p-1 text-foreground/60 hover:bg-muted"
@@ -134,16 +128,13 @@ export function BufferiumShell({
             Fun Mode: {funMode ? "On" : "Off"} (A)
           </button>
           <AppearanceToggle />
+          <PowerMenuItems onDone={() => setTrayOpen(false)} />
           <ThemeSwitchLinks osTheme={osTheme} active={active} />
           <p className="mt-2 border-t border-border pt-2 text-[11px] text-muted-foreground">
             {licenseJoke}
           </p>
         </Popover>
       </div>
-
-      {powering && (
-        <PowerOverlay osTheme={osTheme} funMode={funMode} onClose={() => setPowering(false)} />
-      )}
     </div>
   );
 }
