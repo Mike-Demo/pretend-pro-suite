@@ -4,7 +4,7 @@ Add an OS-style picker so the PretendPro app window can be dressed in three paro
 
 - **Fruit (Mac OS X)** — macOS-style chrome: traffic-light buttons (red/yellow/green) top-left, centered title, soft translucent title bar, extra-rounded corners, aqua-tinted accents.
 - **Apperture (Windows)** — Fluent-style chrome: minimize/maximize/close glyphs top-right, left-aligned title, sharper corners, acrylic-ish title bar, blue accent.
-- **ChromiumOS** — ChromeOS-style chrome: simple gray title bar, tab-like strip feel, minimal controls, material-ish shapes.
+- **BufferiumOS** — ChromeOS-style chrome: simple gray title bar, tab-like strip feel, minimal controls, material-ish shapes.
 
 ## What gets built
 
