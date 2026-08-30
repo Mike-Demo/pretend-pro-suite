@@ -7,9 +7,14 @@ const shortcuts: Array<[string, string]> = [
   ["Ctrl / ⌘ + K", "App switcher"],
   ["Ctrl / ⌘ + W", "Close focused window"],
   ["F", "Maximize / restore window"],
+  ["Tab", "Move focus to a window title bar or resize handle"],
+  ["Arrows (title bar)", "Move window on the 16px snap grid"],
+  ["Shift + Arrows (title bar)", "Dock window left / right / top / bottom"],
+  ["Arrows (resize handle)", "Resize window on the snap grid"],
   ["A", "Toggle Fun Mode (easter eggs)"],
   ["?", "Show this cheat sheet"],
   ["Esc", "Close overlays / restore window"],
+
 ];
 
 export function ShortcutsOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
