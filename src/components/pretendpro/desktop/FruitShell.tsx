@@ -148,6 +148,10 @@ export function FruitShell({
           })}
         </div>
       </div>
+
+      {powering && (
+        <PowerOverlay osTheme={osTheme} funMode={funMode} onClose={() => setPowering(false)} />
+      )}
     </div>
   );
 }

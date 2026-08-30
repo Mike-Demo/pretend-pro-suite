@@ -31,6 +31,7 @@ export function AppertureShell({
   children,
 }: ShellProps) {
   const clock = useClock();
+  const [powering, setPowering] = useState(false);
   const [startOpen, setStartOpen] = useState(false);
   const [trayOpen, setTrayOpen] = useState(false);
 
@@ -91,6 +92,13 @@ export function AppertureShell({
 
         {/* Right: tray */}
         <div className="ml-auto flex items-center gap-1">
+          <button
+            onClick={() => setPowering(true)}
+            className="fluent-focus rounded p-1.5 text-foreground/70 hover:bg-foreground/[0.06]"
+            aria-label="Pretend to shut down"
+          >
+            <Power className="h-3.5 w-3.5" strokeWidth={1.75} />
+          </button>
           <button
             onClick={onShowShortcuts}
             className="fluent-focus rounded p-1.5 text-foreground/70 hover:bg-foreground/[0.06]"

@@ -27,6 +27,7 @@ export function BufferiumShell({
   children,
 }: ShellProps) {
   const clock = useClock();
+  const [powering, setPowering] = useState(false);
   const [launcherOpen, setLauncherOpen] = useState(false);
   const [trayOpen, setTrayOpen] = useState(false);
 
