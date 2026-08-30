@@ -10,7 +10,7 @@ const speedLabels: Record<PowerSpeed, string> = {
   instant: "Instant",
 };
 
-/** Adjust how long pretend power sequences take, plus sparkles and sounds. */
+/** Adjust how long pretend power sequences take, plus pretend sounds. */
 export function PowerSettingsDialog({
   open,
   onClose,
@@ -68,16 +68,6 @@ export function PowerSettingsDialog({
 
         <div className="mt-4 space-y-3">
           <label className="flex items-center justify-between gap-3 text-xs">
-            <span className="font-medium text-popover-foreground">
-              Sparkles during power screens
-            </span>
-            <Switch
-              checked={settings.sparkles}
-              onCheckedChange={(sparkles) => onUpdate({ sparkles })}
-              aria-label="Sparkles during power screens"
-            />
-          </label>
-          <label className="flex items-center justify-between gap-3 text-xs">
             <span className="font-medium text-popover-foreground">Pretend sounds</span>
             <Switch
               checked={settings.sounds}
@@ -88,7 +78,7 @@ export function PowerSettingsDialog({
         </div>
 
         <p className="mt-4 border-t border-border pt-3 text-[11px] text-muted-foreground">
-          Reduced motion is always respected: spinners stay still and sparkles switch off, so the
+          Reduced motion is always respected: spinners and the battery gauge stay still, so the
           speed setting only changes how fast the text moves.
         </p>
       </div>
