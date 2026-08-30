@@ -147,6 +147,10 @@ export function AppertureShell({
           </p>
         </Popover>
       </div>
+
+      {powering && (
+        <PowerOverlay osTheme={osTheme} funMode={funMode} onClose={() => setPowering(false)} />
+      )}
     </div>
   );
 }
