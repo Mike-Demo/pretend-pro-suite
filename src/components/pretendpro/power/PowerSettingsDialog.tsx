@@ -109,6 +109,20 @@ export function PowerSettingsDialog({
               aria-label="Pretend sounds"
             />
           </label>
+          <label className="flex items-center justify-between gap-3 text-xs">
+            <span className="font-medium text-popover-foreground">
+              Fill entire device screen
+              <span className="block text-[10px] font-normal text-muted-foreground">
+                Uses the Fullscreen API. Press Esc anytime to leave.
+              </span>
+            </span>
+            <Switch
+              checked={fullscreenActive}
+              onCheckedChange={onToggleFullscreen}
+              disabled={fullscreenBusy}
+              aria-label="Fill entire device screen"
+            />
+          </label>
         </div>
 
         <p className="mt-4 border-t border-border pt-3 text-[11px] text-muted-foreground">
