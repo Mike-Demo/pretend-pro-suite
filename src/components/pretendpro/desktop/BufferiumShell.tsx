@@ -10,7 +10,6 @@ import {
   Popover,
   ThemeSwitchLinks,
   TrayGlyphs,
-  licenseJoke,
   useClock,
   type ShellProps,
 } from "./shell-shared";
@@ -131,7 +130,7 @@ export function BufferiumShell({
           <PowerMenuItems onDone={() => setTrayOpen(false)} />
           <ThemeSwitchLinks osTheme={osTheme} active={active} />
           <p className="mt-2 border-t border-border pt-2 text-[11px] text-muted-foreground">
-            {licenseJoke}
+            {strings.shell.licenseJoke}
           </p>
         </Popover>
       </div>

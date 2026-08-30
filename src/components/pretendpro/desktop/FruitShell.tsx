@@ -9,7 +9,6 @@ import {
   Popover,
   ThemeSwitchLinks,
   TrayGlyphs,
-  licenseJoke,
   useClock,
   type ShellProps,
 } from "./shell-shared";
@@ -72,7 +71,7 @@ export function FruitShell({
           onClose={() => setOpenMenu(null)}
           className="left-2 top-8 w-56"
         >
-          <p className="px-2 py-1 text-[11px] text-muted-foreground">{licenseJoke}</p>
+          <p className="px-2 py-1 text-[11px] text-muted-foreground">{strings.shell.licenseJoke}</p>
           <PowerMenuItems onDone={() => setOpenMenu(null)} />
           <ThemeSwitchLinks osTheme={osTheme} active={active} />
         </Popover>

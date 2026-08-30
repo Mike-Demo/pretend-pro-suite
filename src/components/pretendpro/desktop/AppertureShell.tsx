@@ -10,7 +10,6 @@ import {
   Popover,
   ThemeSwitchLinks,
   TrayGlyphs,
-  licenseJoke,
   useClock,
   type ShellProps,
 } from "./shell-shared";
@@ -138,7 +137,7 @@ export function AppertureShell({
           className="fluent-flyout bottom-14 right-2 w-64 p-4"
         >
           <p className="text-xs font-semibold text-popover-foreground">PretendPro status</p>
-          <p className="mt-1 text-[11px] text-muted-foreground">{licenseJoke}</p>
+          <p className="mt-1 text-[11px] text-muted-foreground">{strings.shell.licenseJoke}</p>
           <p className="mt-1 text-[11px] text-muted-foreground">
             Network: pretending to be online.
           </p>
