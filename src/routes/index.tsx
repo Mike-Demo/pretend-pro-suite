@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { Expand, Minimize, Play, Square, LayoutGrid, Layers } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Expand, X, Play, Square, LayoutGrid, Layers } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   apps,
@@ -54,28 +54,26 @@ function Index() {
   const ActiveScreen = screens[active];
   const activeApp = apps.find((a) => a.id === active);
 
+  useEffect(() => {
+    if (!fullScreen) return undefined;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFullScreen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [fullScreen]);
+
   return (
-    <div
-      className={cn(
-        "relative min-h-screen px-4 py-8 transition-colors duration-700 sm:px-8",
-        fullScreen && "bg-foreground",
-      )}
-    >
+    <div className="relative min-h-screen px-4 py-8 sm:px-8">
       <SparklesLayer enabled={animated} />
 
       <header className="relative z-10 mx-auto max-w-4xl text-center">
-        <p
-          className={cn(
-            "text-xs font-bold uppercase tracking-[0.3em]",
-            fullScreen ? "text-card/70" : "text-muted-foreground",
-          )}
-        >
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">
           Est. whenever you sat down
         </p>
         <h1
           className={cn(
-            "mt-2 text-4xl font-extrabold tracking-tight sm:text-6xl",
-            fullScreen ? "text-card" : "text-foreground",
+            "mt-2 text-4xl font-extrabold tracking-tight text-foreground sm:text-6xl",
             animated && "animate-pretend-wiggle",
           )}
         >
@@ -84,28 +82,17 @@ function Index() {
             3000
           </span>
         </h1>
-        <p
-          className={cn(
-            "mx-auto mt-3 max-w-xl text-sm sm:text-base",
-            fullScreen ? "text-card/80" : "text-muted-foreground",
-          )}
-        >
+        <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
           The world's most advanced productivity suite for getting absolutely nothing done.
         </p>
 
         <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
           <button
-            onClick={() => setFullScreen((v) => !v)}
-            className={cn(
-              "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold shadow-sm transition-colors",
-              fullScreen
-                ? "border-card/40 bg-card/10 text-card hover:bg-card/20"
-                : "border-border bg-card text-foreground hover:bg-muted",
-            )}
-            aria-pressed={fullScreen}
+            onClick={() => setFullScreen(true)}
+            className="flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground shadow-sm transition-colors hover:bg-muted"
           >
-            {fullScreen ? <Minimize className="h-3.5 w-3.5" /> : <Expand className="h-3.5 w-3.5" />}
-            {fullScreen ? "Exit Cinema" : "Full-Screen Mode"}
+            <Expand className="h-3.5 w-3.5" />
+            Full-Screen Window
           </button>
           <button
             onClick={() => setAnimated((v) => !v)}
@@ -126,9 +113,7 @@ function Index() {
               "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold shadow-sm transition-colors",
               pageView
                 ? "border-primary bg-primary text-primary-foreground"
-                : fullScreen
-                  ? "border-card/40 bg-card/10 text-card hover:bg-card/20"
-                  : "border-border bg-card text-foreground hover:bg-muted",
+                : "border-border bg-card text-foreground hover:bg-muted",
             )}
             aria-pressed={pageView}
           >
@@ -169,14 +154,54 @@ function Index() {
         <StuckProgress />
       </main>
 
-      <footer
-        className={cn(
-          "relative z-10 mx-auto mt-10 max-w-4xl text-center text-[11px]",
-          fullScreen ? "text-card/50" : "text-muted-foreground",
-        )}
-      >
+      <footer className="relative z-10 mx-auto mt-10 max-w-4xl text-center text-[11px] text-muted-foreground">
         PretendPro 3000 — no actual work was performed in the making of this suite.
       </footer>
+
+      {fullScreen && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col bg-background"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${activeApp?.name ?? "App"} full screen`}
+        >
+          <div className="flex items-center gap-2 border-b border-border bg-card px-4 py-2">
+            <span className="text-sm font-bold text-card-foreground">
+              {activeApp?.name ?? "PretendPro"} — Full Screen
+            </span>
+            <span className="text-xs text-muted-foreground">(Press Esc to exit)</span>
+            <div className="ml-auto flex items-center gap-1">
+              {apps.map((app) => (
+                <button
+                  key={app.id}
+                  onClick={() => setActive(app.id)}
+                  className={cn(
+                    "rounded-lg px-2.5 py-1 text-[11px] font-semibold transition-colors",
+                    app.id === active
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:bg-muted",
+                  )}
+                  aria-pressed={app.id === active}
+                >
+                  {app.name}
+                </button>
+              ))}
+              <button
+                onClick={() => setFullScreen(false)}
+                className="ml-2 rounded-lg border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted"
+                aria-label="Exit full screen"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+            <div className="mx-auto max-w-5xl">
+              <ActiveScreen animated={animated} />
+            </div>
+          </div>
+        </div>
+      )}
 
       <LicenseAlert />
     </div>
