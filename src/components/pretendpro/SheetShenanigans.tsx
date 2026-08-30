@@ -14,6 +14,8 @@ const chartBars = [
 ];
 
 export function SheetShenanigans({ animated }: { animated: boolean }) {
+  const localized = useStrings().content.formulas;
+  const formulas = localized.length > 0 ? localized : spreadsheetFormulas;
   return (
     <div className="overflow-hidden rounded-2xl border-2 border-border bg-card shadow-lg">
       <div className="flex flex-wrap items-center gap-2 border-b border-border bg-mint px-4 py-2">

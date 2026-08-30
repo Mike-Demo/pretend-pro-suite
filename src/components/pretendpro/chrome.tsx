@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useStrings } from "@/lib/i18n/context";
 import {
   FileText,
   Table2,
