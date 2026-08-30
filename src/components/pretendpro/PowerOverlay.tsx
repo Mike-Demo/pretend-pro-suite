@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import type { OsTheme } from "./WindowFrame";
-import { SparklesLayer } from "./chrome";
+import { BatteryGauge } from "./power/BatteryGauge";
+import type { PowerPhase } from "@/lib/pretendpro/power";
 import { cn } from "@/lib/utils";
 
 function SpokeLoader({ className }: { className?: string }) {
@@ -101,15 +102,15 @@ export type OverlayMode = "running" | "off" | "locked";
 export function PowerOverlay({
   osTheme,
   mode,
+  phase,
   message,
-  sparkles,
   onCancel,
   onWake,
 }: {
   osTheme: OsTheme;
   mode: OverlayMode;
+  phase: PowerPhase;
   message: string;
-  sparkles: boolean;
   onCancel: () => void;
   onWake: () => void;
 }) {
@@ -134,11 +135,10 @@ export function PowerOverlay({
         mode === "off" ? "bg-black text-white" : chromeByTheme[osTheme],
       )}
     >
-      {running && sparkles && <SparklesLayer enabled />}
-
       {running && (
         <>
           <Loader osTheme={osTheme} />
+          <BatteryGauge phase={phase} className="text-current" />
           <p
             aria-live="polite"
             className={cn(

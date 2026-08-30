@@ -14,7 +14,6 @@ import {
   BASE_OFF_BEAT_MS,
   BASE_STEP_MS,
   playPretendChime,
-  prefersReducedMotion,
   returnToasts,
   sequenceFor,
   speedMultipliers,
@@ -215,7 +214,7 @@ export function PowerProvider({
           message={
             sequence?.steps[Math.min(run.index, (sequence.steps.length || 1) - 1)]?.label ?? ""
           }
-          sparkles={settings.sparkles && !prefersReducedMotion()}
+          phase={phase}
           onCancel={cancel}
           onWake={wake}
         />

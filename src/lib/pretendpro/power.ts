@@ -164,7 +164,6 @@ export type PowerSpeed = "slow" | "normal" | "fast" | "instant";
 
 export type PowerSettings = {
   speed: PowerSpeed;
-  sparkles: boolean;
   sounds: boolean;
 };
 
@@ -182,7 +181,7 @@ export const BASE_OFF_BEAT_MS = 900;
 
 const SETTINGS_KEY = "pretendpro:power-settings";
 
-const defaultSettings: PowerSettings = { speed: "normal", sparkles: true, sounds: false };
+const defaultSettings: PowerSettings = { speed: "normal", sounds: false };
 
 function parseSettings(raw: string | null): PowerSettings {
   if (!raw) return defaultSettings;
@@ -192,7 +191,6 @@ function parseSettings(raw: string | null): PowerSettings {
       speed: speedOrder.includes(parsed.speed as PowerSpeed)
         ? (parsed.speed as PowerSpeed)
         : defaultSettings.speed,
-      sparkles: typeof parsed.sparkles === "boolean" ? parsed.sparkles : defaultSettings.sparkles,
       sounds: typeof parsed.sounds === "boolean" ? parsed.sounds : defaultSettings.sounds,
     };
   } catch {
@@ -200,7 +198,7 @@ function parseSettings(raw: string | null): PowerSettings {
   }
 }
 
-/** Persisted power-sequence preferences (speed, sparkles, pretend sounds). */
+/** Persisted power-sequence preferences (speed, pretend sounds). */
 export function usePowerSettings(): {
   settings: PowerSettings;
   update: (patch: Partial<PowerSettings>) => void;
