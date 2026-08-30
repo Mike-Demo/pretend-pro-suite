@@ -15,6 +15,7 @@ import { Route as BufferiumRouteImport } from './routes/bufferium'
 import { Route as FruitRouteImport } from './routes/fruit'
 import { Route as LicensesRouteImport } from './routes/licenses'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as VerifyRouteImport } from './routes/verify'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +47,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VerifyRoute = VerifyRouteImport.update({
+  id: '/verify',
+  path: '/verify',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/verify': typeof VerifyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/verify': typeof VerifyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,14 +79,27 @@ export interface FileRoutesById {
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/verify': typeof VerifyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/apperture' | '/bufferium' | '/fruit' | '/licenses' | '/sitemap.xml'
+    | '/'
+    | '/apperture'
+    | '/bufferium'
+    | '/fruit'
+    | '/licenses'
+    | '/sitemap.xml'
+    | '/verify'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/apperture' | '/bufferium' | '/fruit' | '/licenses' | '/sitemap.xml'
+    | '/'
+    | '/apperture'
+    | '/bufferium'
+    | '/fruit'
+    | '/licenses'
+    | '/sitemap.xml'
+    | '/verify'
   id:
     | '__root__'
     | '/'
@@ -87,6 +108,7 @@ export interface FileRouteTypes {
     | '/fruit'
     | '/licenses'
     | '/sitemap.xml'
+    | '/verify'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -96,6 +118,7 @@ export interface RootRouteChildren {
   FruitRoute: typeof FruitRoute
   LicensesRoute: typeof LicensesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  VerifyRoute: typeof VerifyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -142,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/verify': {
+      id: '/verify'
+      path: '/verify'
+      fullPath: '/verify'
+      preLoaderRoute: typeof VerifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -152,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   FruitRoute: FruitRoute,
   LicensesRoute: LicensesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  VerifyRoute: VerifyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

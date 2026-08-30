@@ -75,6 +75,23 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  beforeLoad: async ({ location }) => {
+    if (isOpenPath(location.pathname)) return;
+    if (typeof window !== "undefined" && window.sessionStorage.getItem(captchaClientFlag) === "1") {
+      return;
+    }
+
+    const gate = await getCaptchaGate();
+    if (!gate.configured) return;
+    if (gate.verified) {
+      if (typeof window !== "undefined") {
+        window.sessionStorage.setItem(captchaClientFlag, "1");
+      }
+      return;
+    }
+
+    throw redirect({ to: "/verify", search: { redirect: location.href } });
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
