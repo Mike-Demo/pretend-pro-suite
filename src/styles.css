@@ -216,6 +216,128 @@
   background-attachment: fixed;
 }
 
+/* =========================================================
+   Fluent 2 design layer (Microsoft FluentUI, MIT).
+   Applied to the app's own web pages ([data-design="fluent"])
+   and to the Apperture (Windows) OS theme only.
+   ========================================================= */
+[data-design="fluent"],
+[data-os-theme="apperture"] {
+  --font-fluent: "Segoe UI Variable Text", "Segoe UI Variable", "Segoe UI", system-ui,
+    -apple-system, "Helvetica Neue", sans-serif;
+
+  /* Fluent brand ramp (communication blue) */
+  --fluent-brand-80: oklch(0.55 0.16 253);
+  --fluent-brand-90: oklch(0.5 0.16 253);
+  --fluent-brand-100: oklch(0.45 0.15 253);
+  --fluent-brand-tint: oklch(0.93 0.04 253);
+
+  /* Fluent neutrals */
+  --fluent-bg-canvas: oklch(0.965 0 0);
+  --fluent-bg-layer: oklch(1 0 0);
+  --fluent-bg-subtle: oklch(0.945 0 0);
+  --fluent-stroke: oklch(0.86 0 0);
+  --fluent-fg-1: oklch(0.24 0 0);
+  --fluent-fg-2: oklch(0.46 0 0);
+
+  /* Fluent shadow ramp */
+  --fluent-shadow-2: 0 1px 2px oklch(0 0 0 / 14%), 0 0 2px oklch(0 0 0 / 12%);
+  --fluent-shadow-8: 0 3.2px 7.2px oklch(0 0 0 / 13%), 0 0.6px 1.8px oklch(0 0 0 / 11%);
+  --fluent-shadow-16: 0 8px 16px oklch(0 0 0 / 14%), 0 0 2px oklch(0 0 0 / 12%);
+
+  /* Fluent corner radii */
+  --radius: 0.375rem;
+
+  /* Map onto the app's semantic tokens */
+  --background: var(--fluent-bg-canvas);
+  --foreground: var(--fluent-fg-1);
+  --card: var(--fluent-bg-layer);
+  --card-foreground: var(--fluent-fg-1);
+  --popover: var(--fluent-bg-layer);
+  --popover-foreground: var(--fluent-fg-1);
+  --primary: var(--fluent-brand-80);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: var(--fluent-bg-subtle);
+  --secondary-foreground: var(--fluent-fg-1);
+  --muted: var(--fluent-bg-subtle);
+  --muted-foreground: var(--fluent-fg-2);
+  --accent: var(--fluent-brand-tint);
+  --accent-foreground: var(--fluent-brand-100);
+  --border: var(--fluent-stroke);
+  --input: var(--fluent-stroke);
+  --ring: var(--fluent-brand-80);
+}
+
+.dark [data-design="fluent"],
+[data-design="fluent"].dark,
+.dark [data-os-theme="apperture"] {
+  --fluent-brand-80: oklch(0.72 0.13 250);
+  --fluent-brand-90: oklch(0.77 0.12 250);
+  --fluent-brand-100: oklch(0.82 0.1 250);
+  --fluent-brand-tint: oklch(0.32 0.06 253);
+  --fluent-bg-canvas: oklch(0.21 0 0);
+  --fluent-bg-layer: oklch(0.26 0 0);
+  --fluent-bg-subtle: oklch(0.3 0 0);
+  --fluent-stroke: oklch(1 0 0 / 12%);
+  --fluent-fg-1: oklch(0.96 0 0);
+  --fluent-fg-2: oklch(0.76 0 0);
+  --fluent-shadow-2: 0 1px 2px oklch(0 0 0 / 40%);
+  --fluent-shadow-8: 0 3.2px 7.2px oklch(0 0 0 / 45%);
+  --fluent-shadow-16: 0 8px 16px oklch(0 0 0 / 55%);
+  --primary-foreground: oklch(0.18 0.02 250);
+}
+
+[data-design="fluent"] {
+  font-family: var(--font-fluent);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Apperture wallpaper: Windows 11 style blue bloom */
+[data-os-theme="apperture"] {
+  --os-radius: 0.5rem;
+  --os-titlebar: oklch(0.96 0.008 250 / 82%);
+  --os-chrome: oklch(0.96 0.006 250 / 88%);
+  --os-wallpaper: radial-gradient(ellipse at 50% 45%, oklch(0.72 0.16 250 / 85%), transparent 58%),
+    radial-gradient(ellipse at 50% 60%, oklch(0.55 0.18 262 / 75%), transparent 62%),
+    linear-gradient(180deg, oklch(0.28 0.11 258), oklch(0.2 0.09 262));
+  font-family: var(--font-fluent);
+}
+
+.dark [data-os-theme="apperture"] {
+  --os-titlebar: oklch(0.27 0.01 250 / 85%);
+  --os-chrome: oklch(0.24 0.01 250 / 9%);
+  --os-chrome: oklch(0.24 0.01 250 / 90%);
+}
+
+@utility fluent-surface {
+  background-color: var(--fluent-bg-layer);
+  border: 1px solid var(--fluent-stroke);
+  border-radius: 0.5rem;
+  box-shadow: var(--fluent-shadow-2);
+}
+
+@utility fluent-flyout {
+  background-color: var(--fluent-bg-layer);
+  border: 1px solid var(--fluent-stroke);
+  border-radius: 0.5rem;
+  box-shadow: var(--fluent-shadow-16);
+}
+
+@utility fluent-elevated {
+  box-shadow: var(--fluent-shadow-16);
+}
+
+@utility fluent-focus {
+  outline: none;
+  &:focus-visible {
+    outline: 2px solid var(--fluent-fg-1);
+    outline-offset: 1px;
+    border-radius: 0.25rem;
+  }
+}
+
+
 
 /* PretendPro playful keyframes */
 @keyframes pretend-bounce {
