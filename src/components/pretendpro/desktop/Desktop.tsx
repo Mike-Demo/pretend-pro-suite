@@ -59,7 +59,8 @@ export function Desktop({
   const cycle = useCallback((delta: number) => {
     setActive((current) => {
       const i = apps.findIndex((a) => a.id === current);
-      return apps[(i + delta + apps.length) % apps.length].id;
+      const next = apps[(i + delta + apps.length) % apps.length];
+      return next ? next.id : current;
     });
   }, []);
 
@@ -89,7 +90,8 @@ export function Desktop({
       if (isTyping(e.target) || mod || e.altKey) return;
 
       if (e.key >= "1" && e.key <= "4") {
-        setActive(apps[Number(e.key) - 1].id);
+        const target = apps[Number(e.key) - 1];
+        if (target) setActive(target.id);
       } else if (e.key.toLowerCase() === "f") {
         setMaximized((v) => !v);
       } else if (e.key.toLowerCase() === "a") {
