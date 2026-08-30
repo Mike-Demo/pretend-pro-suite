@@ -45,24 +45,29 @@ function FruitBar({ appName }: { appName: string }) {
 }
 
 function AppertureBar({ appName }: { appName: string }) {
+  // Fluent 2 caption buttons: 46x32 hit targets, thin glyphs, red close hover.
   const btn =
-    "flex h-7 w-9 items-center justify-center text-foreground/70 transition-colors hover:bg-muted";
+    "fluent-focus flex h-8 w-[46px] items-center justify-center text-foreground/80 transition-colors hover:bg-foreground/10 active:bg-foreground/[0.06]";
   return (
-    <div className="flex items-center rounded-t-[var(--os-radius)] border-b border-border/60 bg-[var(--os-titlebar)] backdrop-blur">
-      <span className="px-3 text-xs font-semibold text-foreground/80">{appName}</span>
+    <div className="flex items-center rounded-t-[var(--os-radius)] border-b border-border/70 bg-[var(--os-titlebar)] backdrop-blur-xl">
+      <span className="px-3 text-xs font-semibold text-foreground/90">{appName}</span>
       <div className="ml-auto flex">
         <button onClick={() => fakeAction("minimize")} aria-label="Minimize (pretend)" className={btn}>
-          <Minus className="h-3.5 w-3.5" />
+          <span aria-hidden="true" className="text-[10px] leading-none">
+            &#xE921;&#xFE0E;
+            <span className="sr-only">minimize</span>
+          </span>
+          <Minus className="h-3 w-3" strokeWidth={1.25} />
         </button>
         <button onClick={() => fakeAction("maximize")} aria-label="Maximize (pretend)" className={btn}>
-          <Square className="h-3 w-3" />
+          <Square className="h-2.5 w-2.5" strokeWidth={1.25} />
         </button>
         <button
           onClick={() => fakeAction("close")}
           aria-label="Close (pretend)"
-          className={cn(btn, "rounded-tr-[var(--os-radius)] hover:bg-destructive hover:text-destructive-foreground")}
+          className={cn(btn, "rounded-tr-[var(--os-radius)] hover:bg-[oklch(0.55_0.22_25)] hover:text-white")}
         >
-          <X className="h-3.5 w-3.5" />
+          <X className="h-3 w-3" strokeWidth={1.25} />
         </button>
       </div>
     </div>
