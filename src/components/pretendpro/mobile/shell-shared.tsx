@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
-import { MoreVertical } from "lucide-react";
+import { MoreVertical, Power } from "lucide-react";
+import { PowerOverlay } from "@/components/pretendpro/PowerOverlay";
 import type { MobileOsTheme } from "@/components/pretendpro/WindowFrame";
 import type { AppId } from "@/components/pretendpro/chrome";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";

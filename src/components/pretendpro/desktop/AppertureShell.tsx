@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { LayoutGrid, Keyboard, Search } from "lucide-react";
+import { LayoutGrid, Keyboard, Power, Search } from "lucide-react";
+import { PowerOverlay } from "@/components/pretendpro/PowerOverlay";
 import { apps } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
