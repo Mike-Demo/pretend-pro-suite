@@ -3,6 +3,7 @@ import {
   Outlet,
   Link,
   createRootRouteWithContext,
+  redirect,
   useRouter,
   HeadContent,
   Scripts,
@@ -11,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 
 import { Toaster } from "@/components/ui/sonner";
 import { AppearanceEffect } from "@/components/pretendpro/AppearanceToggle";
+import { getCaptchaGate } from "@/lib/captcha/verify.functions";
+import { captchaClientFlag, isOpenPath } from "@/lib/captcha/session";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
