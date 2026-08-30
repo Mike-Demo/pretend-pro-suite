@@ -78,8 +78,8 @@ export function PowerSettingsDialog({
         </div>
 
         <p className="mt-4 border-t border-border pt-3 text-[11px] text-muted-foreground">
-          Reduced motion is always respected: spinners and the battery gauge stay still, so the speed
-          setting only changes how fast the text moves.
+          Reduced motion is always respected: spinners and the battery gauge stay still, so the
+          speed setting only changes how fast the text moves.
         </p>
       </div>
     </div>

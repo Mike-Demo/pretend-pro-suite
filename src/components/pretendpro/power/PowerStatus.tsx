@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { phaseLabels, type PowerPhase } from "@/lib/pretendpro/power";
 import { usePower } from "./PowerProvider";
+import { BatteryGauge } from "./BatteryGauge";
 
 const dotByPhase: Record<PowerPhase, string> = {
   idle: "bg-emerald-500",
@@ -33,6 +34,7 @@ export function PowerStatus({ className }: { className?: string }) {
       <span className="hidden sm:inline" aria-live="polite">
         {phaseLabels[phase]}
       </span>
+      <BatteryGauge phase={phase} showLabel={false} className="text-foreground/70" />
       <span className="sr-only" aria-live="polite">
         Pretend power state: {phaseLabels[phase]}
       </span>
