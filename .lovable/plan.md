@@ -34,6 +34,8 @@ Add an entry to the licenses page crediting the transition concept: "Page transi
 
 - New `src/components/pretendpro/StepTransition.tsx`: a client component driven by a small state machine (`idle | covering | holding | revealing`) exposing an imperative `run(action)` helper that awaits the cover phase, runs the caller's callback (setStep or navigate), then reveals.
 - New keyframes/utilities in `src/styles.css` (`pretend-panel-cover`, `pretend-panel-reveal`, staggered `--panel-delay` custom property, loader arc reuse of the existing `pretend-arc-rotate`/`pretend-arc-dash` keyframes) plus a `prefers-reduced-motion` branch.
-- `Onboarding.tsx`: `onContinue` routes through the transition instead of calling `setStep`/`navigate` directly. Fullscreen request stays inside the click handler (user-gesture requirement) and fires before the transition starts. Existing route preloading keeps warming the edition chunk so the loader hold is usually short.
-- Loader status strings added to `src/lib/i18n/strings.ts` under `onboarding` for all six locales (Klingon included).
-- No routing, backend, or data changes.
+- `Onboarding.tsx`: step state widens to `1 | 2 | 3`; `onContinue` routes through the transition instead of calling `setStep`/`navigate` directly. Fullscreen request stays inside the click handler (user-gesture requirement) and fires before the transition starts. Existing route preloading keeps warming the edition chunk so the loader hold is usually short.
+- New `src/components/pretendpro/VerifyStep.tsx` renders the hCaptcha widget in-card, reusing the existing `getCaptchaGate` / `verifyCaptcha` server functions and the same httpOnly cookie session; when `configured` is false or the gate reports `verified`, the step is skipped. No changes to `src/lib/captcha/*` server logic or cookie handling.
+- Loader status strings plus step-3 heading/subtitle/error strings added to `src/lib/i18n/strings.ts` under `onboarding` for all six locales (Klingon included).
+- No routing, backend, or data-model changes.
+
