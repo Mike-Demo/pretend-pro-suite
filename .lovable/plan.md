@@ -4,9 +4,9 @@
 
 On the onboarding screen, each option card (OS editions + work types) shows its Transhumans illustration in black & white by default and switches to the colored version when the card is selected.
 
-## Waiting on you
+## Coloring approach
 
-You chose to upload the colored artwork yourself. Please upload the 8 colored illustrations (any common format: PNG, WebP, or SVG), ideally named to match the current set:
+I'll create the colored variants with AI, using `edit_image` on each existing black & white illustration so the character, pose, and line work stay identical and only color is added (soft pastel palette matching the site). The 8 illustrations to recolor:
 
 - pondering
 - coffee
@@ -17,7 +17,7 @@ You chose to upload the colored artwork yourself. Please upload the 8 colored il
 - waiting
 - feliz
 
-If names differ, I'll map them by similarity.
+Each recolored result is saved next to its source as a `-color` variant.
 
 ## What gets built (once the art is uploaded)
 
