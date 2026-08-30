@@ -4,6 +4,7 @@ import { ArrowLeft, Check, Maximize } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
+import { BrandLockup } from "@/components/pretendpro/BrandLockup";
 import { LocalePicker } from "@/components/pretendpro/LocalePicker";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
