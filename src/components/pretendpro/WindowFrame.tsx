@@ -99,7 +99,12 @@ export function WindowFrame({
   return (
     <div
       data-os-theme={osTheme}
-      className="overflow-hidden rounded-[var(--os-radius)] border-2 border-border bg-card shadow-xl"
+      className={cn(
+        "overflow-hidden rounded-[var(--os-radius)] bg-card",
+        osTheme === "apperture"
+          ? "fluent-elevated border border-border"
+          : "border-2 border-border shadow-xl",
+      )}
     >
       {osTheme === "fruit" && <FruitBar appName={appName} />}
       {osTheme === "apperture" && <AppertureBar appName={appName} />}
