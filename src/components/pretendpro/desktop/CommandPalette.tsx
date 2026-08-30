@@ -78,7 +78,7 @@ export function CommandPalette({
                   onClick={() => commit(app.id)}
                   onMouseEnter={() => {
                     setIndex(i);
-                    preloadAppScreen(id);
+                    preloadAppScreen(app.id);
                   }}
                   className={cn(
                     "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm",
