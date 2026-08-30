@@ -38,10 +38,13 @@ export function SocialFooter({ className }: { className?: string }) {
       )}
     >
       <span className="w-full text-center sm:w-auto">Made by MikeDemo</span>
+      <span className="w-full text-center sm:w-auto" aria-label={`Copyright ${new Date().getFullYear()} MikeDemo`}>
+        © {new Date().getFullYear()} MikeDemo
+      </span>
       <a
         href={linkedInUrl}
         target="_blank"
-        rel="noreferrer noopener"
+        rel="noopener noreferrer"
         aria-label="MikeDemo on LinkedIn (opens in new tab)"
         className="fluent-focus inline-flex items-center gap-1.5 rounded px-1.5 py-1 font-medium text-foreground/80 hover:text-foreground"
       >
@@ -51,8 +54,8 @@ export function SocialFooter({ className }: { className?: string }) {
       <a
         href={xUrl}
         target="_blank"
-        rel="noreferrer noopener"
-        aria-label="Mike Demo on X (opens in new tab)"
+        rel="noopener noreferrer"
+        aria-label="MikeDemo on X (opens in new tab)"
         className="fluent-focus inline-flex items-center gap-1.5 rounded px-1.5 py-1 font-medium text-foreground/80 hover:text-foreground"
       >
         <XIcon />
