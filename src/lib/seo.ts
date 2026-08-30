@@ -1,6 +1,12 @@
 export const siteUrl = "https://pretend.pro";
 export const siteName = "PretendPro 3000";
-export const homeOgImage = `${siteUrl}/og/home.png`;
+export const socialOgImage = `${siteUrl}/og/social.png`;
+export const socialOgImageWidth = 1200;
+export const socialOgImageHeight = 630;
+export const socialOgImageAlt =
+  "PretendPro Office Suite — colorful document icons beside the PretendPro logo";
+/** @deprecated use socialOgImage */
+export const homeOgImage = socialOgImage;
 
 export type WebPageSchemaInput = {
   name: string;

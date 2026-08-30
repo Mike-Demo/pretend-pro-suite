@@ -1,5 +1,13 @@
 import type { OsTheme } from "@/components/pretendpro/WindowFrame";
-import { breadcrumbJsonLd, homeOgImage, siteUrl, webPageJsonLd } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  socialOgImage,
+  socialOgImageAlt,
+  socialOgImageHeight,
+  socialOgImageWidth,
+  siteUrl,
+  webPageJsonLd,
+} from "@/lib/seo";
 import { locales, localeMeta, type LocaleId } from "./locales";
 import { stringsFor } from "./strings";
 
@@ -41,10 +49,14 @@ function socialMeta(title: string, description: string, url: string, image: stri
     { property: "og:type", content: "website" },
     { property: "og:url", content: url },
     { property: "og:image", content: image },
+    { property: "og:image:width", content: String(socialOgImageWidth) },
+    { property: "og:image:height", content: String(socialOgImageHeight) },
+    { property: "og:image:alt", content: socialOgImageAlt },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
     { name: "twitter:image", content: image },
+    { name: "twitter:image:alt", content: socialOgImageAlt },
   ];
 }
 
@@ -53,7 +65,7 @@ export function localeHomeHead(locale: LocaleId) {
   const url = pageUrl(locale, "");
   const title = `${t.meta.homeTitle} · ${localeMeta(locale).label}`;
   return {
-    meta: socialMeta(title, t.meta.homeDescription, url, homeOgImage),
+    meta: socialMeta(title, t.meta.homeDescription, url, socialOgImage),
     links: [{ rel: "canonical", href: url }, ...alternateLinks("")],
     scripts: [
       {
@@ -73,7 +85,7 @@ export function localeLicensesHead(locale: LocaleId) {
   const t = stringsFor(locale);
   const url = pageUrl(locale, "licenses");
   return {
-    meta: socialMeta(t.meta.licensesTitle, t.meta.licensesDescription, url, homeOgImage),
+    meta: socialMeta(t.meta.licensesTitle, t.meta.licensesDescription, url, socialOgImage),
     links: [{ rel: "canonical", href: url }, ...alternateLinks("licenses")],
     scripts: [
       {
@@ -103,9 +115,8 @@ export function localeEditionHead(locale: LocaleId, theme: OsTheme) {
   const url = pageUrl(locale, slug);
   const title = `${t.meta.editionTitle[theme]} · ${localeMeta(locale).label}`;
   const description = t.meta.editionDescription[theme];
-  const image = `${siteUrl}/og/${slug}.png`;
   return {
-    meta: socialMeta(title, description, url, image),
+    meta: socialMeta(title, description, url, socialOgImage),
     links: [{ rel: "canonical", href: url }, ...alternateLinks(slug)],
     scripts: [
       {
@@ -129,7 +140,7 @@ export function localePrivacyHead(locale: LocaleId) {
   const t = stringsFor(locale);
   const url = pageUrl(locale, "privacy");
   return {
-    meta: socialMeta(t.meta.privacyTitle, t.meta.privacyDescription, url, homeOgImage),
+    meta: socialMeta(t.meta.privacyTitle, t.meta.privacyDescription, url, socialOgImage),
     links: [{ rel: "canonical", href: url }, ...alternateLinks("privacy")],
     scripts: [
       {
@@ -156,7 +167,7 @@ export function localeTermsHead(locale: LocaleId) {
   const description =
     "Read the PretendPro 3000 terms of service, powered by Termageddon and kept current automatically.";
   return {
-    meta: socialMeta(title, description, url, homeOgImage),
+    meta: socialMeta(title, description, url, socialOgImage),
     links: [{ rel: "canonical", href: url }, ...alternateLinks("terms")],
     scripts: [
       {

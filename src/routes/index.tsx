@@ -5,7 +5,13 @@ import { I18nProvider } from "@/lib/i18n/context";
 import { defaultLocale, detectLocale } from "@/lib/i18n/locales";
 import { alternateLinks } from "@/lib/i18n/head";
 import { illustrations } from "@/components/pretendpro/Illustration";
-import { homeOgImage, webPageJsonLd } from "@/lib/seo";
+import {
+  socialOgImage,
+  socialOgImageAlt,
+  socialOgImageHeight,
+  socialOgImageWidth,
+  webPageJsonLd,
+} from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,7 +30,10 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pretend.pro/" },
-      { property: "og:image", content: homeOgImage },
+      { property: "og:image", content: socialOgImage },
+      { property: "og:image:width", content: String(socialOgImageWidth) },
+      { property: "og:image:height", content: String(socialOgImageHeight) },
+      { property: "og:image:alt", content: socialOgImageAlt },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "PretendPro 3000 — Set Up Your Fake Workday" },
       {
@@ -32,7 +41,8 @@ export const Route = createFileRoute("/")({
         content:
           "A wholesome parody office suite onboarding: choose your pretend work and your pretend operating system.",
       },
-      { name: "twitter:image", content: homeOgImage },
+      { name: "twitter:image", content: socialOgImage },
+      { name: "twitter:image:alt", content: socialOgImageAlt },
     ],
     links: [
       { rel: "canonical", href: "https://pretend.pro/" },
