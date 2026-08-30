@@ -1,3 +1,4 @@
+import klingonFlagAsset from "@/assets/klingon.svg.asset.json";
 import type { OsTheme } from "@/components/pretendpro/WindowFrame";
 
 export const localeIds = ["us-en", "ca-en", "uk-en", "au-en", "at-en", "tlh"] as const;
@@ -10,6 +11,8 @@ export interface LocaleMeta {
   id: LocaleId;
   /** Emoji flag (or emblem) shown in the picker. */
   flag: string;
+  /** Optional SVG/PNG flag image URL used instead of the emoji. */
+  flagImg?: string;
   /** Native-ish label shown next to the flag. */
   label: string;
   /** Value for the html lang attribute and hreflang. */
@@ -22,7 +25,7 @@ export const locales: readonly LocaleMeta[] = [
   { id: "uk-en", flag: "🇬🇧", label: "UK English", htmlLang: "en-GB" },
   { id: "au-en", flag: "🇦🇺", label: "Australian English", htmlLang: "en-AU" },
   { id: "at-en", flag: "🇦🇹", label: "Austrian English", htmlLang: "en-AT" },
-  { id: "tlh", flag: "🛡️", label: "tlhIngan Hol (Klingon)", htmlLang: "tlh" },
+  { id: "tlh", flag: "🛡️", flagImg: klingonFlagAsset.url, label: "tlhIngan Hol (Klingon)", htmlLang: "tlh" },
 ];
 
 export function isLocaleId(value: unknown): value is LocaleId {
