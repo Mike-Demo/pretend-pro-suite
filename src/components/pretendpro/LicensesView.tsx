@@ -173,7 +173,7 @@ export function LicensesView() {
 
         <p className="mt-10 text-[11px] text-muted-foreground">{t.licenses.disclaimer}</p>
 
-        <SocialFooter className="mt-6" />
+        <SocialFooter className="mt-6" locale={locale} />
       </div>
     </div>
   );

@@ -1,10 +1,12 @@
+import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
+import type { LocaleId } from "@/lib/i18n/locales";
 
 const linkedInUrl = "https://www.linkedin.com/in/mikedemopoulos";
 const xUrl = "https://x.com/mike_demo";
 const threadsUrl = "https://www.threads.com/@mdemop";
 
-export function SocialFooter({ className }: { className?: string }) {
+export function SocialFooter({ className, locale }: { className?: string; locale?: LocaleId }) {
   const year = new Date().getFullYear();
 
   return (
@@ -18,7 +20,18 @@ export function SocialFooter({ className }: { className?: string }) {
         <span>Made by MikeDemo</span>
         <span aria-label={`Copyright ${year}`}>© {year}</span>
       </div>
-      <nav aria-label="Social links" className="flex flex-wrap items-center justify-center gap-4">
+      <nav
+        aria-label="Legal and social links"
+        className="flex flex-wrap items-center justify-center gap-4"
+      >
+        <Link
+          to="/$locale/privacy"
+          params={{ locale: locale ?? "us-en" }}
+          className="fluent-focus inline-flex items-center gap-1.5 rounded px-1.5 py-1 font-medium text-foreground/80 hover:text-foreground"
+        >
+          <i className="fa-solid fa-shield-halved h-4 w-4 text-[14px]" aria-hidden="true" />
+          Privacy
+        </Link>
         <a
           href={linkedInUrl}
           target="_blank"

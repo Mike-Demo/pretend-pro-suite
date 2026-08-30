@@ -17,6 +17,7 @@ import { Route as BufferiumRouteImport } from './routes/bufferium'
 import { Route as FosRouteImport } from './routes/fos'
 import { Route as FruitRouteImport } from './routes/fruit'
 import { Route as LicensesRouteImport } from './routes/licenses'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
@@ -26,6 +27,7 @@ import { Route as LocaleBufferiumRouteImport } from './routes/$locale/bufferium'
 import { Route as LocaleFosRouteImport } from './routes/$locale/fos'
 import { Route as LocaleFruitRouteImport } from './routes/$locale/fruit'
 import { Route as LocaleLicensesRouteImport } from './routes/$locale/licenses'
+import { Route as LocalePrivacyRouteImport } from './routes/$locale/privacy'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -65,6 +67,11 @@ const FruitRoute = FruitRouteImport.update({
 const LicensesRoute = LicensesRouteImport.update({
   id: '/licenses',
   path: '/licenses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -112,6 +119,11 @@ const LocaleLicensesRoute = LocaleLicensesRouteImport.update({
   path: '/licenses',
   getParentRoute: () => LocaleRouteRoute,
 } as any)
+const LocalePrivacyRoute = LocalePrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -122,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
+  '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/verify': typeof VerifyRoute
   '/$locale/android': typeof LocaleAndroidRoute
@@ -130,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/$locale/fos': typeof LocaleFosRoute
   '/$locale/fruit': typeof LocaleFruitRoute
   '/$locale/licenses': typeof LocaleLicensesRoute
+  '/$locale/privacy': typeof LocalePrivacyRoute
   '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRoutesByTo {
@@ -140,6 +154,7 @@ export interface FileRoutesByTo {
   '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
+  '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/verify': typeof VerifyRoute
   '/$locale/android': typeof LocaleAndroidRoute
@@ -148,6 +163,7 @@ export interface FileRoutesByTo {
   '/$locale/fos': typeof LocaleFosRoute
   '/$locale/fruit': typeof LocaleFruitRoute
   '/$locale/licenses': typeof LocaleLicensesRoute
+  '/$locale/privacy': typeof LocalePrivacyRoute
   '/$locale': typeof LocaleIndexRoute
 }
 export interface FileRoutesById {
@@ -160,6 +176,7 @@ export interface FileRoutesById {
   '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
+  '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/verify': typeof VerifyRoute
   '/$locale/android': typeof LocaleAndroidRoute
@@ -168,6 +185,7 @@ export interface FileRoutesById {
   '/$locale/fos': typeof LocaleFosRoute
   '/$locale/fruit': typeof LocaleFruitRoute
   '/$locale/licenses': typeof LocaleLicensesRoute
+  '/$locale/privacy': typeof LocalePrivacyRoute
   '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRouteTypes {
@@ -181,6 +199,7 @@ export interface FileRouteTypes {
     | '/fos'
     | '/fruit'
     | '/licenses'
+    | '/privacy'
     | '/sitemap.xml'
     | '/verify'
     | '/$locale/android'
@@ -189,6 +208,7 @@ export interface FileRouteTypes {
     | '/$locale/fos'
     | '/$locale/fruit'
     | '/$locale/licenses'
+    | '/$locale/privacy'
     | '/$locale/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -199,6 +219,7 @@ export interface FileRouteTypes {
     | '/fos'
     | '/fruit'
     | '/licenses'
+    | '/privacy'
     | '/sitemap.xml'
     | '/verify'
     | '/$locale/android'
@@ -207,6 +228,7 @@ export interface FileRouteTypes {
     | '/$locale/fos'
     | '/$locale/fruit'
     | '/$locale/licenses'
+    | '/$locale/privacy'
     | '/$locale'
   id:
     | '__root__'
@@ -218,6 +240,7 @@ export interface FileRouteTypes {
     | '/fos'
     | '/fruit'
     | '/licenses'
+    | '/privacy'
     | '/sitemap.xml'
     | '/verify'
     | '/$locale/android'
@@ -226,6 +249,7 @@ export interface FileRouteTypes {
     | '/$locale/fos'
     | '/$locale/fruit'
     | '/$locale/licenses'
+    | '/$locale/privacy'
     | '/$locale/'
   fileRoutesById: FileRoutesById
 }
@@ -238,6 +262,7 @@ export interface RootRouteChildren {
   FosRoute: typeof FosRoute
   FruitRoute: typeof FruitRoute
   LicensesRoute: typeof LicensesRoute
+  PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VerifyRoute: typeof VerifyRoute
 }
@@ -298,6 +323,13 @@ declare module '@tanstack/react-router' {
       path: '/licenses'
       fullPath: '/licenses'
       preLoaderRoute: typeof LicensesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -363,6 +395,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleLicensesRouteImport
       parentRoute: typeof LocaleRouteRoute
     }
+    '/$locale/privacy': {
+      id: '/$locale/privacy'
+      path: '/privacy'
+      fullPath: '/$locale/privacy'
+      preLoaderRoute: typeof LocalePrivacyRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
   }
 }
 
@@ -373,6 +412,7 @@ interface LocaleRouteRouteChildren {
   LocaleFosRoute: typeof LocaleFosRoute
   LocaleFruitRoute: typeof LocaleFruitRoute
   LocaleLicensesRoute: typeof LocaleLicensesRoute
+  LocalePrivacyRoute: typeof LocalePrivacyRoute
   LocaleIndexRoute: typeof LocaleIndexRoute
 }
 
@@ -383,6 +423,7 @@ const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
   LocaleFosRoute: LocaleFosRoute,
   LocaleFruitRoute: LocaleFruitRoute,
   LocaleLicensesRoute: LocaleLicensesRoute,
+  LocalePrivacyRoute: LocalePrivacyRoute,
   LocaleIndexRoute: LocaleIndexRoute,
 }
 
@@ -399,6 +440,7 @@ const rootRouteChildren: RootRouteChildren = {
   FosRoute: FosRoute,
   FruitRoute: FruitRoute,
   LicensesRoute: LicensesRoute,
+  PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VerifyRoute: VerifyRoute,
 }

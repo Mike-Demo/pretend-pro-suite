@@ -4,7 +4,7 @@ import { locales, localeMeta, type LocaleId } from "./locales";
 import { stringsFor } from "./strings";
 
 /** Page slug within a locale folder: "" is the onboarding page. */
-export type PageSlug = "" | "fruit" | "apperture" | "bufferium" | "android" | "fos" | "licenses";
+export type PageSlug = "" | "fruit" | "apperture" | "bufferium" | "android" | "fos" | "licenses" | "privacy";
 
 function pageUrl(locale: LocaleId, page: PageSlug): string {
   return `${siteUrl}/${locale}${page ? `/${page}` : ""}`;
@@ -111,6 +111,30 @@ export function localeEditionHead(locale: LocaleId, theme: OsTheme) {
       {
         type: "application/ld+json",
         children: breadcrumbJsonLd(t.meta.editionTitle[theme], url),
+      },
+    ],
+  };
+}
+
+export function localePrivacyHead(locale: LocaleId) {
+  const t = stringsFor(locale);
+  const url = pageUrl(locale, "privacy");
+  return {
+    meta: socialMeta(t.meta.privacyTitle, t.meta.privacyDescription, url, homeOgImage),
+    links: [{ rel: "canonical", href: url }, ...alternateLinks("privacy")],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: webPageJsonLd({
+          name: t.meta.privacyTitle,
+          url,
+          description: t.meta.privacyDescription,
+          inLanguage: localeMeta(locale).htmlLang,
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: breadcrumbJsonLd(t.meta.privacyTitle, url),
       },
     ],
   };
