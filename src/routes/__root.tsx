@@ -82,10 +82,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       return;
     }
 
-    // Imported lazily so the shared server-function client (seroval, ~38 KiB)
-    // never enters the eager graph of routes that never call the gate.
+    // Static import: the shared server-function client chunk is already pulled in
+    // by the Start entry itself, so deferring this only adds a round trip.
     const { getCaptchaGate } = await import("@/lib/captcha/verify.functions");
     const gate = await getCaptchaGate();
+
 
     if (!gate.configured) return;
     if (gate.verified) {
