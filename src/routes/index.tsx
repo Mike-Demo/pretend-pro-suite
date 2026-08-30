@@ -228,7 +228,9 @@ function Index() {
           </div>
           <div className="flex-1 overflow-y-auto p-4 sm:p-6">
             <div className="mx-auto max-w-5xl">
-              <ActiveScreen animated={animated} />
+              <WindowFrame osTheme={osTheme} appName={activeApp?.name ?? "PretendPro"}>
+                <ActiveScreen animated={animated} />
+              </WindowFrame>
             </div>
           </div>
         </div>
