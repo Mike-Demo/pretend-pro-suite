@@ -14,6 +14,7 @@ import { Route as AppertureRouteImport } from './routes/apperture'
 import { Route as BufferiumRouteImport } from './routes/bufferium'
 import { Route as FruitRouteImport } from './routes/fruit'
 import { Route as LicensesRouteImport } from './routes/licenses'
+import { Route as OpenverseSetupRouteImport } from './routes/openverse-setup'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 
 const IndexRoute = IndexRouteImport.update({
@@ -41,6 +42,11 @@ const LicensesRoute = LicensesRouteImport.update({
   path: '/licenses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OpenverseSetupRoute = OpenverseSetupRouteImport.update({
+  id: '/openverse-setup',
+  path: '/openverse-setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/bufferium': typeof BufferiumRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
+  '/openverse-setup': typeof OpenverseSetupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/bufferium': typeof BufferiumRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
+  '/openverse-setup': typeof OpenverseSetupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
@@ -70,15 +78,28 @@ export interface FileRoutesById {
   '/bufferium': typeof BufferiumRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
+  '/openverse-setup': typeof OpenverseSetupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/apperture' | '/bufferium' | '/fruit' | '/licenses' | '/sitemap.xml'
+    | '/'
+    | '/apperture'
+    | '/bufferium'
+    | '/fruit'
+    | '/licenses'
+    | '/openverse-setup'
+    | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/apperture' | '/bufferium' | '/fruit' | '/licenses' | '/sitemap.xml'
+    | '/'
+    | '/apperture'
+    | '/bufferium'
+    | '/fruit'
+    | '/licenses'
+    | '/openverse-setup'
+    | '/sitemap.xml'
   id:
     | '__root__'
     | '/'
@@ -86,6 +107,7 @@ export interface FileRouteTypes {
     | '/bufferium'
     | '/fruit'
     | '/licenses'
+    | '/openverse-setup'
     | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
@@ -95,6 +117,7 @@ export interface RootRouteChildren {
   BufferiumRoute: typeof BufferiumRoute
   FruitRoute: typeof FruitRoute
   LicensesRoute: typeof LicensesRoute
+  OpenverseSetupRoute: typeof OpenverseSetupRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -135,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LicensesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/openverse-setup': {
+      id: '/openverse-setup'
+      path: '/openverse-setup'
+      fullPath: '/openverse-setup'
+      preLoaderRoute: typeof OpenverseSetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -151,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   BufferiumRoute: BufferiumRoute,
   FruitRoute: FruitRoute,
   LicensesRoute: LicensesRoute,
+  OpenverseSetupRoute: OpenverseSetupRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
