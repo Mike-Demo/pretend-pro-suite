@@ -59,7 +59,9 @@ export function usePhone(storageKey: string, initialApp?: AppId): PhoneManager {
     if (parsed && parsed.length > 0) {
       setTasks(parsed);
       setRestored(true);
-      setView("app");
+      // A restored session lands on the launcher, as it did before.
+      setView("home");
+
     }
     setReady(true);
   }, [storageKey]);
