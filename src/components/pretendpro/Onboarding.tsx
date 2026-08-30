@@ -103,7 +103,10 @@ function OptionCard({
       >
         {selected && <Check className="h-3 w-3" />}
       </span>
-      <Illustration name={art} color={selected} priority={priority} className="h-28 w-auto" />
+      {/* Keyed by selection so the pop animation replays each time the card is selected. */}
+      <span key={String(selected)} className={cn(selected && "animate-art-pop")}>
+        <Illustration name={art} color={selected} priority={priority} className="h-28 w-auto" />
+      </span>
       <span className="mt-3 text-sm font-semibold text-foreground">{title}</span>
       <span className="mt-1 text-xs text-muted-foreground">{description}</span>
     </button>

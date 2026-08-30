@@ -504,7 +504,7 @@
   .animate-pretend-wiggle,
   .animate-pretend-caret,
   .animate-icon-pop,
-  .animate-locale-swap {
+  .animate-art-pop {
     animation: none;
   }
 }
