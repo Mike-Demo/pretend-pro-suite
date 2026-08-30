@@ -1,5 +1,4 @@
 import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
 import { searchAudio, searchImages, searchInput } from "./openverse.server";
 
 export const searchOpenverseImages = createServerFn({ method: "GET" })
