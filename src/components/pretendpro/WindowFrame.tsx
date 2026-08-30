@@ -53,10 +53,6 @@ function AppertureBar({ appName }: { appName: string }) {
       <span className="px-3 text-xs font-semibold text-foreground/90">{appName}</span>
       <div className="ml-auto flex">
         <button onClick={() => fakeAction("minimize")} aria-label="Minimize (pretend)" className={btn}>
-          <span aria-hidden="true" className="text-[10px] leading-none">
-            &#xE921;&#xFE0E;
-            <span className="sr-only">minimize</span>
-          </span>
           <Minus className="h-3 w-3" strokeWidth={1.25} />
         </button>
         <button onClick={() => fakeAction("maximize")} aria-label="Maximize (pretend)" className={btn}>
