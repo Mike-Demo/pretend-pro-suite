@@ -18,6 +18,7 @@ const pages: SitemapEntry[] = [
   { path: "android", changefreq: "monthly", priority: "0.8" },
   { path: "fos", changefreq: "monthly", priority: "0.8" },
   { path: "licenses", changefreq: "yearly", priority: "0.3" },
+  { path: "privacy", changefreq: "yearly", priority: "0.3" },
 ];
 
 // The unprefixed home page is the x-default entry; every other URL is
