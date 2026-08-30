@@ -50,7 +50,7 @@ export function AppertureShell({
         </button>
 
         {/* Center: Start + pinned apps */}
-        <div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-1">
+        <div className="absolute left-1/2 flex max-w-[60%] -translate-x-1/2 items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <button
             onClick={() => setStartOpen((v) => !v)}
             className={cn(taskbarButton, startOpen && "bg-foreground/[0.08]")}
