@@ -473,7 +473,6 @@ const klingon: DeepPartial<Strings> = {
     back: "chegh (back)",
     fullscreenLabel: "Hoch jIH lo' (fill entire screen)",
     fullscreenHint: "(Esc — mej)",
-    localePichkerLabelPlaceholder: undefined,
     work: {
       docufaker: { title: "ghItlh Qu' (documents)", description: "batlh mu'mey qaS — nonsense, boldly." },
       sheets: { title: "mI' raS (spreadsheets)", description: "mI'mey Hutlh meq. Numbers without reason." },
@@ -587,9 +586,6 @@ const klingon: DeepPartial<Strings> = {
   },
 };
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-type _KlingonShape = typeof klingon;
-
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -611,7 +607,7 @@ const overrides: Record<LocaleId, DeepPartial<Strings>> = {
   "uk-en": british,
   "au-en": australian,
   "at-en": austrian,
-  tlh: klingon as DeepPartial<Strings>,
+  tlh: klingon,
 };
 
 const cache = new Map<LocaleId, Strings>();
