@@ -72,7 +72,7 @@ export function ThemeSwitchLinks({
             {t.shell.switchTo(theme.name)}
           </Link>
         ))}
-      <Link to="/$locale/" params={{ locale }} className={itemClass}>
+      <Link to="/$locale" params={{ locale }} className={itemClass}>
         {t.shell.changeStyle}
       </Link>
       <Link to="/$locale/licenses" params={{ locale }} className={itemClass}>
@@ -81,7 +81,7 @@ export function ThemeSwitchLinks({
       <span className="mt-1 px-2 text-[10px] uppercase tracking-wider text-muted-foreground">
         {t.shell.language}
       </span>
-      <LocalePicker variant="menu" itemClassName={itemClassName} />
+      <LocalePicker variant="menu" className="mt-0.5" />
     </div>
   );
 }

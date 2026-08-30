@@ -6,8 +6,6 @@ import { Desktop } from "@/components/pretendpro/desktop/Desktop";
 import { Phone } from "@/components/pretendpro/mobile/Phone";
 import { useStrings } from "@/lib/i18n/context";
 
-export { themeRoutes } from "@/components/pretendpro/desktop/shell-shared";
-
 // Toasts only ever come from the OS surfaces (power actions, settings), so the
 // toast runtime lives here instead of the root route: onboarding and the
 // licenses page never download it.

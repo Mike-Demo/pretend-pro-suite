@@ -67,7 +67,7 @@ export function saveLocale(id: LocaleId): void {
 }
 
 export type LocalePagePath =
-  | "/$locale/"
+  | "/$locale"
   | "/$locale/fruit"
   | "/$locale/apperture"
   | "/$locale/bufferium"

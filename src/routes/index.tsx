@@ -68,7 +68,7 @@ function HomePage() {
   useEffect(() => {
     const detected = detectLocale();
     if (detected !== defaultLocale) {
-      void navigate({ to: "/$locale/", params: { locale: detected }, replace: true });
+      void navigate({ to: "/$locale", params: { locale: detected }, replace: true });
     }
   }, [navigate]);
 
