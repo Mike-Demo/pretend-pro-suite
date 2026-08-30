@@ -141,7 +141,10 @@ export function PowerOverlay({
           <Loader osTheme={osTheme} />
           <p
             aria-live="polite"
-            className={cn("text-sm", osTheme === "apperture" && "text-base font-light tracking-wide")}
+            className={cn(
+              "text-sm",
+              osTheme === "apperture" && "text-base font-light tracking-wide",
+            )}
           >
             {message}
           </p>

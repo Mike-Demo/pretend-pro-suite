@@ -19,7 +19,6 @@ const shortcuts: Array<[string, string]> = [
   ["Ctrl / ⌘ + Shift + R", "Restart PretendPro"],
   ["Ctrl / ⌘ + Shift + L", "Lock pretend screen"],
   ["Ctrl / ⌘ + Shift + U", "Update pretend software"],
-
 ];
 
 export function ShortcutsOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {

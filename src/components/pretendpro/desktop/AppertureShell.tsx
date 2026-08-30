@@ -75,7 +75,10 @@ export function AppertureShell({
                 title={app.name}
                 aria-label={app.name}
                 aria-pressed={isActive}
-                className={cn(taskbarButton, isActive ? "bg-foreground/[0.08]" : isRunning && "bg-foreground/[0.04]")}
+                className={cn(
+                  taskbarButton,
+                  isActive ? "bg-foreground/[0.08]" : isRunning && "bg-foreground/[0.04]",
+                )}
               >
                 <Icon className="h-4 w-4" strokeWidth={1.75} />
                 <span className="hidden lg:inline">{app.name}</span>

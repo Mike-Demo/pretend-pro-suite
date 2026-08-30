@@ -68,7 +68,9 @@ export function PowerSettingsDialog({
 
         <div className="mt-4 space-y-3">
           <label className="flex items-center justify-between gap-3 text-xs">
-            <span className="font-medium text-popover-foreground">Sparkles during power screens</span>
+            <span className="font-medium text-popover-foreground">
+              Sparkles during power screens
+            </span>
             <Switch
               checked={settings.sparkles}
               onCheckedChange={(sparkles) => onUpdate({ sparkles })}

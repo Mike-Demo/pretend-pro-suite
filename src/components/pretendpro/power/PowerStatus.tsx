@@ -24,7 +24,11 @@ export function PowerStatus({ className }: { className?: string }) {
     >
       <span
         aria-hidden="true"
-        className={cn("h-1.5 w-1.5 rounded-full", dotByPhase[phase], phase !== "idle" && "animate-pulse")}
+        className={cn(
+          "h-1.5 w-1.5 rounded-full",
+          dotByPhase[phase],
+          phase !== "idle" && "animate-pulse",
+        )}
       />
       <span className="hidden sm:inline" aria-live="polite">
         {phaseLabels[phase]}

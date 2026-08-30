@@ -67,7 +67,11 @@ export function FruitShell({
           <span className="font-semibold text-foreground/80">{clock}</span>
         </div>
 
-        <Popover open={openMenu === "apple"} onClose={() => setOpenMenu(null)} className="left-2 top-8 w-56">
+        <Popover
+          open={openMenu === "apple"}
+          onClose={() => setOpenMenu(null)}
+          className="left-2 top-8 w-56"
+        >
           <p className="px-2 py-1 text-[11px] text-muted-foreground">{licenseJoke}</p>
           <PowerMenuItems onDone={() => setOpenMenu(null)} />
           <ThemeSwitchLinks osTheme={osTheme} active={active} />

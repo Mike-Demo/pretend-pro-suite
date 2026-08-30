@@ -117,7 +117,9 @@ export function PowerProvider({
         window.setTimeout(() => finish(run.action), Math.max(120, BASE_OFF_BEAT_MS * multiplier));
         setRun((prev) => (prev ? { ...prev, mode: "off" } : prev));
       } else {
-        setRun((prev) => (prev ? { ...prev, mode: sequence.terminal === "off" ? "off" : "locked" } : prev));
+        setRun((prev) =>
+          prev ? { ...prev, mode: sequence.terminal === "off" ? "off" : "locked" } : prev,
+        );
       }
     }, stepMs);
     return () => window.clearTimeout(id);
@@ -160,7 +162,12 @@ export function PowerProvider({
       const mod = e.metaKey || e.ctrlKey;
       if (!mod || !e.shiftKey) return;
       const key = e.key.toLowerCase();
-      const map: Record<string, PowerAction> = { q: "shutdown", r: "restart", l: "lock", u: "update" };
+      const map: Record<string, PowerAction> = {
+        q: "shutdown",
+        r: "restart",
+        l: "lock",
+        u: "update",
+      };
       if (key === "p") {
         e.preventDefault();
         setPaletteOpen((v) => !v);
@@ -205,7 +212,9 @@ export function PowerProvider({
         <PowerOverlay
           osTheme={osTheme}
           mode={run.mode}
-          message={sequence?.steps[Math.min(run.index, (sequence.steps.length || 1) - 1)]?.label ?? ""}
+          message={
+            sequence?.steps[Math.min(run.index, (sequence.steps.length || 1) - 1)]?.label ?? ""
+          }
           sparkles={settings.sparkles && !prefersReducedMotion()}
           onCancel={cancel}
           onWake={wake}

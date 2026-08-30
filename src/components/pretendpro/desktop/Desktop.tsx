@@ -172,74 +172,74 @@ export function Desktop({
 
   return (
     <PowerProvider osTheme={osTheme} funMode={funMode}>
-    <div
-      data-os-theme={osTheme}
-      className="os-desktop-bg relative h-screen overflow-hidden"
-      aria-label={`PretendPro ${osTheme} desktop`}
-    >
-      <SparklesLayer enabled={funMode} />
-
-      <Shell
-        osTheme={osTheme}
-        active={focused ?? initialApp}
-        onSelect={handleDockSelect}
-        openApps={openApps}
-        minimizedApps={windows.filter((w) => w.minimized).map((w) => w.id)}
-        focusedApp={focused}
-        funMode={funMode}
-        onToggleFunMode={toggleFunMode}
-        onShowShortcuts={() => setShortcutsOpen(true)}
-        onOpenPalette={() => setPaletteOpen(true)}
+      <div
+        data-os-theme={osTheme}
+        className="os-desktop-bg relative h-screen overflow-hidden"
+        aria-label={`PretendPro ${osTheme} desktop`}
       >
-        <div ref={areaRef} data-desktop-area className="relative h-full w-full">
-          {funMode && <StickyNote />}
-          {windows
-            .filter((w) => !w.minimized)
-            .map((w) => {
-              const app = apps.find((a) => a.id === w.id);
-              const Screen = screens[w.id];
-              return (
-                <AppWindow
-                  key={w.id}
-                  osTheme={osTheme}
-                  state={w}
-                  appName={app?.name ?? "PretendPro"}
-                  focused={focused === w.id}
-                  funMode={funMode}
-                  zIndex={wm.zIndexOf(w.id)}
-                  bounds={bounds}
-                  onFocus={() => focus(w.id)}
-                  onClose={() => close(w.id)}
-                  onMinimize={() => minimize(w.id)}
-                  onToggleMaximize={() => toggleMaximize(w.id)}
-                  onMove={(x, y) => wm.move(w.id, x, y)}
-                  onResize={(width, height) => wm.resize(w.id, width, height)}
-                  onDock={(zone) => wm.dock(w.id, zone, bounds)}
-                  onAnnounce={setAnnouncement}
-                >
-                  <Screen animated={funMode} />
-                </AppWindow>
-              );
-            })}
+        <SparklesLayer enabled={funMode} />
 
-          {windows.filter((w) => !w.minimized).length === 0 && (
-            <p className="absolute inset-x-0 top-1/2 text-center text-xs text-foreground/60">
-              No windows open. Click an app below to get pretending.
-            </p>
-          )}
-        </div>
-      </Shell>
+        <Shell
+          osTheme={osTheme}
+          active={focused ?? initialApp}
+          onSelect={handleDockSelect}
+          openApps={openApps}
+          minimizedApps={windows.filter((w) => w.minimized).map((w) => w.id)}
+          focusedApp={focused}
+          funMode={funMode}
+          onToggleFunMode={toggleFunMode}
+          onShowShortcuts={() => setShortcutsOpen(true)}
+          onOpenPalette={() => setPaletteOpen(true)}
+        >
+          <div ref={areaRef} data-desktop-area className="relative h-full w-full">
+            {funMode && <StickyNote />}
+            {windows
+              .filter((w) => !w.minimized)
+              .map((w) => {
+                const app = apps.find((a) => a.id === w.id);
+                const Screen = screens[w.id];
+                return (
+                  <AppWindow
+                    key={w.id}
+                    osTheme={osTheme}
+                    state={w}
+                    appName={app?.name ?? "PretendPro"}
+                    focused={focused === w.id}
+                    funMode={funMode}
+                    zIndex={wm.zIndexOf(w.id)}
+                    bounds={bounds}
+                    onFocus={() => focus(w.id)}
+                    onClose={() => close(w.id)}
+                    onMinimize={() => minimize(w.id)}
+                    onToggleMaximize={() => toggleMaximize(w.id)}
+                    onMove={(x, y) => wm.move(w.id, x, y)}
+                    onResize={(width, height) => wm.resize(w.id, width, height)}
+                    onDock={(zone) => wm.dock(w.id, zone, bounds)}
+                    onAnnounce={setAnnouncement}
+                  >
+                    <Screen animated={funMode} />
+                  </AppWindow>
+                );
+              })}
 
-      <CommandPalette
-        open={paletteOpen}
-        onClose={() => setPaletteOpen(false)}
-        onSelect={handleLaunch}
-      />
-      <p aria-live="polite" role="status" className="sr-only">
-        {announcement}
-      </p>
-      <ShortcutsOverlay open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
-    </div>
+            {windows.filter((w) => !w.minimized).length === 0 && (
+              <p className="absolute inset-x-0 top-1/2 text-center text-xs text-foreground/60">
+                No windows open. Click an app below to get pretending.
+              </p>
+            )}
+          </div>
+        </Shell>
+
+        <CommandPalette
+          open={paletteOpen}
+          onClose={() => setPaletteOpen(false)}
+          onSelect={handleLaunch}
+        />
+        <p aria-live="polite" role="status" className="sr-only">
+          {announcement}
+        </p>
+        <ShortcutsOverlay open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
+      </div>
     </PowerProvider>
   );
 }

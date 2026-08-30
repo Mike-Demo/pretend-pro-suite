@@ -26,11 +26,19 @@ const copy: Record<OsTheme, ThemeCopy> = {
     funShutdown: ["Polishing the fruit logo…", "Deleting all real work… just kidding"],
     boot: ["Starting PretendPro…", "Loading nothing in particular…"],
     lock: ["Locking the pretend screen…"],
-    update: ["Downloading PretendPro 3000.1…", "Preparing…", "Installing (this will take forever)…"],
+    update: [
+      "Downloading PretendPro 3000.1…",
+      "Preparing…",
+      "Installing (this will take forever)…",
+    ],
   },
   apperture: {
     shutdown: ["Locking…", "Saving pretend work…", "Turning off…"],
-    funShutdown: ["Applying 47 pretend updates…", "Do not turn off your pretend PC…", "Turning off…"],
+    funShutdown: [
+      "Applying 47 pretend updates…",
+      "Do not turn off your pretend PC…",
+      "Turning off…",
+    ],
     boot: ["Starting Apperture…", "Getting your pretend devices ready…"],
     lock: ["Locking…"],
     update: [
@@ -56,7 +64,11 @@ const copy: Record<OsTheme, ThemeCopy> = {
     funShutdown: ["Feeding the robot…", "Charging to 99% forever…", "Powering down, eventually…"],
     boot: ["Starting pretend Android…", "Finishing the pretend boot…"],
     lock: ["Locking…"],
-    update: ["Downloading system update…", "Installing pretend update 43%…", "Optimizing pretend apps…"],
+    update: [
+      "Downloading system update…",
+      "Installing pretend update 43%…",
+      "Optimizing pretend apps…",
+    ],
   },
   fos: {
     shutdown: ["Shutting down…", "See you soon…"],
@@ -225,7 +237,10 @@ export function prefersReducedMotion(): boolean {
 
 /** Tiny synthesized blip; no audio assets, and silent unless the user opts in. */
 export function playPretendChime(kind: "down" | "up"): void {
-  type AudioWindow = Window & { AudioContext?: typeof AudioContext; webkitAudioContext?: typeof AudioContext };
+  type AudioWindow = Window & {
+    AudioContext?: typeof AudioContext;
+    webkitAudioContext?: typeof AudioContext;
+  };
   const ctor =
     typeof window === "undefined"
       ? undefined
