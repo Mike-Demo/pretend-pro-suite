@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AndroidRouteImport } from './routes/android'
 import { Route as AppertureRouteImport } from './routes/apperture'
 import { Route as BufferiumRouteImport } from './routes/bufferium'
 import { Route as FruitRouteImport } from './routes/fruit'
@@ -20,6 +21,11 @@ import { Route as VerifyRouteImport } from './routes/verify'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AndroidRoute = AndroidRouteImport.update({
+  id: '/android',
+  path: '/android',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppertureRoute = AppertureRouteImport.update({
@@ -55,6 +61,7 @@ const VerifyRoute = VerifyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
   '/bufferium': typeof BufferiumRoute
   '/fruit': typeof FruitRoute
@@ -64,6 +71,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
   '/bufferium': typeof BufferiumRoute
   '/fruit': typeof FruitRoute
@@ -74,6 +82,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
   '/bufferium': typeof BufferiumRoute
   '/fruit': typeof FruitRoute
@@ -85,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/android'
     | '/apperture'
     | '/bufferium'
     | '/fruit'
@@ -94,6 +104,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/android'
     | '/apperture'
     | '/bufferium'
     | '/fruit'
@@ -103,6 +114,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/android'
     | '/apperture'
     | '/bufferium'
     | '/fruit'
@@ -113,6 +125,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AndroidRoute: typeof AndroidRoute
   AppertureRoute: typeof AppertureRoute
   BufferiumRoute: typeof BufferiumRoute
   FruitRoute: typeof FruitRoute
@@ -128,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/android': {
+      id: '/android'
+      path: '/android'
+      fullPath: '/android'
+      preLoaderRoute: typeof AndroidRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apperture': {
@@ -177,6 +197,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AndroidRoute: AndroidRoute,
   AppertureRoute: AppertureRoute,
   BufferiumRoute: BufferiumRoute,
   FruitRoute: FruitRoute,
