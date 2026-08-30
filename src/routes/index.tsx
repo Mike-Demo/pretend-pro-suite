@@ -52,74 +52,75 @@ export const Route = createFileRoute("/")({
   component: Onboarding,
 });
 
-const workOptions: Array<{ id: AppId; title: string; description: string; art: IllustrationName }> = [
-  {
-    id: "docufaker",
-    title: "Deep Document Work",
-    description: "Type nonsense paragraphs with total conviction.",
-    art: "pondering",
-  },
-  {
-    id: "sheets",
-    title: "Spreadsheet Theater",
-    description: "Formulas that mean nothing, charts that mean less.",
-    art: "growth",
-  },
-  {
-    id: "browser",
-    title: "Research Browsing",
-    description: "Tabs that look important. Mostly cat videos.",
-    art: "coffee",
-  },
-  {
-    id: "inbox",
-    title: "Urgent Inbox Triage",
-    description: "Imaginary coworkers, imaginary deadlines.",
-    art: "experiments",
-  },
-  {
-    id: "codeweb",
-    title: "Code — Web",
-    description: "TypeScript that compiles. Understanding optional.",
-    art: "lookingAhead",
-  },
-  {
-    id: "codegame",
-    title: "Code — Game",
-    description: "A game loop that loops. A game, eventually.",
-    art: "feliz",
-  },
-  {
-    id: "deck",
-    title: "Presentation",
-    description: "Slides with real stock photos and fake confidence.",
-    art: "growth",
-  },
-  {
-    id: "reader",
-    title: "Reading Documents",
-    description: "Very important PDFs. Read at your own pace. Forever.",
-    art: "pondering",
-  },
-  {
-    id: "photos",
-    title: "Editing Photos",
-    description: "Sliders that actually slide on real CC images.",
-    art: "waiting",
-  },
-  {
-    id: "reels",
-    title: "Editing Videos",
-    description: "A timeline of clips, a render of dreams.",
-    art: "chillin",
-  },
-  {
-    id: "sound",
-    title: "Editing Sound",
-    description: "Waveforms, transport, and real CC-licensed audio.",
-    art: "coffee",
-  },
-];
+const workOptions: Array<{ id: AppId; title: string; description: string; art: IllustrationName }> =
+  [
+    {
+      id: "docufaker",
+      title: "Deep Document Work",
+      description: "Type nonsense paragraphs with total conviction.",
+      art: "pondering",
+    },
+    {
+      id: "sheets",
+      title: "Spreadsheet Theater",
+      description: "Formulas that mean nothing, charts that mean less.",
+      art: "growth",
+    },
+    {
+      id: "browser",
+      title: "Research Browsing",
+      description: "Tabs that look important. Mostly cat videos.",
+      art: "coffee",
+    },
+    {
+      id: "inbox",
+      title: "Urgent Inbox Triage",
+      description: "Imaginary coworkers, imaginary deadlines.",
+      art: "experiments",
+    },
+    {
+      id: "codeweb",
+      title: "Code — Web",
+      description: "TypeScript that compiles. Understanding optional.",
+      art: "lookingAhead",
+    },
+    {
+      id: "codegame",
+      title: "Code — Game",
+      description: "A game loop that loops. A game, eventually.",
+      art: "feliz",
+    },
+    {
+      id: "deck",
+      title: "Presentation",
+      description: "Slides with real stock photos and fake confidence.",
+      art: "growth",
+    },
+    {
+      id: "reader",
+      title: "Reading Documents",
+      description: "Very important PDFs. Read at your own pace. Forever.",
+      art: "pondering",
+    },
+    {
+      id: "photos",
+      title: "Editing Photos",
+      description: "Sliders that actually slide on real CC images.",
+      art: "waiting",
+    },
+    {
+      id: "reels",
+      title: "Editing Videos",
+      description: "A timeline of clips, a render of dreams.",
+      art: "chillin",
+    },
+    {
+      id: "sound",
+      title: "Editing Sound",
+      description: "Waveforms, transport, and real CC-licensed audio.",
+      art: "coffee",
+    },
+  ];
 
 type StyleOption = { id: OsTheme; description: string; art: IllustrationName };
 
@@ -286,7 +287,10 @@ function Onboarding() {
                           onSelect={() => setStyle(option.id)}
                           onPrefetch={() => {
                             // Warm the edition's route chunk before the user commits.
-                            void router.preloadRoute({ to: themeRoutes[option.id], search: () => ({}) });
+                            void router.preloadRoute({
+                              to: themeRoutes[option.id],
+                              search: { app: work ?? "docufaker" },
+                            });
                           }}
                         />
                       ))}
