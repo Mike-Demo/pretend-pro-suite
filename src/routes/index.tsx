@@ -89,16 +89,16 @@ function OptionCard({
       onClick={onSelect}
       aria-pressed={selected}
       className={cn(
-        "relative flex w-full flex-col items-center rounded-2xl border bg-card p-4 text-center transition-all",
+        "fluent-focus relative flex w-full flex-col items-center rounded-lg border bg-card p-4 text-center transition-all",
         selected
-          ? "border-primary shadow-md ring-2 ring-primary/40"
-          : "border-border hover:border-primary/50 hover:shadow-sm",
+          ? "border-primary shadow-[var(--fluent-shadow-8)] ring-1 ring-primary"
+          : "border-border shadow-[var(--fluent-shadow-2)] hover:border-primary/60 hover:shadow-[var(--fluent-shadow-8)]",
       )}
     >
       <span
         className={cn(
-          "absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border",
-          selected ? "border-primary bg-primary text-primary-foreground" : "border-border",
+          "absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border-[1.5px]",
+          selected ? "border-primary bg-primary text-primary-foreground" : "border-foreground/40",
         )}
       >
         {selected && <Check className="h-3 w-3" />}
