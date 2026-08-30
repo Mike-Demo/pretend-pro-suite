@@ -36,6 +36,9 @@ export function Suite({
       ) : (
         <Desktop osTheme={osTheme} initialApp={initialApp} />
       )}
+      <Suspense fallback={null}>
+        <Toaster />
+      </Suspense>
     </>
   );
 }

@@ -8,7 +8,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { lazy, Suspense, useEffect, type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 import { AppearanceEffect } from "@/components/pretendpro/AppearanceToggle";
 import { captchaClientFlag, isOpenPath } from "@/lib/captcha/session";
@@ -176,9 +176,6 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <AppearanceEffect />
       <Outlet />
-      <Suspense fallback={null}>
-        <Toaster />
-      </Suspense>
     </QueryClientProvider>
   );
 }
