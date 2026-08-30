@@ -11,7 +11,6 @@ export interface Strings {
     questionStyle: string;
     subtitleWork: string;
     subtitleStyle: string;
-    recommendedHeading: string;
     desktopHeading: string;
     mobileHeading: string;
     continue: string;
@@ -91,7 +90,6 @@ const base: Strings = {
     questionStyle: "Which device style feels most like your job?",
     subtitleWork: "We'll streamline your fake setup experience accordingly.",
     subtitleStyle: "Purely cosmetic. Like most productivity decisions.",
-    recommendedHeading: "Recommended for your device",
     desktopHeading: "Desktop styles",
     mobileHeading: "Mobile styles",
     continue: "Continue",
@@ -486,7 +484,6 @@ const klingon: DeepPartial<Strings> = {
     questionStyle: "nuq jan DaparHa'? (which device style?)",
     subtitleWork: "batlh Qu' DaHutlh. Honour without labour.",
     subtitleStyle: "'oH Doch neH — cosmetic only.",
-    recommendedHeading: "Duj Dochvam (recommended for your device)",
     desktopHeading: "raS jan (desktop styles)",
     mobileHeading: "ghopDu' jan (mobile styles)",
     continue: "ruch (continue)",

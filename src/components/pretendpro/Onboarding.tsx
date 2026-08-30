@@ -6,6 +6,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
 import { LocalePicker } from "@/components/pretendpro/LocalePicker";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   isFullscreenSupported,
   loadFullscreenPreference,
@@ -106,6 +107,18 @@ function OptionCard({
   );
 }
 
+type DeviceKind = "desktop" | "mobile";
+
+const deviceDefaults: Record<DeviceKind, OsTheme> = {
+  desktop: "fruit",
+  mobile: "android",
+};
+
+const deviceOptions: Record<DeviceKind, OsTheme[]> = {
+  desktop: desktopStyleOrder,
+  mobile: mobileStyleOrder,
+};
+
 export function Onboarding() {
   const navigate = useNavigate();
   const router = useRouter();
@@ -113,7 +126,8 @@ export function Onboarding() {
   const { locale, t } = useI18n();
   const [step, setStep] = useState<1 | 2>(1);
   const [work, setWork] = useState<AppId | null>(null);
-  const [style, setStyle] = useState<OsTheme | null>(null);
+  const [device, setDevice] = useState<DeviceKind>("desktop");
+  const [style, setStyle] = useState<OsTheme | null>(deviceDefaults.desktop);
   const [fillScreen, setFillScreen] = useState(false);
   const [fullscreenAvailable, setFullscreenAvailable] = useState(false);
 
@@ -123,23 +137,25 @@ export function Onboarding() {
     setFullscreenAvailable(isFullscreenSupported());
   }, []);
 
+  // Default the tab (and its edition) to whatever device is actually viewing.
+  useEffect(() => {
+    const kind: DeviceKind = isMobile ? "mobile" : "desktop";
+    setDevice(kind);
+    setStyle(deviceDefaults[kind]);
+  }, [isMobile]);
+
   const toggleFillScreen = (checked: boolean) => {
     setFillScreen(checked);
     saveFullscreenPreference(checked);
   };
 
-  // Phones see the phone editions first; wide screens see the desktop ones first.
-  const styleGroups = isMobile
-    ? [
-        { heading: t.onboarding.recommendedHeading, options: mobileStyleOrder },
-        { heading: t.onboarding.desktopHeading, options: desktopStyleOrder },
-      ]
-    : [
-        { heading: t.onboarding.desktopHeading, options: desktopStyleOrder },
-        { heading: t.onboarding.mobileHeading, options: mobileStyleOrder },
-      ];
+  const onDeviceChange = (value: string) => {
+    const kind: DeviceKind = value === "mobile" ? "mobile" : "desktop";
+    setDevice(kind);
+    setStyle(deviceDefaults[kind]);
+  };
 
-  const canContinue = step === 1 ? work !== null : style !== null;
+  const canContinue = step === 1 ? style !== null : work !== null;
 
   const onContinue = () => {
     if (step === 1) {
@@ -171,35 +187,22 @@ export function Onboarding() {
               {t.onboarding.stepLabel(step)}
             </p>
             <h1 className="mt-3 text-center text-2xl font-semibold tracking-tight text-foreground sm:text-[28px]">
-              {step === 1 ? t.onboarding.questionWork : t.onboarding.questionStyle}
+              {step === 1 ? t.onboarding.questionStyle : t.onboarding.questionWork}
             </h1>
             <p className="mt-2 text-center text-sm text-muted-foreground">
-              {step === 1 ? t.onboarding.subtitleWork : t.onboarding.subtitleStyle}
+              {step === 1 ? t.onboarding.subtitleStyle : t.onboarding.subtitleWork}
             </p>
 
             {step === 1 ? (
-              <div className="mt-8 grid max-h-[55vh] gap-3 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-4">
-                {workOrder.map((id, i) => (
-                  <OptionCard
-                    key={id}
-                    title={t.onboarding.work[id].title}
-                    description={t.onboarding.work[id].description}
-                    art={workArt[id]}
-                    priority={i === 0}
-                    selected={work === id}
-                    onSelect={() => setWork(id)}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="mt-8 space-y-6">
-                {styleGroups.map((group) => (
-                  <section key={group.heading}>
-                    <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                      {group.heading}
-                    </h2>
-                    <div className="mt-3 grid gap-3 sm:grid-cols-3">
-                      {group.options.map((id) => (
+              <Tabs value={device} onValueChange={onDeviceChange} className="mt-8">
+                <TabsList className="mx-auto grid w-full max-w-xs grid-cols-2">
+                  <TabsTrigger value="desktop">{t.onboarding.desktopHeading}</TabsTrigger>
+                  <TabsTrigger value="mobile">{t.onboarding.mobileHeading}</TabsTrigger>
+                </TabsList>
+                {(["desktop", "mobile"] as DeviceKind[]).map((kind) => (
+                  <TabsContent key={kind} value={kind} className="mt-6">
+                    <div className="grid gap-3 sm:grid-cols-3">
+                      {deviceOptions[kind].map((id) => (
                         <OptionCard
                           key={id}
                           title={osThemes.find((theme) => theme.id === id)?.name ?? id}
@@ -218,10 +221,33 @@ export function Onboarding() {
                         />
                       ))}
                     </div>
-                  </section>
+                  </TabsContent>
+                ))}
+              </Tabs>
+            ) : (
+              <div className="mt-8 grid max-h-[55vh] gap-3 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-4">
+                {workOrder.map((id, i) => (
+                  <OptionCard
+                    key={id}
+                    title={t.onboarding.work[id].title}
+                    description={t.onboarding.work[id].description}
+                    art={workArt[id]}
+                    priority={i === 0}
+                    selected={work === id}
+                    onSelect={() => setWork(id)}
+                    onPrefetch={() => {
+                      if (!style) return;
+                      void router.preloadRoute({
+                        to: localeThemeRoutes[style],
+                        params: { locale },
+                        search: { app: id },
+                      });
+                    }}
+                  />
                 ))}
               </div>
             )}
+
 
             <div className="mt-8 flex flex-col items-center gap-3">
               <button
