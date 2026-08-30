@@ -114,12 +114,12 @@ function Section({ title, entries }: { title: string; entries: Entry[] }) {
 
 function LicensesPage() {
   return (
-    <div className="min-h-screen bg-background px-4 py-10 sm:px-8">
+    <div data-design="fluent" className="min-h-screen bg-background px-4 py-10 sm:px-8">
       <div className="mx-auto max-w-3xl">
-        <Link to="/" className="text-xs font-semibold text-muted-foreground underline hover:text-foreground">
+        <Link to="/" className="fluent-focus text-xs font-medium text-primary hover:underline">
           Back to onboarding
         </Link>
-        <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground">
+        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground">
           Open Source Licenses
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
