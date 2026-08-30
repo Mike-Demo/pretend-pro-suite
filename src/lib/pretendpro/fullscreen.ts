@@ -51,6 +51,37 @@ export const exitDeviceFullscreen = (): void => {
   }
 };
 
+// Toggle fullscreen from a user gesture. Returns false when fullscreen is
+// unsupported or the browser denies the request, so callers can surface a
+// friendly toast instead of silently staying windowed.
+export const toggleDeviceFullscreen = async (): Promise<boolean> => {
+  if (typeof document === "undefined") return false;
+  if (isFullscreenActive()) {
+    exitDeviceFullscreen();
+    return true;
+  }
+  if (!isFullscreenSupported()) return false;
+  const el = document.documentElement as FullscreenElement;
+  try {
+    const request = el.requestFullscreen ?? el.webkitRequestFullscreen;
+    await request?.call(el);
+    return isFullscreenActive();
+  } catch {
+    return false;
+  }
+};
+
+// Live fullscreen state for the badge: subscribes to (webkit)fullscreenchange.
+export const subscribeFullscreen = (onChange: () => void): (() => void) => {
+  if (typeof document === "undefined") return () => undefined;
+  document.addEventListener("fullscreenchange", onChange);
+  document.addEventListener("webkitfullscreenchange", onChange);
+  return () => {
+    document.removeEventListener("fullscreenchange", onChange);
+    document.removeEventListener("webkitfullscreenchange", onChange);
+  };
+};
+
 export const loadFullscreenPreference = (): boolean => {
   if (typeof window === "undefined") return false;
   try {
