@@ -88,11 +88,11 @@ const references: Entry[] = [
 function Section({ title, entries }: { title: string; entries: Entry[] }) {
   return (
     <section className="mt-8">
-      <h2 className="text-lg font-bold text-foreground">{title}</h2>
+      <h2 className="text-lg font-semibold text-foreground">{title}</h2>
       <ul className="mt-3 space-y-3">
         {entries.map((entry) => (
-          <li key={entry.name} className="rounded-2xl border border-border bg-card p-4">
-            <p className="text-sm font-bold text-card-foreground">{entry.name}</p>
+          <li key={entry.name} className="fluent-surface p-4">
+            <p className="text-sm font-semibold text-card-foreground">{entry.name}</p>
             <p className="mt-1 text-xs text-muted-foreground">
               {entry.author} — {entry.license}
             </p>
@@ -101,7 +101,7 @@ function Section({ title, entries }: { title: string; entries: Entry[] }) {
               href={entry.url}
               target="_blank"
               rel="noreferrer noopener"
-              className="mt-2 inline-block text-xs font-semibold text-primary underline"
+              className="fluent-focus mt-2 inline-block text-xs font-medium text-primary hover:underline"
             >
               {entry.url}
             </a>
