@@ -28,7 +28,7 @@ export const Route = createFileRoute("/openverse-setup")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: OpenverseSetupPage;
+  component: OpenverseSetupPage,
 });
 
 function CopyField({ label, value }: { label: string; value: string }) {
