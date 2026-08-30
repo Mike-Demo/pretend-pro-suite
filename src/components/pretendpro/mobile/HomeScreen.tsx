@@ -2,6 +2,7 @@ import { Search } from "lucide-react";
 import type { MobileOsTheme } from "@/components/pretendpro/WindowFrame";
 import { apps, type AppId } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
+import { preloadAppScreen } from "@/components/pretendpro/app-screens";
 
 const dockIds: AppId[] = ["docufaker", "browser", "inbox", "sheets"];
 
@@ -38,6 +39,8 @@ export function HomeScreen({
               <li key={app.id}>
                 <button
                   onClick={() => onLaunch(app.id)}
+                  onPointerEnter={() => preloadAppScreen(app.id)}
+                  onFocus={() => preloadAppScreen(app.id)}
                   className="group flex w-full flex-col items-center gap-1.5 rounded-xl p-1 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-90"
                 >
                   <span

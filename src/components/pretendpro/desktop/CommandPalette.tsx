@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { apps, type AppId } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
+import { preloadAppScreen } from "@/components/pretendpro/app-screens";
 
 export function CommandPalette({
   open,
@@ -75,7 +76,10 @@ export function CommandPalette({
               <li key={app.id}>
                 <button
                   onClick={() => commit(app.id)}
-                  onMouseEnter={() => setIndex(i)}
+                  onMouseEnter={() => {
+                    setIndex(i);
+                    preloadAppScreen(app.id);
+                  }}
                   className={cn(
                     "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm",
                     i === index ? "bg-muted" : "hover:bg-muted/60",
