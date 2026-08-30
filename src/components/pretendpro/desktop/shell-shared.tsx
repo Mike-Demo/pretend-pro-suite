@@ -109,18 +109,23 @@ export function AppLauncherGrid({
             key={app.id}
             onClick={() => onSelect(app.id)}
             className={cn(
-              "flex flex-col items-center gap-2 rounded-2xl border-2 p-3 transition-transform hover:-translate-y-0.5",
+              "group flex w-full min-w-0 flex-col items-center gap-2 rounded-2xl border-2 p-3 transition-transform hover:-translate-y-0.5",
               app.id === active ? "border-primary bg-card" : "border-border bg-card/80",
             )}
             aria-pressed={app.id === active}
           >
             <span
-              className={cn("flex h-11 w-11 items-center justify-center rounded-xl", app.chip)}
+              className={cn(
+                "flex h-11 w-11 items-center justify-center rounded-2xl transition-transform group-hover:scale-105",
+                app.chip,
+              )}
             >
               <Icon className="h-5 w-5" />
             </span>
-            <span className="text-[11px] font-semibold text-foreground">{app.name}</span>
-            <span className="text-[10px] text-muted-foreground">
+            <span className="line-clamp-2 w-full break-words text-center text-[11px] font-semibold leading-tight text-foreground">
+              {app.name}
+            </span>
+            <span className="text-[9px] uppercase tracking-wider text-muted-foreground">
               {i < 9 ? `Press ${i + 1}` : "via palette"}
             </span>
           </button>

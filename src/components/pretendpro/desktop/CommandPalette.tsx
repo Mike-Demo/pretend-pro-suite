@@ -81,7 +81,14 @@ export function CommandPalette({
                     i === index ? "bg-muted" : "hover:bg-muted/60",
                   )}
                 >
-                  <Icon className="h-4 w-4 text-muted-foreground" />
+                  <span
+                    className={cn(
+                      "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg",
+                      app.chip,
+                    )}
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                  </span>
                   <span className="font-medium text-popover-foreground">{app.name}</span>
                 </button>
               </li>
