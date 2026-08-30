@@ -130,25 +130,25 @@ function Onboarding() {
   };
 
   return (
-    <div className="min-h-screen bg-background px-4 py-10 sm:px-8">
-      <header className="mx-auto flex max-w-5xl items-center gap-2 text-sm font-bold text-foreground">
+    <div data-design="fluent" className="min-h-screen bg-background px-4 py-10 sm:px-8">
+      <header className="mx-auto flex max-w-5xl items-center gap-2 text-sm font-semibold text-foreground">
         Onboarding in
-        <span className="rounded-lg bg-primary px-2 py-0.5 text-primary-foreground">PretendPro 3000</span>
+        <span className="rounded bg-primary px-2 py-0.5 text-primary-foreground">PretendPro 3000</span>
         <Link
           to="/licenses"
-          className="ml-auto text-xs font-semibold text-muted-foreground underline hover:text-foreground"
+          className="fluent-focus ml-auto text-xs font-medium text-primary hover:underline"
         >
           Open source licenses
         </Link>
       </header>
 
       <main className="mx-auto mt-8 max-w-5xl">
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-muted/40 px-4 py-10 sm:px-10 sm:py-14">
+        <div className="fluent-surface relative overflow-hidden px-4 py-10 sm:px-10 sm:py-14">
           <div className="mx-auto max-w-3xl">
-            <p className="text-center text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">
+            <p className="text-center text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
               Step {step} of 2
             </p>
-            <h1 className="mt-3 text-center text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
+            <h1 className="mt-3 text-center text-2xl font-semibold tracking-tight text-foreground sm:text-[28px]">
               {step === 1
                 ? "How are you planning to pretend to work?"
                 : "Which window style feels most like your job?"}
