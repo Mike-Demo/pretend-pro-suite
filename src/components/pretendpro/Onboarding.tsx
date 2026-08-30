@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useRouter } from "@tanstack/react-router";
+import { useNavigate, useRouter } from "@tanstack/react-router";
 import { ArrowLeft, Check, Maximize } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -161,13 +161,6 @@ export function Onboarding() {
           PretendPro 3000
         </span>
         <LocalePicker className="ml-auto" />
-        <Link
-          to="/$locale/licenses"
-          params={{ locale }}
-          className="fluent-focus text-xs font-medium text-primary hover:underline"
-        >
-          {t.onboarding.licensesLink}
-        </Link>
         <AppearanceToggle variant="icon" />
       </header>
 
