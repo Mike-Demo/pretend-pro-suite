@@ -1,4 +1,4 @@
-import { useRef, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { useCallback, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import { WindowFrame, type OsTheme } from "@/components/pretendpro/WindowFrame";
 import { StuckProgress } from "@/components/pretendpro/chrome";
 import type { Bounds, WindowState } from "@/lib/pretendpro/windows";
@@ -6,8 +6,6 @@ import { cn } from "@/lib/utils";
 
 const MIN_WIDTH = 300;
 const MIN_HEIGHT = 220;
-
-type DragKind = "move" | "resize";
 
 export function AppWindow({
   osTheme,
@@ -40,54 +38,50 @@ export function AppWindow({
   onResize: (width: number, height: number) => void;
   children: ReactNode;
 }) {
-  const drag = useRef<{
-    kind: DragKind;
-    startX: number;
-    startY: number;
-    originX: number;
-    originY: number;
-  } | null>(null);
+  const startDrag = useCallback(
+    (kind: "move" | "resize", e: ReactPointerEvent<HTMLElement>) => {
+      if (e.button !== 0) return;
+      onFocus();
+      if (state.maximized) return;
+      e.preventDefault();
 
-  const beginDrag = (kind: DragKind) => (e: ReactPointerEvent<HTMLElement>) => {
-    if (e.button !== 0) return;
-    onFocus();
-    if (state.maximized) return;
-    e.currentTarget.setPointerCapture(e.pointerId);
-    drag.current = {
-      kind,
-      startX: e.clientX,
-      startY: e.clientY,
-      originX: kind === "move" ? state.x : state.width,
-      originY: kind === "move" ? state.y : state.height,
-    };
-  };
+      const startX = e.clientX;
+      const startY = e.clientY;
+      const originX = kind === "move" ? state.x : state.width;
+      const originY = kind === "move" ? state.y : state.height;
 
-  const onPointerMove = (e: ReactPointerEvent<HTMLElement>) => {
-    const d = drag.current;
-    if (!d) return;
-    const dx = e.clientX - d.startX;
-    const dy = e.clientY - d.startY;
-    if (d.kind === "move") {
-      const x = Math.min(
-        Math.max(d.originX + dx, 120 - state.width),
-        Math.max(bounds.width - 120, 0),
-      );
-      const y = Math.min(Math.max(d.originY + dy, 0), Math.max(bounds.height - 48, 0));
-      onMove(Math.round(x), Math.round(y));
-    } else {
-      onResize(
-        Math.round(Math.max(MIN_WIDTH, Math.min(d.originX + dx, bounds.width - state.x))),
-        Math.round(Math.max(MIN_HEIGHT, Math.min(d.originY + dy, bounds.height - state.y))),
-      );
-    }
-  };
+      const onPointerMove = (ev: PointerEvent) => {
+        const dx = ev.clientX - startX;
+        const dy = ev.clientY - startY;
+        if (kind === "move") {
+          const x = Math.min(
+            Math.max(originX + dx, 120 - state.width),
+            Math.max(bounds.width - 120, 0),
+          );
+          const y = Math.min(Math.max(originY + dy, 0), Math.max(bounds.height - 48, 0));
+          onMove(Math.round(x), Math.round(y));
+        } else {
+          onResize(
+            Math.round(Math.max(MIN_WIDTH, Math.min(originX + dx, bounds.width - state.x))),
+            Math.round(Math.max(MIN_HEIGHT, Math.min(originY + dy, bounds.height - state.y))),
+          );
+        }
+      };
 
-  const endDrag = (e: ReactPointerEvent<HTMLElement>) => {
-    if (drag.current) {
-      e.currentTarget.releasePointerCapture?.(e.pointerId);
-      drag.current = null;
-    }
-  };
+      const stop = () => {
+        window.removeEventListener("pointermove", onPointerMove);
+        window.removeEventListener("pointerup", stop);
+        window.removeEventListener("pointercancel", stop);
+        document.body.classList.remove("select-none");
+      };
+
+      document.body.classList.add("select-none");
+      window.addEventListener("pointermove", onPointerMove);
+      window.addEventListener("pointerup", stop);
+      window.addEventListener("pointercancel", stop);
+    },
+    [bounds.height, bounds.width, onFocus, onMove, onResize, state],
+  );
 
   const maximized = state.maximized;
 
@@ -102,10 +96,8 @@ export function AppWindow({
           : { zIndex, left: state.x, top: state.y, width: state.width, height: state.height }
       }
       className={cn(
-        "absolute flex flex-col",
+        "absolute flex flex-col motion-safe:animate-scale-in",
         maximized && "inset-2",
-        "motion-safe:animate-scale-in",
-        funMode && "motion-safe:transition-transform",
         !focused && "opacity-95",
       )}
     >
@@ -116,15 +108,9 @@ export function AppWindow({
         onClose={onClose}
         onMinimize={onMinimize}
         onToggleMaximize={onToggleMaximize}
-        onTitlePointerDown={beginDrag("move")}
+        onTitlePointerDown={(e) => startDrag("move", e)}
         className="h-full"
       >
-        <div
-          onPointerMove={onPointerMove}
-          onPointerUp={endDrag}
-          onPointerCancel={endDrag}
-          className="contents"
-        />
         {children}
         {funMode && <StuckProgress />}
       </WindowFrame>
@@ -132,11 +118,8 @@ export function AppWindow({
       {!maximized && (
         <button
           aria-label={`Resize ${appName}`}
-          onPointerDown={beginDrag("resize")}
-          onPointerMove={onPointerMove}
-          onPointerUp={endDrag}
-          onPointerCancel={endDrag}
-          className="absolute -bottom-1 -right-1 h-5 w-5 cursor-nwse-resize touch-none rounded-br-[var(--os-radius)] border-b-2 border-r-2 border-border/70 bg-transparent"
+          onPointerDown={(e) => startDrag("resize", e)}
+          className="absolute bottom-0 right-0 h-5 w-5 cursor-nwse-resize touch-none rounded-br-[var(--os-radius)] border-b-2 border-r-2 border-border/70"
         />
       )}
     </div>
