@@ -5,7 +5,17 @@ Add a full-screen animated transition + loader between onboarding steps and into
 ## Where it plays
 
 1. **Step 1 (OS choice) -> Step 2 (work choice)** — transition covers, step swaps behind it, transition reveals.
-2. **Step 2 -> the chosen OS edition** — transition covers, loader holds while the edition route chunk loads, then navigation happens behind the cover and it reveals into the desktop/phone shell.
+2. **Step 2 -> Step 3 (human check)** — transition covers, the verification step swaps in behind it, transition reveals.
+3. **Step 3 -> the chosen OS edition** — after the check passes, transition covers, loader holds while the edition route chunk loads, then navigation happens behind the cover and it reveals into the desktop/phone shell.
+
+## New step 3: verification inside the card
+
+- The hCaptcha human check moves into the onboarding card as a third step instead of sending the user to the separate `/verify` page.
+- Step labels become "Step N of 3"; the step heading/subtitle explain the check briefly, and the widget sits centered in the card with the existing footer, locale picker, and appearance toggle untouched.
+- Continue on step 3 is disabled until the widget returns a token; on success the token is verified server-side and the OS transition runs. On failure the widget resets with an inline error message.
+- If the visitor already holds a valid verification session, step 3 is skipped automatically and step 2 continues straight into the OS transition.
+- Back from step 3 returns to step 2. The standalone `/verify` route stays in place as the fallback for direct links to gated URLs.
+
 
 ## The effect
 
