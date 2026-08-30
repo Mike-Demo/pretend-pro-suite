@@ -25,6 +25,7 @@ import { Route as LocaleAppertureRouteImport } from './routes/$locale/apperture'
 import { Route as LocaleBufferiumRouteImport } from './routes/$locale/bufferium'
 import { Route as LocaleFosRouteImport } from './routes/$locale/fos'
 import { Route as LocaleFruitRouteImport } from './routes/$locale/fruit'
+import { Route as LocaleLicensesRouteImport } from './routes/$locale/licenses'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -106,6 +107,11 @@ const LocaleFruitRoute = LocaleFruitRouteImport.update({
   path: '/fruit',
   getParentRoute: () => LocaleRouteRoute,
 } as any)
+const LocaleLicensesRoute = LocaleLicensesRouteImport.update({
+  id: '/licenses',
+  path: '/licenses',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/$locale/bufferium': typeof LocaleBufferiumRoute
   '/$locale/fos': typeof LocaleFosRoute
   '/$locale/fruit': typeof LocaleFruitRoute
+  '/$locale/licenses': typeof LocaleLicensesRoute
   '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRoutesByTo {
@@ -140,6 +147,7 @@ export interface FileRoutesByTo {
   '/$locale/bufferium': typeof LocaleBufferiumRoute
   '/$locale/fos': typeof LocaleFosRoute
   '/$locale/fruit': typeof LocaleFruitRoute
+  '/$locale/licenses': typeof LocaleLicensesRoute
   '/$locale': typeof LocaleIndexRoute
 }
 export interface FileRoutesById {
@@ -159,6 +167,7 @@ export interface FileRoutesById {
   '/$locale/bufferium': typeof LocaleBufferiumRoute
   '/$locale/fos': typeof LocaleFosRoute
   '/$locale/fruit': typeof LocaleFruitRoute
+  '/$locale/licenses': typeof LocaleLicensesRoute
   '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRouteTypes {
@@ -179,6 +188,7 @@ export interface FileRouteTypes {
     | '/$locale/bufferium'
     | '/$locale/fos'
     | '/$locale/fruit'
+    | '/$locale/licenses'
     | '/$locale/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/$locale/bufferium'
     | '/$locale/fos'
     | '/$locale/fruit'
+    | '/$locale/licenses'
     | '/$locale'
   id:
     | '__root__'
@@ -214,6 +225,7 @@ export interface FileRouteTypes {
     | '/$locale/bufferium'
     | '/$locale/fos'
     | '/$locale/fruit'
+    | '/$locale/licenses'
     | '/$locale/'
   fileRoutesById: FileRoutesById
 }
@@ -344,6 +356,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleFruitRouteImport
       parentRoute: typeof LocaleRouteRoute
     }
+    '/$locale/licenses': {
+      id: '/$locale/licenses'
+      path: '/licenses'
+      fullPath: '/$locale/licenses'
+      preLoaderRoute: typeof LocaleLicensesRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
   }
 }
 
@@ -353,6 +372,7 @@ interface LocaleRouteRouteChildren {
   LocaleBufferiumRoute: typeof LocaleBufferiumRoute
   LocaleFosRoute: typeof LocaleFosRoute
   LocaleFruitRoute: typeof LocaleFruitRoute
+  LocaleLicensesRoute: typeof LocaleLicensesRoute
   LocaleIndexRoute: typeof LocaleIndexRoute
 }
 
@@ -362,6 +382,7 @@ const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
   LocaleBufferiumRoute: LocaleBufferiumRoute,
   LocaleFosRoute: LocaleFosRoute,
   LocaleFruitRoute: LocaleFruitRoute,
+  LocaleLicensesRoute: LocaleLicensesRoute,
   LocaleIndexRoute: LocaleIndexRoute,
 }
 
