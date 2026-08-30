@@ -5,6 +5,7 @@ import type { DesktopOsTheme, OsTheme } from "@/components/pretendpro/WindowFram
 import { osThemes } from "@/components/pretendpro/WindowFrame";
 import { apps, type AppId } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
+import { preloadAppScreen } from "@/components/pretendpro/app-screens";
 
 export const themeRoutes: Record<
   OsTheme,
@@ -108,6 +109,8 @@ export function AppLauncherGrid({
           <button
             key={app.id}
             onClick={() => onSelect(app.id)}
+            onPointerEnter={() => preloadAppScreen(app.id)}
+            onFocus={() => preloadAppScreen(app.id)}
             className={cn(
               "group flex w-full min-w-0 flex-col items-center gap-2 rounded-2xl border-2 p-3 transition-transform hover:-translate-y-0.5",
               app.id === active ? "border-primary bg-card" : "border-border bg-card/80",
