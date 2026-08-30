@@ -20,6 +20,7 @@ import { Route as LicensesRouteImport } from './routes/licenses'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
+import { Route as LocaleFruitRouteImport } from './routes/$locale/fruit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -76,6 +77,11 @@ const LocaleIndexRoute = LocaleIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LocaleRouteRoute,
 } as any)
+const LocaleFruitRoute = LocaleFruitRouteImport.update({
+  id: '/fruit',
+  path: '/fruit',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/licenses': typeof LicensesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/verify': typeof VerifyRoute
+  '/$locale/fruit': typeof LocaleFruitRoute
   '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRoutesByTo {
@@ -100,6 +107,7 @@ export interface FileRoutesByTo {
   '/licenses': typeof LicensesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/verify': typeof VerifyRoute
+  '/$locale/fruit': typeof LocaleFruitRoute
   '/$locale': typeof LocaleIndexRoute
 }
 export interface FileRoutesById {
@@ -114,6 +122,7 @@ export interface FileRoutesById {
   '/licenses': typeof LicensesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/verify': typeof VerifyRoute
+  '/$locale/fruit': typeof LocaleFruitRoute
   '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRouteTypes {
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
     | '/licenses'
     | '/sitemap.xml'
     | '/verify'
+    | '/$locale/fruit'
     | '/$locale/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -141,6 +151,7 @@ export interface FileRouteTypes {
     | '/licenses'
     | '/sitemap.xml'
     | '/verify'
+    | '/$locale/fruit'
     | '/$locale'
   id:
     | '__root__'
@@ -154,6 +165,7 @@ export interface FileRouteTypes {
     | '/licenses'
     | '/sitemap.xml'
     | '/verify'
+    | '/$locale/fruit'
     | '/$locale/'
   fileRoutesById: FileRoutesById
 }
@@ -249,14 +261,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleIndexRouteImport
       parentRoute: typeof LocaleRouteRoute
     }
+    '/$locale/fruit': {
+      id: '/$locale/fruit'
+      path: '/fruit'
+      fullPath: '/$locale/fruit'
+      preLoaderRoute: typeof LocaleFruitRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
   }
 }
 
 interface LocaleRouteRouteChildren {
+  LocaleFruitRoute: typeof LocaleFruitRoute
   LocaleIndexRoute: typeof LocaleIndexRoute
 }
 
 const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
+  LocaleFruitRoute: LocaleFruitRoute,
   LocaleIndexRoute: LocaleIndexRoute,
 }
 
