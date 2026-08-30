@@ -61,11 +61,9 @@ export function usePhone(storageKey: string, initialApp?: AppId): PhoneManager {
       setRestored(true);
       // A restored session lands on the launcher, as it did before.
       setView("home");
-
     }
     setReady(true);
   }, [storageKey]);
-
 
   useEffect(() => {
     if (!ready) return;

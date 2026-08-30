@@ -17,10 +17,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 
 // The toast runtime is ~32 KiB of the critical bundle but is never needed for
 // first paint, so it streams in behind Suspense instead of blocking the entry chunk.
-const Toaster = lazy(() =>
-  import("@/components/ui/sonner").then((m) => ({ default: m.Toaster })),
-);
-
+const Toaster = lazy(() => import("@/components/ui/sonner").then((m) => ({ default: m.Toaster })));
 
 function NotFoundComponent() {
   return (
@@ -182,7 +179,6 @@ function RootComponent() {
       <Suspense fallback={null}>
         <Toaster />
       </Suspense>
-
     </QueryClientProvider>
   );
 }

@@ -19,7 +19,6 @@ const shells: Record<MobileOsTheme, React.ComponentType<MobileShellProps>> = {
   fos: FosShell,
 };
 
-
 const CommandPalette = lazy(() =>
   import("@/components/pretendpro/desktop/CommandPalette").then((m) => ({
     default: m.CommandPalette,
@@ -55,7 +54,6 @@ export function Phone({
   if (typeof window !== "undefined") preloadAppScreen(initialApp);
   const phone = usePhone(`pretendpro:phone:${osTheme}`, initialApp);
   const { tasks, foreground, view, launch, goHome, showRecents, back, closeTask, cycle } = phone;
-
 
   const handleLaunch = useCallback((id: AppId) => launch(id), [launch]);
 
