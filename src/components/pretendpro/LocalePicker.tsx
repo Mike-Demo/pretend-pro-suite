@@ -46,7 +46,11 @@ export function LocalePicker({
               l.id === locale && "font-semibold text-primary",
             )}
           >
-            <span aria-hidden="true">{l.flag}</span>
+            {l.flagImg ? (
+              <img src={l.flagImg} alt="" aria-hidden className="h-4 w-4 rounded-sm object-contain" />
+            ) : (
+              <span aria-hidden="true">{l.flag}</span>
+            )}
             {l.label}
           </a>
         ))}
@@ -73,7 +77,11 @@ export function LocalePicker({
               : "opacity-70 hover:opacity-100",
           )}
         >
-          <span aria-hidden="true">{l.flag}</span>
+          {l.flagImg ? (
+            <img src={l.flagImg} alt="" aria-hidden className="h-4 w-4 rounded-sm object-contain" />
+          ) : (
+            <span aria-hidden="true">{l.flag}</span>
+          )}
         </a>
       ))}
       <span className="ml-1 hidden text-[11px] font-medium text-muted-foreground sm:inline">
