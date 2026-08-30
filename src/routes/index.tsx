@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
 import type { AppId } from "@/components/pretendpro/chrome";
 import { osThemes, type OsTheme } from "@/components/pretendpro/WindowFrame";
 import { themeRoutes } from "@/components/pretendpro/Suite";
@@ -182,6 +183,7 @@ function Onboarding() {
         >
           Open source licenses
         </Link>
+        <AppearanceToggle variant="icon" />
 
       </header>
 

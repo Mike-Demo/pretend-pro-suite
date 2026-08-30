@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Circle, Keyboard } from "lucide-react";
 import { apps } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
+import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
 import {
   AppLauncherGrid,
   Popover,
@@ -123,6 +124,7 @@ export function BufferiumShell({
           >
             Fun Mode: {funMode ? "On" : "Off"} (A)
           </button>
+          <AppearanceToggle />
           <ThemeSwitchLinks osTheme={osTheme} active={active} />
           <p className="mt-2 border-t border-border pt-2 text-[11px] text-muted-foreground">
             {licenseJoke}
