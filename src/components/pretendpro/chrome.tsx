@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { FileText, Table2, Globe, Mail, Sparkles as SparklesIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export type AppId = "docufaker" | "sheets" | "browser" | "inbox";
 
