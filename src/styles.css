@@ -306,7 +306,6 @@
 
 .dark [data-os-theme="apperture"] {
   --os-titlebar: oklch(0.27 0.01 250 / 85%);
-  --os-chrome: oklch(0.24 0.01 250 / 9%);
   --os-chrome: oklch(0.24 0.01 250 / 90%);
 }
 
