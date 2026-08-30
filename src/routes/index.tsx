@@ -7,14 +7,11 @@ import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
 import type { AppId } from "@/components/pretendpro/chrome";
 import { osThemes, type OsTheme } from "@/components/pretendpro/WindowFrame";
 import { themeRoutes } from "@/components/pretendpro/Suite";
-import ponderingUrl from "@/assets/transhumans/pondering.svg?url";
-import coffeeUrl from "@/assets/transhumans/coffee.svg?url";
-import growthUrl from "@/assets/transhumans/growth.svg?url";
-import experimentsUrl from "@/assets/transhumans/experiments.svg?url";
-import lookingAheadUrl from "@/assets/transhumans/looking-ahead.svg?url";
-import chillinUrl from "@/assets/transhumans/chillin.svg?url";
-import waitingUrl from "@/assets/transhumans/waiting.svg?url";
-import felizUrl from "@/assets/transhumans/feliz.svg?url";
+import {
+  Illustration,
+  illustrations,
+  type IllustrationName,
+} from "@/components/pretendpro/Illustration";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -41,99 +38,108 @@ export const Route = createFileRoute("/")({
           "A wholesome parody office suite onboarding: choose your pretend work and your pretend operating system.",
       },
     ],
-    links: [{ rel: "canonical", href: "https://pretend.pro/" }],
+    links: [
+      { rel: "canonical", href: "https://pretend.pro/" },
+      {
+        rel: "preload",
+        as: "image",
+        href: illustrations.pondering.webp,
+        type: "image/webp",
+        fetchpriority: "high",
+      },
+    ],
   }),
   component: Onboarding,
 });
 
-const workOptions: Array<{ id: AppId; title: string; description: string; art: string }> = [
+const workOptions: Array<{ id: AppId; title: string; description: string; art: IllustrationName }> = [
   {
     id: "docufaker",
     title: "Deep Document Work",
     description: "Type nonsense paragraphs with total conviction.",
-    art: ponderingUrl,
+    art: "pondering",
   },
   {
     id: "sheets",
     title: "Spreadsheet Theater",
     description: "Formulas that mean nothing, charts that mean less.",
-    art: growthUrl,
+    art: "growth",
   },
   {
     id: "browser",
     title: "Research Browsing",
     description: "Tabs that look important. Mostly cat videos.",
-    art: coffeeUrl,
+    art: "coffee",
   },
   {
     id: "inbox",
     title: "Urgent Inbox Triage",
     description: "Imaginary coworkers, imaginary deadlines.",
-    art: experimentsUrl,
+    art: "experiments",
   },
   {
     id: "codeweb",
     title: "Code — Web",
     description: "TypeScript that compiles. Understanding optional.",
-    art: lookingAheadUrl,
+    art: "lookingAhead",
   },
   {
     id: "codegame",
     title: "Code — Game",
     description: "A game loop that loops. A game, eventually.",
-    art: felizUrl,
+    art: "feliz",
   },
   {
     id: "deck",
     title: "Presentation",
     description: "Slides with real stock photos and fake confidence.",
-    art: growthUrl,
+    art: "growth",
   },
   {
     id: "reader",
     title: "Reading Documents",
     description: "Very important PDFs. Read at your own pace. Forever.",
-    art: ponderingUrl,
+    art: "pondering",
   },
   {
     id: "photos",
     title: "Editing Photos",
     description: "Sliders that actually slide on real CC images.",
-    art: waitingUrl,
+    art: "waiting",
   },
   {
     id: "reels",
     title: "Editing Videos",
     description: "A timeline of clips, a render of dreams.",
-    art: chillinUrl,
+    art: "chillin",
   },
   {
     id: "sound",
     title: "Editing Sound",
     description: "Waveforms, transport, and real CC-licensed audio.",
-    art: coffeeUrl,
+    art: "coffee",
   },
 ];
 
-type StyleOption = { id: OsTheme; description: string; art: string };
+type StyleOption = { id: OsTheme; description: string; art: IllustrationName };
 
 const desktopStyles: StyleOption[] = [
   {
     id: "fruit",
     description: "Soft translucent bar, three little traffic lights.",
-    art: lookingAheadUrl,
+    art: "lookingAhead",
   },
   {
     id: "apperture",
     description: "Crisp corners, glyph buttons in the top-right.",
-    art: chillinUrl,
+    art: "chillin",
   },
-  { id: "bufferium", description: "A tab strip that is eternally almost loaded.", art: waitingUrl },
+  { id: "bufferium", description: "A tab strip that is eternally almost loaded.", art: "waiting" },
 ];
 
 const mobileStyles: StyleOption[] = [
-  { id: "android", description: "Home screen grid, back / home / recents bar.", art: growthUrl },
-  { id: "fos", description: "Notch, rounded icons, a dock, a home indicator.", art: felizUrl },
+  { id: "android", description: "Home screen grid, back / home / recents bar.", art: "growth" },
+  { id: "fos", description: "Notch, rounded icons, a dock, a home indicator.", art: "feliz" },
 ];
 
 function OptionCard({
@@ -142,6 +148,7 @@ function OptionCard({
   art,
   selected,
   onSelect,
+  priority = false,
   children,
 }: {
   title: string;
@@ -170,13 +177,7 @@ function OptionCard({
       >
         {selected && <Check className="h-3 w-3" />}
       </span>
-      <img
-        src={art}
-        alt=""
-        aria-hidden="true"
-        className="h-28 w-auto object-contain"
-        loading="lazy"
-      />
+      <Illustration name={art} priority={priority} className="h-28 w-auto" />
       <span className="mt-3 text-sm font-semibold text-foreground">{title}</span>
       <span className="mt-1 text-xs text-muted-foreground">{description}</span>
       {children}
@@ -304,10 +305,8 @@ function Onboarding() {
             </div>
           </div>
 
-          <img
-            src={felizUrl}
-            alt=""
-            aria-hidden="true"
+          <Illustration
+            name="feliz"
             className="pointer-events-none absolute bottom-0 left-2 hidden h-32 w-auto lg:block"
           />
         </div>
