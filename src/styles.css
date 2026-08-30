@@ -4,7 +4,59 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Nebula Sans — SIL Open Font License 1.1 (https://www.nebulasans.com/license/) */
+@font-face {
+  font-family: "Nebula Sans";
+  src: url("/__l5e/assets-v1/40f1e585-b06d-4dbe-a7ab-d9c68e238d22/NebulaSans-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nebula Sans";
+  src: url("/__l5e/assets-v1/c195229a-ed51-4603-9057-aaf63c0130bf/NebulaSans-Book.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nebula Sans";
+  src: url("/__l5e/assets-v1/39889bc5-ab4d-44a4-ac4b-ae6dfd316bb4/NebulaSans-BookItalic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nebula Sans";
+  src: url("/__l5e/assets-v1/bb777875-f1d9-4c5f-9318-80af5c3d13cb/NebulaSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nebula Sans";
+  src: url("/__l5e/assets-v1/5f6529e1-09a7-4f4a-b936-bb3c7e47e167/NebulaSans-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nebula Sans";
+  src: url("/__l5e/assets-v1/8c452f8b-d7e9-49b7-9ec7-f785ca410a52/NebulaSans-SemiboldItalic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nebula Sans";
+  src: url("/__l5e/assets-v1/d45fae16-5bf4-4254-8242-3ca61aef5802/NebulaSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme inline {
+  --font-sans: "Nebula Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
