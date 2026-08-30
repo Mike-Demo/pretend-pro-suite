@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Apple, Keyboard } from "lucide-react";
 import { apps } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
+import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
 import {
   Popover,
   ThemeSwitchLinks,
@@ -78,6 +79,7 @@ export function FruitShell({
           >
             {funMode ? "Disable" : "Enable"} Fun Mode (A)
           </button>
+          <AppearanceToggle />
           <button
             onClick={onOpenPalette}
             className="w-full rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted"

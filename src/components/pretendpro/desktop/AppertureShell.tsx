@@ -2,6 +2,7 @@ import { useState } from "react";
 import { LayoutGrid, Keyboard, Search } from "lucide-react";
 import { apps } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
+import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
 import {
   AppLauncherGrid,
   Popover,
@@ -120,6 +121,7 @@ export function AppertureShell({
             >
               {funMode ? "Disable" : "Enable"} Fun Mode (A)
             </button>
+            <AppearanceToggle />
             <ThemeSwitchLinks osTheme={osTheme} active={active} />
           </div>
         </Popover>
