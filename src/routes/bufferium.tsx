@@ -20,8 +20,11 @@ export const Route = createFileRoute("/bufferium")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pretend.pro/bufferium" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: 'PretendPro 3000 — BufferiumOS Edition' },
-      { name: "twitter:description", content: 'Tab-shaped fake work: DocuFaker, SheetShenanigans, BrowserBuddy, Inbox Mirage.' },
+      { name: "twitter:title", content: "PretendPro 3000 — BufferiumOS Edition" },
+      {
+        name: "twitter:description",
+        content: "Tab-shaped fake work: DocuFaker, SheetShenanigans, BrowserBuddy, Inbox Mirage.",
+      },
     ],
     links: [{ rel: "canonical", href: "https://pretend.pro/bufferium" }],
   }),

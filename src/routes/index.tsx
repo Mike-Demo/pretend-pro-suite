@@ -34,8 +34,12 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pretend.pro/" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: 'PretendPro 3000 — Set Up Your Fake Workday' },
-      { name: "twitter:description", content: 'A wholesome parody office suite onboarding: choose your pretend work and your pretend operating system.' },
+      { name: "twitter:title", content: "PretendPro 3000 — Set Up Your Fake Workday" },
+      {
+        name: "twitter:description",
+        content:
+          "A wholesome parody office suite onboarding: choose your pretend work and your pretend operating system.",
+      },
     ],
     links: [{ rel: "canonical", href: "https://pretend.pro/" }],
   }),
@@ -114,8 +118,16 @@ const workOptions: Array<{ id: AppId; title: string; description: string; art: s
 type StyleOption = { id: OsTheme; description: string; art: string };
 
 const desktopStyles: StyleOption[] = [
-  { id: "fruit", description: "Soft translucent bar, three little traffic lights.", art: lookingAheadUrl },
-  { id: "apperture", description: "Crisp corners, glyph buttons in the top-right.", art: chillinUrl },
+  {
+    id: "fruit",
+    description: "Soft translucent bar, three little traffic lights.",
+    art: lookingAheadUrl,
+  },
+  {
+    id: "apperture",
+    description: "Crisp corners, glyph buttons in the top-right.",
+    art: chillinUrl,
+  },
   { id: "bufferium", description: "A tab strip that is eternally almost loaded.", art: waitingUrl },
 ];
 
@@ -123,7 +135,6 @@ const mobileStyles: StyleOption[] = [
   { id: "android", description: "Home screen grid, back / home / recents bar.", art: growthUrl },
   { id: "fos", description: "Notch, rounded icons, a dock, a home indicator.", art: felizUrl },
 ];
-
 
 function OptionCard({
   title,
@@ -159,7 +170,13 @@ function OptionCard({
       >
         {selected && <Check className="h-3 w-3" />}
       </span>
-      <img src={art} alt="" aria-hidden="true" className="h-28 w-auto object-contain" loading="lazy" />
+      <img
+        src={art}
+        alt=""
+        aria-hidden="true"
+        className="h-28 w-auto object-contain"
+        loading="lazy"
+      />
       <span className="mt-3 text-sm font-semibold text-foreground">{title}</span>
       <span className="mt-1 text-xs text-muted-foreground">{description}</span>
       {children}
@@ -187,7 +204,6 @@ function Onboarding() {
 
   const canContinue = step === 1 ? work !== null : style !== null;
 
-
   const onContinue = () => {
     if (step === 1) {
       setStep(2);
@@ -202,7 +218,9 @@ function Onboarding() {
     <div data-design="fluent" className="min-h-screen bg-background px-4 py-10 sm:px-8">
       <header className="mx-auto flex max-w-5xl items-center gap-2 text-sm font-semibold text-foreground">
         Onboarding in
-        <span className="rounded bg-primary px-2 py-0.5 text-primary-foreground">PretendPro 3000</span>
+        <span className="rounded bg-primary px-2 py-0.5 text-primary-foreground">
+          PretendPro 3000
+        </span>
         <Link
           to="/licenses"
           className="fluent-focus ml-auto text-xs font-medium text-primary hover:underline"
@@ -210,7 +228,6 @@ function Onboarding() {
           Open source licenses
         </Link>
         <AppearanceToggle variant="icon" />
-
       </header>
 
       <main className="mx-auto mt-8 max-w-5xl">
@@ -266,7 +283,6 @@ function Onboarding() {
                 ))}
               </div>
             )}
-
 
             <div className="mt-8 flex flex-col items-center gap-3">
               <button
