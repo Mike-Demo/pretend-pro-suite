@@ -1,4 +1,5 @@
 import { spreadsheetFormulas } from "@/lib/pretendpro/content";
+import { useStrings } from "@/lib/i18n/context";
 import { cn } from "@/lib/utils";
 
 const columns = ["A", "B", "C", "D", "E"] as const;
@@ -45,7 +46,7 @@ export function SheetShenanigans({ animated }: { animated: boolean }) {
                 </td>
                 {columns.map((c, ci) => {
                   const formula =
-                    spreadsheetFormulas[(r * columns.length + ci) % spreadsheetFormulas.length];
+                    formulas[(r * columns.length + ci) % formulas.length];
                   return (
                     <td
                       key={c}
