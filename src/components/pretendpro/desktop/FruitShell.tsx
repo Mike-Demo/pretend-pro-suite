@@ -3,7 +3,6 @@ import { Apple, Keyboard } from "lucide-react";
 import { apps } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
 import {
-  AppLauncherGrid,
   Popover,
   ThemeSwitchLinks,
   TrayGlyphs,
@@ -130,14 +129,4 @@ export function FruitShell({
       </div>
     </div>
   );
-}
-
-export function FruitLauncher({
-  active,
-  onSelect,
-}: {
-  active: string;
-  onSelect: ShellProps["onSelect"];
-}) {
-  return <AppLauncherGrid active={active as never} onSelect={onSelect} />;
 }
