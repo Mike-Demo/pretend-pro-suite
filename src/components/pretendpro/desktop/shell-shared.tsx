@@ -1,21 +1,26 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { Battery, Wifi, Volume2 } from "lucide-react";
-import type { OsTheme } from "@/components/pretendpro/WindowFrame";
+import type { DesktopOsTheme, OsTheme } from "@/components/pretendpro/WindowFrame";
 import { osThemes } from "@/components/pretendpro/WindowFrame";
 import { apps, type AppId } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
 
-export const themeRoutes: Record<OsTheme, "/fruit" | "/apperture" | "/bufferium"> = {
+export const themeRoutes: Record<
+  OsTheme,
+  "/fruit" | "/apperture" | "/bufferium" | "/android" | "/fos"
+> = {
   fruit: "/fruit",
   apperture: "/apperture",
   bufferium: "/bufferium",
+  android: "/android",
+  fos: "/fos",
 };
 
 export const licenseJoke = "License expired due to excessive pretending.";
 
 export type ShellProps = {
-  osTheme: OsTheme;
+  osTheme: DesktopOsTheme;
   active: AppId;
   onSelect: (id: AppId) => void;
   openApps: AppId[];

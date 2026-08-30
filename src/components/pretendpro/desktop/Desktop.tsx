@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { OsTheme } from "@/components/pretendpro/WindowFrame";
+import type { DesktopOsTheme } from "@/components/pretendpro/WindowFrame";
 import { apps, SparklesLayer, StickyNote, type AppId } from "@/components/pretendpro/chrome";
 import { DocuFaker } from "@/components/pretendpro/DocuFaker";
 import { SheetShenanigans } from "@/components/pretendpro/SheetShenanigans";
@@ -35,7 +35,7 @@ const screens: Record<AppId, (props: { animated: boolean }) => React.ReactNode> 
   sound: SoundStage,
 };
 
-const shells: Record<OsTheme, (props: ShellProps) => React.ReactNode> = {
+const shells: Record<DesktopOsTheme, (props: ShellProps) => React.ReactNode> = {
   fruit: FruitShell,
   apperture: AppertureShell,
   bufferium: BufferiumShell,
@@ -52,7 +52,7 @@ export function Desktop({
   osTheme,
   initialApp = "docufaker",
 }: {
-  osTheme: OsTheme;
+  osTheme: DesktopOsTheme;
   initialApp?: AppId;
 }) {
   const { funMode, toggleFunMode } = useFunMode();
