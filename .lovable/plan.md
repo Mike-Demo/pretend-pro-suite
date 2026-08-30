@@ -17,13 +17,35 @@ Baseline already established in earlier work: production Lighthouse score 96 (FC
 
 ## Phase 2 — Deep-dive measurements beyond Lighthouse
 
-- **Bundle composition**: per-route JS/CSS transfer sizes, chunk graph, duplicate dependency detection, and which chunks each route pulls. Identify heavy libs actually reaching the client (recharts, cmdk, date-fns, embla, react-day-picker, radix packages).
-- **Coverage**: Chrome DevTools JS/CSS coverage on `/` and one OS route to quantify unused bytes precisely.
-- **Runtime profiling**: performance traces of (a) hydration, (b) launching all 11 fake apps, (c) dragging/resizing/snapping a window, (d) power/reboot overlay animations. Report long tasks >50 ms, dropped frames, and layout-thrash sources.
+- **Bundle composition**: per-route JS/CSS transfer sizes (Brotli), chunk graph, duplicate dependency detection, and which chunks each route pulls. Identify heavy libs actually reaching the client (recharts, cmdk, date-fns, embla, react-day-picker, radix packages).
+- **Coverage with source attribution**: Chrome DevTools JS/CSS coverage on `/` and each OS route. Every unused-JS finding reports package name, import path, chunk name, unused bytes, and routes affected.
+- **Runtime profiling**: performance traces of (a) hydration, (b) launching all 11 fake apps, (c) dragging/resizing/snapping a window, (d) power/reboot overlay animations. Report long tasks >50 ms, dropped frames, and layout-thrash sources with the responsible component/trace event.
 - **Interaction latency**: INP measurement for dock launch, window drag start, command palette open, theme/appearance toggle.
-- **Memory**: heap snapshots before/after opening and closing all windows repeatedly, to catch listener/timer leaks in the animation-heavy shells.
+- **Memory (quantified)**: open and close all windows 25 times; report retained node count delta, retained listener count delta, heap delta, and detached DOM node count.
 - **Network waterfall**: request count, critical path depth, Openverse media calls (cache hit rate, image sizes, whether they block paint).
 - **SSR cost**: server response time per route and time-to-first-byte from the Worker.
+
+## Phase 3 — Budgets and evidence rules
+
+Evaluate every route against these budgets and report PASS/FAIL per budget:
+
+- JS entry chunk < 75 KiB Brotli
+- render-blocking CSS < 5 KiB Brotli
+- LCP < 2.0 s mobile
+- INP < 200 ms
+- CLS < 0.01
+- individual route JS < 150 KiB transferred
+
+Hard rules for every finding and recommendation:
+
+- Tagged with exactly one confidence label: `[MEASURED]`, `[LIKELY]`, or `[HYPOTHESIS]`. An untagged item is invalid and must be dropped.
+- Must name affected routes, responsible bundle/chunk (or request/trace event), and measured cost in bytes or milliseconds.
+- Must state current measured value, projected value after the change, and estimated delta.
+- Must name the Core Web Vital it improves: LCP, INP, CLS, TTFB, or None.
+- Baseline measurements are recorded once and preserved unchanged for future diffs.
+- Ranking is computed, not opinionated: `Impact Score` = estimated user-facing gain, `Effort Score` = implementation complexity, `Priority Score = Impact / Effort`, sorted descending.
+- Do not recommend code splitting, lazy loading, tree shaking, image optimization, caching, or SSR improvements unless a specific measured asset, component, request, or trace event proves the opportunity.
+
 
 ## Phase 3 — Deliverable
 
