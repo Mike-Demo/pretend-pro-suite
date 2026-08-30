@@ -47,7 +47,7 @@ export function LocalePicker({
             )}
           >
             {l.flagImg ? (
-              <img src={l.flagImg} alt="" aria-hidden className="h-4 w-4 rounded-sm object-contain" />
+              <img src={l.flagImg} alt="" aria-hidden className="h-[1.125rem] w-[1.125rem] rounded-sm object-contain" />
             ) : (
               <span aria-hidden="true">{l.flag}</span>
             )}
@@ -78,7 +78,7 @@ export function LocalePicker({
           )}
         >
           {l.flagImg ? (
-            <img src={l.flagImg} alt="" aria-hidden className="h-4 w-4 rounded-sm object-contain" />
+            <img src={l.flagImg} alt="" aria-hidden className="h-[1.125rem] w-[1.125rem] rounded-sm object-contain" />
           ) : (
             <span aria-hidden="true">{l.flag}</span>
           )}
