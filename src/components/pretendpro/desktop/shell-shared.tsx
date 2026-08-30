@@ -115,7 +115,9 @@ export function AppLauncherGrid({
               <Icon className="h-5 w-5" />
             </span>
             <span className="text-[11px] font-semibold text-foreground">{app.name}</span>
-            <span className="text-[10px] text-muted-foreground">Press {i + 1}</span>
+            <span className="text-[10px] text-muted-foreground">
+              {i < 9 ? `Press ${i + 1}` : "via palette"}
+            </span>
           </button>
         );
       })}

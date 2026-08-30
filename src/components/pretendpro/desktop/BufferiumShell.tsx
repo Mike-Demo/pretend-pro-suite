@@ -42,7 +42,7 @@ export function BufferiumShell({
           <Circle className="h-4 w-4 text-primary" />
         </button>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {apps.map((app) => {
             const Icon = app.icon;
             const isRunning = openApps.includes(app.id);

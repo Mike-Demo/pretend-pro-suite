@@ -5,6 +5,12 @@ import { DocuFaker } from "@/components/pretendpro/DocuFaker";
 import { SheetShenanigans } from "@/components/pretendpro/SheetShenanigans";
 import { BrowserBuddy } from "@/components/pretendpro/BrowserBuddy";
 import { InboxMirage } from "@/components/pretendpro/InboxMirage";
+import { CodeFaker } from "@/components/pretendpro/CodeFaker";
+import { DeckDreamer } from "@/components/pretendpro/DeckDreamer";
+import { ReaderRealm } from "@/components/pretendpro/ReaderRealm";
+import { PhotoPretender } from "@/components/pretendpro/PhotoPretender";
+import { ReelPretender } from "@/components/pretendpro/ReelPretender";
+import { SoundStage } from "@/components/pretendpro/SoundStage";
 import { useFunMode } from "@/lib/pretendpro/fun-mode";
 import { useWindowManager, type Bounds } from "@/lib/pretendpro/windows";
 import { FruitShell } from "./FruitShell";
@@ -20,6 +26,13 @@ const screens: Record<AppId, (props: { animated: boolean }) => React.ReactNode> 
   sheets: SheetShenanigans,
   browser: BrowserBuddy,
   inbox: InboxMirage,
+  codeweb: (props) => <CodeFaker mode="web" {...props} />,
+  codegame: (props) => <CodeFaker mode="game" {...props} />,
+  deck: DeckDreamer,
+  reader: ReaderRealm,
+  photos: PhotoPretender,
+  reels: ReelPretender,
+  sound: SoundStage,
 };
 
 const shells: Record<OsTheme, (props: ShellProps) => React.ReactNode> = {
@@ -152,7 +165,7 @@ export function Desktop({
 
       if (isTyping(e.target) || mod || e.altKey) return;
 
-      if (e.key >= "1" && e.key <= "4") {
+      if (e.key >= "1" && e.key <= "9") {
         const target = apps[Number(e.key) - 1];
         if (target) handleDockSelect(target.id);
       } else if (e.key.toLowerCase() === "f") {
