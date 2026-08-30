@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import type { MobileOsTheme } from "@/components/pretendpro/WindowFrame";
 import { apps, SparklesLayer, StickyNote, type AppId } from "@/components/pretendpro/chrome";
 import { AppScreen, preloadAppScreen } from "@/components/pretendpro/app-screens";
@@ -8,11 +8,15 @@ import { useFunMode } from "@/lib/pretendpro/fun-mode";
 import { usePhone } from "@/lib/pretendpro/phone";
 import { HomeScreen } from "./HomeScreen";
 import { Recents } from "./Recents";
+import { AndroidShell } from "./AndroidShell";
+import { FosShell } from "./FosShell";
 import type { MobileShellProps } from "./shell-shared";
 
+// Both phone shells are ~2 KiB of markup each and one of them is always the
+// first thing painted, so they are static: no extra round trip before LCP.
 const shells: Record<MobileOsTheme, React.ComponentType<MobileShellProps>> = {
-  android: lazy(() => import("./AndroidShell").then((m) => ({ default: m.AndroidShell }))),
-  fos: lazy(() => import("./FosShell").then((m) => ({ default: m.FosShell }))),
+  android: AndroidShell,
+  fos: FosShell,
 };
 
 const CommandPalette = lazy(() =>
@@ -45,17 +49,11 @@ export function Phone({
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [announcement, setAnnouncement] = useState("");
-  const phone = usePhone(`pretendpro:phone:${osTheme}`);
+  // The onboarding app is the foreground app from the first render pass, and its
+  // chunk starts downloading during that pass rather than after an effect commit.
+  if (typeof window !== "undefined") preloadAppScreen(initialApp);
+  const phone = usePhone(`pretendpro:phone:${osTheme}`, initialApp);
   const { tasks, foreground, view, launch, goHome, showRecents, back, closeTask, cycle } = phone;
-
-  // Open the app chosen during onboarding once, unless a session was restored.
-  const bootstrapped = useRef(false);
-  useEffect(() => {
-    if (bootstrapped.current) return;
-    bootstrapped.current = true;
-    if (phone.tasks.length > 0) return;
-    launch(initialApp);
-  }, [initialApp, launch, phone.tasks.length]);
 
   const handleLaunch = useCallback((id: AppId) => launch(id), [launch]);
 

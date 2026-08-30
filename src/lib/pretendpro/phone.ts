@@ -41,9 +41,12 @@ function parseTasks(raw: string | null): AppId[] | null {
  * Phone task stack: no windows, just an ordered list of running apps where the
  * last entry is the foreground app. Persisted per edition in localStorage.
  */
-export function usePhone(storageKey: string): PhoneManager {
-  const [tasks, setTasks] = useState<AppId[]>([]);
-  const [view, setView] = useState<PhoneView>("home");
+export function usePhone(storageKey: string, initialApp?: AppId): PhoneManager {
+  // Seeding the foreground app in the initial state (rather than a post-hydration
+  // effect) puts the app surface in the very first render pass, removing one
+  // client round trip in front of the phone's largest contentful paint.
+  const [tasks, setTasks] = useState<AppId[]>(initialApp ? [initialApp] : []);
+  const [view, setView] = useState<PhoneView>(initialApp ? "app" : "home");
   const [restored, setRestored] = useState(false);
   const [ready, setReady] = useState(false);
   const hydrated = useRef(false);
@@ -56,6 +59,8 @@ export function usePhone(storageKey: string): PhoneManager {
     if (parsed && parsed.length > 0) {
       setTasks(parsed);
       setRestored(true);
+      // A restored session lands on the launcher, as it did before.
+      setView("home");
     }
     setReady(true);
   }, [storageKey]);

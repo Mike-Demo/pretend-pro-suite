@@ -10,7 +10,6 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
-import { Toaster } from "@/components/ui/sonner";
 import { AppearanceEffect } from "@/components/pretendpro/AppearanceToggle";
 import { getCaptchaGate } from "@/lib/captcha/verify.functions";
 import { captchaClientFlag, isOpenPath } from "@/lib/captcha/session";
@@ -85,6 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     }
 
     const gate = await getCaptchaGate();
+
     if (!gate.configured) return;
     if (gate.verified) {
       if (typeof window !== "undefined") {
@@ -170,7 +170,6 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <AppearanceEffect />
       <Outlet />
-      <Toaster />
     </QueryClientProvider>
   );
 }
