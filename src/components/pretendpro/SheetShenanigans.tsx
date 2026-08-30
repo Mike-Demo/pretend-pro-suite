@@ -67,7 +67,7 @@ export function SheetShenanigans({ animated }: { animated: boolean }) {
         </p>
         <div className="flex h-32 items-end justify-around gap-2 sm:gap-4">
           {chartBars.map((bar, i) => (
-            <div key={bar.label} className="flex flex-1 flex-col items-center gap-1">
+            <div key={bar.label} className="flex h-full flex-1 flex-col items-center justify-end gap-1">
               <div
                 className={cn(
                   "w-full max-w-12 rounded-t-lg transition-all",
