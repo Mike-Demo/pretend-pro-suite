@@ -176,13 +176,7 @@
     linear-gradient(160deg, oklch(0.95 0.04 210), oklch(0.9 0.06 265));
 }
 
-[data-os-theme="apperture"] {
-  --os-radius: 0.5rem;
-  --os-titlebar: oklch(0.9 0.05 240 / 80%);
-  --os-chrome: oklch(0.93 0.03 245 / 88%);
-  --os-wallpaper: radial-gradient(circle at 70% 30%, oklch(0.9 0.09 245), transparent 60%),
-    linear-gradient(200deg, oklch(0.94 0.04 250), oklch(0.86 0.07 235));
-}
+/* Apperture tokens live in the Fluent layer below. */
 
 [data-os-theme="bufferium"] {
   --os-radius: 0.75rem;
