@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
 import type { AppId } from "@/components/pretendpro/chrome";
 import { osThemes, type OsTheme } from "@/components/pretendpro/WindowFrame";
@@ -217,7 +218,7 @@ function Onboarding() {
             <h1 className="mt-3 text-center text-2xl font-semibold tracking-tight text-foreground sm:text-[28px]">
               {step === 1
                 ? "How are you planning to pretend to work?"
-                : "Which window style feels most like your job?"}
+                : "Which device style feels most like your job?"}
             </h1>
             <p className="mt-2 text-center text-sm text-muted-foreground">
               {step === 1
