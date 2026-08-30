@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Suite } from "@/components/pretendpro/Suite";
 import { parseAppSearch } from "@/lib/pretendpro/search";
+import { breadcrumbJsonLd, webPageJsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/fos")({
   validateSearch: parseAppSearch,
