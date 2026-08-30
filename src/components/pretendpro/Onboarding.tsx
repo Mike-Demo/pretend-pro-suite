@@ -6,6 +6,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
 import { LocalePicker } from "@/components/pretendpro/LocalePicker";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   isFullscreenSupported,
   loadFullscreenPreference,
