@@ -20,6 +20,7 @@ import {
   type IllustrationName,
 } from "@/components/pretendpro/Illustration";
 import { SocialFooter } from "@/components/pretendpro/SocialFooter";
+import { homeOgImage, webPageJsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -38,6 +39,7 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pretend.pro/" },
+      { property: "og:image", content: homeOgImage },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "PretendPro 3000 — Set Up Your Fake Workday" },
       {
@@ -45,6 +47,7 @@ export const Route = createFileRoute("/")({
         content:
           "A wholesome parody office suite onboarding: choose your pretend work and your pretend operating system.",
       },
+      { name: "twitter:image", content: homeOgImage },
     ],
     links: [
       { rel: "canonical", href: "https://pretend.pro/" },
@@ -54,6 +57,17 @@ export const Route = createFileRoute("/")({
         href: illustrations.pondering.webp,
         type: "image/webp",
         fetchpriority: "high",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: webPageJsonLd({
+          name: "PretendPro 3000 — Set Up Your Fake Workday",
+          url: "https://pretend.pro/",
+          description:
+            "Answer two questions and PretendPro 3000 builds your ideal fake workday.",
+        }),
       },
     ],
   }),

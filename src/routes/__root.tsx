@@ -154,14 +154,34 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
+          "@id": "https://pretend.pro/#organization",
           name: "PretendPro 3000",
-          url: "https://pretend.pro",
-          logo: "https://pretend.pro/apple-touch-icon.png",
+          url: "https://pretend.pro/",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://pretend.pro/apple-touch-icon.png",
+            width: 180,
+            height: 180,
+          },
           sameAs: [
             "https://www.linkedin.com/in/mikedemopoulos",
             "https://x.com/mike_demo",
             "https://www.threads.com/@mdemop",
           ],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "@id": "https://pretend.pro/#website",
+          url: "https://pretend.pro/",
+          name: "PretendPro 3000",
+          description:
+            "A playful parody productivity suite with five pretend operating-system editions.",
+          publisher: { "@id": "https://pretend.pro/#organization" },
+          inLanguage: "en",
         }),
       },
     ],
