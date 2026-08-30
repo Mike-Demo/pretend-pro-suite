@@ -5,6 +5,7 @@ import {
   socialOgImageAlt,
   socialOgImageHeight,
   socialOgImageWidth,
+  siteUrl,
   webPageJsonLd,
 } from "@/lib/seo";
 import { locales, localeMeta, type LocaleId } from "./locales";
