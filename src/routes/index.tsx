@@ -177,11 +177,18 @@ function Onboarding() {
         Onboarding in
         <span className="rounded bg-primary px-2 py-0.5 text-primary-foreground">PretendPro 3000</span>
         <Link
-          to="/licenses"
+          to="/openverse-setup"
           className="fluent-focus ml-auto text-xs font-medium text-primary hover:underline"
+        >
+          Openverse setup
+        </Link>
+        <Link
+          to="/licenses"
+          className="fluent-focus text-xs font-medium text-primary hover:underline"
         >
           Open source licenses
         </Link>
+
       </header>
 
       <main className="mx-auto mt-8 max-w-5xl">
