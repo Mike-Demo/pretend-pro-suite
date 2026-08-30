@@ -286,7 +286,7 @@ function Onboarding() {
                           onSelect={() => setStyle(option.id)}
                           onPrefetch={() => {
                             // Warm the edition's route chunk before the user commits.
-                            void router.preloadRoute({ to: themeRoutes[option.id], search: {} });
+                            void router.preloadRoute({ to: themeRoutes[option.id], search: () => ({}) });
                           }}
                         />
                       ))}
