@@ -14,10 +14,7 @@ function LocaleLayout() {
   if (!isLocaleId(locale)) return null;
   return (
     <I18nProvider locale={locale}>
-      {/* Keyed by locale so a language switch replays the tumble-in animation. */}
-      <div key={locale} className="animate-locale-swap">
-        <Outlet />
-      </div>
+      <Outlet />
     </I18nProvider>
   );
 }
