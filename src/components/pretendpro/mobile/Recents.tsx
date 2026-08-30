@@ -46,15 +46,15 @@ export function Recents({
                   </button>
                   <button
                     onClick={() => onResume(id)}
-                    className="flex h-40 w-full flex-col items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="group flex h-40 w-full flex-col items-center justify-center gap-2 transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-95"
                   >
                     <span
                       className={cn(
-                        "flex h-12 w-12 items-center justify-center rounded-2xl",
+                        "flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:animate-icon-pop",
                         app.chip,
                       )}
                     >
-                      <Icon className="h-5 w-5" />
+                      <Icon className="h-5 w-5 transition-transform group-hover:scale-110" />
                     </span>
                     <span className="px-2 text-center text-[11px] font-semibold text-foreground/90">
                       {app.name}

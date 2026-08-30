@@ -38,16 +38,16 @@ export function HomeScreen({
               <li key={app.id}>
                 <button
                   onClick={() => onLaunch(app.id)}
-                  className="flex w-full flex-col items-center gap-1.5 rounded-xl p-1 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-95"
+                  className="group flex w-full flex-col items-center gap-1.5 rounded-xl p-1 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-90"
                 >
                   <span
                     className={cn(
-                      "flex h-14 w-14 items-center justify-center shadow-[var(--os-elevation)]",
+                      "flex h-14 w-14 items-center justify-center shadow-[var(--os-elevation)] transition-transform group-hover:animate-icon-pop",
                       rounded,
                       app.chip,
                     )}
                   >
-                    <Icon className="h-6 w-6" />
+                    <Icon className="h-6 w-6 transition-transform group-hover:scale-110" />
                   </span>
                   <span className="line-clamp-2 text-center text-[10px] font-semibold leading-tight text-foreground/90">
                     {app.name}
@@ -73,11 +73,11 @@ export function HomeScreen({
                     onClick={() => onLaunch(id)}
                     aria-label={`Open ${app.name}`}
                     className={cn(
-                      "flex h-12 w-12 items-center justify-center rounded-[1.1rem] transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-95",
+                      "group flex h-12 w-12 items-center justify-center rounded-[1.1rem] transition-transform hover:-translate-y-1 hover:animate-icon-pop focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-90",
                       app.chip,
                     )}
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon className="h-5 w-5 transition-transform group-hover:scale-110" />
                   </button>
                 </li>
               );
