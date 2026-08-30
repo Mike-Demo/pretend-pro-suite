@@ -186,35 +186,22 @@ export function Onboarding() {
               {t.onboarding.stepLabel(step)}
             </p>
             <h1 className="mt-3 text-center text-2xl font-semibold tracking-tight text-foreground sm:text-[28px]">
-              {step === 1 ? t.onboarding.questionWork : t.onboarding.questionStyle}
+              {step === 1 ? t.onboarding.questionStyle : t.onboarding.questionWork}
             </h1>
             <p className="mt-2 text-center text-sm text-muted-foreground">
-              {step === 1 ? t.onboarding.subtitleWork : t.onboarding.subtitleStyle}
+              {step === 1 ? t.onboarding.subtitleStyle : t.onboarding.subtitleWork}
             </p>
 
             {step === 1 ? (
-              <div className="mt-8 grid max-h-[55vh] gap-3 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-4">
-                {workOrder.map((id, i) => (
-                  <OptionCard
-                    key={id}
-                    title={t.onboarding.work[id].title}
-                    description={t.onboarding.work[id].description}
-                    art={workArt[id]}
-                    priority={i === 0}
-                    selected={work === id}
-                    onSelect={() => setWork(id)}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="mt-8 space-y-6">
-                {styleGroups.map((group) => (
-                  <section key={group.heading}>
-                    <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                      {group.heading}
-                    </h2>
-                    <div className="mt-3 grid gap-3 sm:grid-cols-3">
-                      {group.options.map((id) => (
+              <Tabs value={device} onValueChange={onDeviceChange} className="mt-8">
+                <TabsList className="mx-auto grid w-full max-w-xs grid-cols-2">
+                  <TabsTrigger value="desktop">{t.onboarding.desktopHeading}</TabsTrigger>
+                  <TabsTrigger value="mobile">{t.onboarding.mobileHeading}</TabsTrigger>
+                </TabsList>
+                {(["desktop", "mobile"] as DeviceKind[]).map((kind) => (
+                  <TabsContent key={kind} value={kind} className="mt-6">
+                    <div className="grid gap-3 sm:grid-cols-3">
+                      {deviceOptions[kind].map((id) => (
                         <OptionCard
                           key={id}
                           title={osThemes.find((theme) => theme.id === id)?.name ?? id}
@@ -233,10 +220,33 @@ export function Onboarding() {
                         />
                       ))}
                     </div>
-                  </section>
+                  </TabsContent>
+                ))}
+              </Tabs>
+            ) : (
+              <div className="mt-8 grid max-h-[55vh] gap-3 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-4">
+                {workOrder.map((id, i) => (
+                  <OptionCard
+                    key={id}
+                    title={t.onboarding.work[id].title}
+                    description={t.onboarding.work[id].description}
+                    art={workArt[id]}
+                    priority={i === 0}
+                    selected={work === id}
+                    onSelect={() => setWork(id)}
+                    onPrefetch={() => {
+                      if (!style) return;
+                      void router.preloadRoute({
+                        to: localeThemeRoutes[style],
+                        params: { locale },
+                        search: { app: id },
+                      });
+                    }}
+                  />
                 ))}
               </div>
             )}
+
 
             <div className="mt-8 flex flex-col items-center gap-3">
               <button
