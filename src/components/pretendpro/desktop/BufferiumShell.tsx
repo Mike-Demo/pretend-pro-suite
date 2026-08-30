@@ -16,8 +16,10 @@ export function BufferiumShell({
   osTheme,
   active,
   onSelect,
-  animated,
-  onToggleAnimated,
+  openApps,
+  focusedApp,
+  funMode,
+  onToggleFunMode,
   onShowShortcuts,
   onOpenPalette,
   children,
@@ -28,7 +30,7 @@ export function BufferiumShell({
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex-1 overflow-y-auto px-3 pb-24 pt-4 sm:px-6">{children}</div>
+      <div className="relative min-h-0 flex-1 overflow-hidden">{children}</div>
 
       <div className="relative z-30 flex items-center gap-2 border-t border-border/50 bg-[var(--os-chrome)] px-3 py-2 backdrop-blur">
         <button
@@ -43,7 +45,8 @@ export function BufferiumShell({
         <div className="flex items-center gap-1.5">
           {apps.map((app) => {
             const Icon = app.icon;
-            const isActive = app.id === active;
+            const isRunning = openApps.includes(app.id);
+            const isActive = app.id === focusedApp;
             return (
               <button
                 key={app.id}
@@ -57,15 +60,15 @@ export function BufferiumShell({
                   className={cn(
                     "flex h-8 w-8 items-center justify-center rounded-lg transition-colors",
                     app.chip,
-                    isActive && "ring-2 ring-primary",
+                    isActive ? "ring-2 ring-primary" : isRunning && "ring-1 ring-primary/40",
                   )}
                 >
                   <Icon className="h-4 w-4" />
                 </span>
                 <span
                   className={cn(
-                    "mt-1 h-1 w-4 rounded-full",
-                    isActive ? "bg-primary" : "bg-transparent",
+                    "mt-1 h-1 w-4 rounded-full transition-colors duration-200",
+                    isActive ? "bg-primary" : isRunning ? "bg-primary/40" : "bg-transparent",
                   )}
                 />
               </button>
@@ -115,10 +118,10 @@ export function BufferiumShell({
         >
           <p className="text-xs font-bold text-popover-foreground">Quick settings</p>
           <button
-            onClick={onToggleAnimated}
+            onClick={onToggleFunMode}
             className="mt-2 w-full rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted"
           >
-            Animation Mode: {animated ? "On" : "Off"} (A)
+            Fun Mode: {funMode ? "On" : "Off"} (A)
           </button>
           <ThemeSwitchLinks osTheme={osTheme} active={active} />
           <p className="mt-2 border-t border-border pt-2 text-[11px] text-muted-foreground">

@@ -17,8 +17,10 @@ export function FruitShell({
   osTheme,
   active,
   onSelect,
-  animated,
-  onToggleAnimated,
+  openApps,
+  focusedApp,
+  funMode,
+  onToggleFunMode,
   onShowShortcuts,
   onOpenPalette,
   children,
@@ -71,10 +73,10 @@ export function FruitShell({
           className="left-24 top-8 w-56"
         >
           <button
-            onClick={onToggleAnimated}
+            onClick={onToggleFunMode}
             className="w-full rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted"
           >
-            {animated ? "Disable" : "Enable"} Animation Mode (A)
+            {funMode ? "Disable" : "Enable"} Fun Mode (A)
           </button>
           <button
             onClick={onOpenPalette}
@@ -91,13 +93,14 @@ export function FruitShell({
         </Popover>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-3 pb-28 pt-4 sm:px-6">{children}</div>
+      <div className="relative min-h-0 flex-1 overflow-hidden">{children}</div>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-3 z-30 flex justify-center px-3">
         <div className="pointer-events-auto flex items-end gap-2 rounded-2xl border border-border/50 bg-[var(--os-chrome)] px-3 py-2 shadow-xl backdrop-blur">
           {apps.map((app) => {
             const Icon = app.icon;
-            const isActive = app.id === active;
+            const isRunning = openApps.includes(app.id);
+            const isActive = app.id === focusedApp;
             return (
               <button
                 key={app.id}
@@ -111,15 +114,19 @@ export function FruitShell({
                   className={cn(
                     "flex h-11 w-11 items-center justify-center rounded-xl shadow-md transition-transform duration-150 group-hover:-translate-y-2 group-hover:scale-125",
                     app.chip,
-                    isActive && "ring-2 ring-primary",
+                    isActive ? "ring-2 ring-primary" : isRunning && "ring-1 ring-primary/40",
                   )}
                 >
                   <Icon className="h-5 w-5" />
                 </span>
                 <span
                   className={cn(
-                    "mt-1 h-1 w-1 rounded-full",
-                    isActive ? "bg-foreground/70" : "bg-transparent",
+                    "mt-1 h-1 w-1 rounded-full transition-colors duration-200",
+                    isActive
+                      ? "bg-foreground/80"
+                      : isRunning
+                        ? "bg-foreground/40"
+                        : "bg-transparent",
                   )}
                 />
               </button>

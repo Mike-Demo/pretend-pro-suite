@@ -48,7 +48,7 @@ export function SparklesLayer({ enabled }: { enabled: boolean }) {
 
 export function StickyNote() {
   return (
-    <div className="absolute right-3 top-3 z-10 hidden rotate-3 rounded-md bg-butter px-3 py-2 text-xs font-semibold text-butter-foreground shadow-md sm:block">
+    <div className="pointer-events-none absolute right-4 top-4 z-[5] hidden rotate-3 rounded-md bg-butter px-3 py-2 text-xs font-semibold text-butter-foreground shadow-md sm:block">
       You're doing great, probably.
     </div>
   );

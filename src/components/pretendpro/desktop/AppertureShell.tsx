@@ -20,8 +20,10 @@ export function AppertureShell({
   osTheme,
   active,
   onSelect,
-  animated,
-  onToggleAnimated,
+  openApps,
+  focusedApp,
+  funMode,
+  onToggleFunMode,
   onShowShortcuts,
   onOpenPalette,
   children,
@@ -35,7 +37,7 @@ export function AppertureShell({
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex-1 overflow-y-auto px-3 pb-28 pt-4 sm:px-6">{children}</div>
+      <div className="relative min-h-0 flex-1 overflow-hidden">{children}</div>
 
       <div className="relative z-30 flex h-12 items-center gap-1 border-t border-border/60 bg-[var(--os-chrome)] px-2 backdrop-blur-2xl">
         {/* Left: search (Fluent taskbar search box) */}
@@ -61,7 +63,8 @@ export function AppertureShell({
 
           {apps.map((app) => {
             const Icon = app.icon;
-            const isActive = app.id === active;
+            const isRunning = openApps.includes(app.id);
+            const isActive = app.id === focusedApp;
             return (
               <button
                 key={app.id}
@@ -69,14 +72,14 @@ export function AppertureShell({
                 title={app.name}
                 aria-label={app.name}
                 aria-pressed={isActive}
-                className={cn(taskbarButton, isActive && "bg-foreground/[0.08]")}
+                className={cn(taskbarButton, isActive ? "bg-foreground/[0.08]" : isRunning && "bg-foreground/[0.04]")}
               >
                 <Icon className="h-4 w-4" strokeWidth={1.75} />
                 <span className="hidden lg:inline">{app.name}</span>
                 <span
                   className={cn(
-                    "absolute bottom-0 left-1/2 h-[3px] -translate-x-1/2 rounded-full bg-primary transition-all",
-                    isActive ? "w-4" : "w-0",
+                    "absolute bottom-0 left-1/2 h-[3px] -translate-x-1/2 rounded-full bg-primary transition-all duration-200",
+                    isActive ? "w-4 opacity-100" : isRunning ? "w-1.5 opacity-70" : "w-0 opacity-0",
                   )}
                 />
               </button>
@@ -112,10 +115,10 @@ export function AppertureShell({
           <AppLauncherGrid active={active} onSelect={onSelect} />
           <div className="mt-3 border-t border-border pt-2">
             <button
-              onClick={onToggleAnimated}
+              onClick={onToggleFunMode}
               className="fluent-focus w-full rounded px-2 py-1.5 text-left text-xs hover:bg-muted"
             >
-              {animated ? "Disable" : "Enable"} Animation Mode (A)
+              {funMode ? "Disable" : "Enable"} Fun Mode (A)
             </button>
             <ThemeSwitchLinks osTheme={osTheme} active={active} />
           </div>

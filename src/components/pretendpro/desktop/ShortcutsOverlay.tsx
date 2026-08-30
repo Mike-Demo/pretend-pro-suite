@@ -1,12 +1,13 @@
 import { X } from "lucide-react";
 
 const shortcuts: Array<[string, string]> = [
-  ["1 – 4", "Open DocuFaker, SheetShenanigans, BrowserBuddy, Inbox Mirage"],
-  ["Ctrl / ⌘ + Tab", "Next app"],
-  ["Ctrl / ⌘ + Shift + Tab", "Previous app"],
+  ["1 – 4", "Launch / focus DocuFaker, SheetShenanigans, BrowserBuddy, Inbox Mirage"],
+  ["Ctrl / ⌘ + Tab", "Next window"],
+  ["Ctrl / ⌘ + Shift + Tab", "Previous window"],
   ["Ctrl / ⌘ + K", "App switcher"],
+  ["Ctrl / ⌘ + W", "Close focused window"],
   ["F", "Maximize / restore window"],
-  ["A", "Toggle Animation Mode"],
+  ["A", "Toggle Fun Mode (easter eggs)"],
   ["?", "Show this cheat sheet"],
   ["Esc", "Close overlays / restore window"],
 ];

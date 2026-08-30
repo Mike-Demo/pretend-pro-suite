@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
+import type { PointerEvent as ReactPointerEvent, ReactNode } from "react";
 import { Minus, Square, X } from "lucide-react";
-import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 export type OsTheme = "fruit" | "apperture" | "bufferium";
@@ -11,32 +10,51 @@ export const osThemes: Array<{ id: OsTheme; name: string }> = [
   { id: "bufferium", name: "BufferiumOS" },
 ];
 
-const fakeToasts: Record<string, string> = {
-  close: "Nice try. This window believes in you.",
-  minimize: "There is no escape from productivity.",
-  maximize: "It's already as big as your ambitions.",
+type BarProps = {
+  appName: string;
+  focused: boolean;
+  onClose: () => void;
+  onMinimize: () => void;
+  onToggleMaximize: () => void;
+  onPointerDown: (e: ReactPointerEvent<HTMLDivElement>) => void;
 };
 
-function fakeAction(kind: keyof typeof fakeToasts) {
-  toast(fakeToasts[kind]);
-}
-
-function TrafficLight({ color, label }: { color: string; label: string }) {
+function FruitBar({
+  appName,
+  focused,
+  onClose,
+  onMinimize,
+  onToggleMaximize,
+  onPointerDown,
+}: BarProps) {
+  const light = "h-3.5 w-3.5 rounded-full border border-foreground/10 transition-opacity";
   return (
-    <button
-      onClick={() => fakeAction("close")}
-      aria-label={label}
-      className={cn("h-3.5 w-3.5 rounded-full border border-foreground/10", color)}
-    />
-  );
-}
-
-function FruitBar({ appName }: { appName: string }) {
-  return (
-    <div className="relative flex items-center gap-2 rounded-t-[var(--os-radius)] border-b border-border/60 bg-[var(--os-titlebar)] px-3 py-2 backdrop-blur">
-      <TrafficLight color="bg-bubblegum" label="Close (pretend)" />
-      <TrafficLight color="bg-butter" label="Minimize (pretend)" />
-      <TrafficLight color="bg-mint" label="Zoom (pretend)" />
+    <div
+      onPointerDown={onPointerDown}
+      onDoubleClick={onToggleMaximize}
+      className={cn(
+        "relative flex cursor-grab touch-none select-none items-center gap-2 rounded-t-[var(--os-radius)] border-b border-border/60 bg-[var(--os-titlebar)] px-3 py-2 backdrop-blur active:cursor-grabbing",
+        !focused && "opacity-80",
+      )}
+    >
+      <button
+        onPointerDown={(e) => e.stopPropagation()}
+        onClick={onClose}
+        aria-label={`Close ${appName}`}
+        className={cn(light, focused ? "bg-bubblegum" : "bg-muted")}
+      />
+      <button
+        onPointerDown={(e) => e.stopPropagation()}
+        onClick={onMinimize}
+        aria-label={`Minimize ${appName}`}
+        className={cn(light, focused ? "bg-butter" : "bg-muted")}
+      />
+      <button
+        onPointerDown={(e) => e.stopPropagation()}
+        onClick={onToggleMaximize}
+        aria-label={`Zoom ${appName}`}
+        className={cn(light, focused ? "bg-mint" : "bg-muted")}
+      />
       <span className="pointer-events-none absolute inset-x-0 text-center text-xs font-semibold text-foreground/70">
         {appName}
       </span>
@@ -44,24 +62,52 @@ function FruitBar({ appName }: { appName: string }) {
   );
 }
 
-function AppertureBar({ appName }: { appName: string }) {
+function AppertureBar({
+  appName,
+  focused,
+  onClose,
+  onMinimize,
+  onToggleMaximize,
+  onPointerDown,
+}: BarProps) {
   // Fluent 2 caption buttons: 46x32 hit targets, thin glyphs, red close hover.
   const btn =
     "fluent-focus flex h-8 w-[46px] items-center justify-center text-foreground/80 transition-colors hover:bg-foreground/10 active:bg-foreground/[0.06]";
   return (
-    <div className="flex items-center rounded-t-[var(--os-radius)] border-b border-border/70 bg-[var(--os-titlebar)] backdrop-blur-xl">
+    <div
+      onPointerDown={onPointerDown}
+      onDoubleClick={onToggleMaximize}
+      className={cn(
+        "flex cursor-grab touch-none select-none items-center rounded-t-[var(--os-radius)] border-b border-border/70 bg-[var(--os-titlebar)] backdrop-blur-xl active:cursor-grabbing",
+        !focused && "opacity-80",
+      )}
+    >
       <span className="px-3 text-xs font-semibold text-foreground/90">{appName}</span>
       <div className="ml-auto flex">
-        <button onClick={() => fakeAction("minimize")} aria-label="Minimize (pretend)" className={btn}>
+        <button
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={onMinimize}
+          aria-label={`Minimize ${appName}`}
+          className={btn}
+        >
           <Minus className="h-3 w-3" strokeWidth={1.25} />
         </button>
-        <button onClick={() => fakeAction("maximize")} aria-label="Maximize (pretend)" className={btn}>
+        <button
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={onToggleMaximize}
+          aria-label={`Maximize ${appName}`}
+          className={btn}
+        >
           <Square className="h-2.5 w-2.5" strokeWidth={1.25} />
         </button>
         <button
-          onClick={() => fakeAction("close")}
-          aria-label="Close (pretend)"
-          className={cn(btn, "rounded-tr-[var(--os-radius)] hover:bg-[oklch(0.55_0.22_25)] hover:text-white")}
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={onClose}
+          aria-label={`Close ${appName}`}
+          className={cn(
+            btn,
+            "rounded-tr-[var(--os-radius)] hover:bg-[oklch(0.55_0.22_25)] hover:text-white",
+          )}
         >
           <X className="h-3 w-3" strokeWidth={1.25} />
         </button>
@@ -70,14 +116,28 @@ function AppertureBar({ appName }: { appName: string }) {
   );
 }
 
-function BufferiumBar({ appName }: { appName: string }) {
+function BufferiumBar({
+  appName,
+  focused,
+  onClose,
+  onToggleMaximize,
+  onPointerDown,
+}: BarProps) {
   return (
-    <div className="flex items-end gap-1 rounded-t-[var(--os-radius)] bg-[var(--os-titlebar)] px-2 pt-1.5">
+    <div
+      onPointerDown={onPointerDown}
+      onDoubleClick={onToggleMaximize}
+      className={cn(
+        "flex cursor-grab touch-none select-none items-end gap-1 rounded-t-[var(--os-radius)] bg-[var(--os-titlebar)] px-2 pt-1.5 active:cursor-grabbing",
+        !focused && "opacity-80",
+      )}
+    >
       <div className="flex items-center gap-2 rounded-t-lg border border-b-0 border-border/60 bg-card px-3 py-1.5">
         <span className="text-xs font-semibold text-foreground/80">{appName}</span>
         <button
-          onClick={() => fakeAction("close")}
-          aria-label="Close tab (pretend)"
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={onClose}
+          aria-label={`Close ${appName}`}
           className="flex h-4 w-4 items-center justify-center rounded-full text-foreground/50 transition-colors hover:bg-muted hover:text-foreground"
         >
           <X className="h-2.5 w-2.5" />
@@ -90,26 +150,49 @@ function BufferiumBar({ appName }: { appName: string }) {
 export function WindowFrame({
   osTheme,
   appName,
+  focused = true,
+  onClose,
+  onMinimize,
+  onToggleMaximize,
+  onTitlePointerDown,
+  className,
   children,
 }: {
   osTheme: OsTheme;
   appName: string;
+  focused?: boolean;
+  onClose?: () => void;
+  onMinimize?: () => void;
+  onToggleMaximize?: () => void;
+  onTitlePointerDown?: (e: ReactPointerEvent<HTMLDivElement>) => void;
+  className?: string;
   children: ReactNode;
 }) {
+  const bar: BarProps = {
+    appName,
+    focused,
+    onClose: onClose ?? (() => {}),
+    onMinimize: onMinimize ?? (() => {}),
+    onToggleMaximize: onToggleMaximize ?? (() => {}),
+    onPointerDown: onTitlePointerDown ?? (() => {}),
+  };
+
   return (
     <div
       data-os-theme={osTheme}
       className={cn(
-        "overflow-hidden rounded-[var(--os-radius)] bg-card",
+        "flex min-h-0 flex-col overflow-hidden rounded-[var(--os-radius)] bg-card transition-shadow duration-200",
         osTheme === "apperture"
           ? "fluent-elevated border border-border"
-          : "border-2 border-border shadow-xl",
+          : "border-2 border-border",
+        focused ? "shadow-2xl" : "shadow-md",
+        className,
       )}
     >
-      {osTheme === "fruit" && <FruitBar appName={appName} />}
-      {osTheme === "apperture" && <AppertureBar appName={appName} />}
-      {osTheme === "bufferium" && <BufferiumBar appName={appName} />}
-      <div className="p-4 sm:p-5">{children}</div>
+      {osTheme === "fruit" && <FruitBar {...bar} />}
+      {osTheme === "apperture" && <AppertureBar {...bar} />}
+      {osTheme === "bufferium" && <BufferiumBar {...bar} />}
+      <div className="min-h-0 flex-1 overflow-auto p-4 sm:p-5">{children}</div>
     </div>
   );
 }
