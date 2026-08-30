@@ -64,6 +64,28 @@ export const coloredIllustrations: Record<IllustrationName, string> = {
   feliz: felizColorWebp,
 };
 
+/** Names already warmed this session, so hover prefetch stays a one-off. */
+const warmedColorVariants = new Set<IllustrationName>();
+
+/**
+ * Warm the browser cache with a colored variant before it is selected, so the
+ * mono → color swap on selection paints instantly.
+ */
+export function prefetchColoredIllustration(name: IllustrationName) {
+  if (typeof window === "undefined" || warmedColorVariants.has(name)) return;
+  warmedColorVariants.add(name);
+  const img = new Image();
+  img.decoding = "async";
+  img.src = coloredIllustrations[name];
+}
+
+/** Idle-warm every colored variant (used once the onboarding has mounted). */
+export function prefetchAllColoredIllustrations() {
+  for (const name of Object.keys(coloredIllustrations) as IllustrationName[]) {
+    prefetchColoredIllustration(name);
+  }
+}
+
 /**
  * Decorative illustration. Renders the compact WebP first and keeps explicit
  * dimensions so the card never shifts while the image arrives.
