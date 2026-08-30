@@ -1,10 +1,12 @@
+import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
+import type { LocaleId } from "@/lib/i18n/locales";
 
 const linkedInUrl = "https://www.linkedin.com/in/mikedemopoulos";
 const xUrl = "https://x.com/mike_demo";
 const threadsUrl = "https://www.threads.com/@mdemop";
 
-export function SocialFooter({ className }: { className?: string }) {
+export function SocialFooter({ className, locale }: { className?: string; locale?: LocaleId }) {
   const year = new Date().getFullYear();
 
   return (
