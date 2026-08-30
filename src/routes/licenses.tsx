@@ -49,6 +49,13 @@ const libraries: Entry[] = [
   },
   { name: "Tailwind CSS", author: "Tailwind Labs", license: "MIT", url: "https://github.com/tailwindlabs/tailwindcss" },
   { name: "shadcn/ui", author: "shadcn", license: "MIT", url: "https://github.com/shadcn-ui/ui" },
+  {
+    name: "Fluent UI (Fluent 2 design system)",
+    author: "Microsoft",
+    license: "MIT",
+    url: "https://github.com/microsoft/fluentui",
+    note: "Fluent 2 design language used for this site's pages and the Apperture window style. Contributions follow the Microsoft Open Source Code of Conduct. No Fluent UI packages are bundled; tokens were recreated in CSS.",
+  },
   { name: "Radix UI", author: "WorkOS", license: "MIT", url: "https://github.com/radix-ui/primitives" },
   { name: "Sonner", author: "Emil Kowalski", license: "MIT", url: "https://github.com/emilkowalski/sonner" },
   { name: "Vite", author: "Evan You and contributors", license: "MIT", url: "https://github.com/vitejs/vite" },
