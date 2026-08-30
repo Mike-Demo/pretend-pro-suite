@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import type { MobileOsTheme } from "@/components/pretendpro/WindowFrame";
 import { apps, SparklesLayer, StickyNote, type AppId } from "@/components/pretendpro/chrome";
 import { AppScreen, preloadAppScreen } from "@/components/pretendpro/app-screens";
@@ -8,12 +8,17 @@ import { useFunMode } from "@/lib/pretendpro/fun-mode";
 import { usePhone } from "@/lib/pretendpro/phone";
 import { HomeScreen } from "./HomeScreen";
 import { Recents } from "./Recents";
+import { AndroidShell } from "./AndroidShell";
+import { FosShell } from "./FosShell";
 import type { MobileShellProps } from "./shell-shared";
 
+// Both phone shells are ~2 KiB of markup each and one of them is always the
+// first thing painted, so they are static: no extra round trip before LCP.
 const shells: Record<MobileOsTheme, React.ComponentType<MobileShellProps>> = {
-  android: lazy(() => import("./AndroidShell").then((m) => ({ default: m.AndroidShell }))),
-  fos: lazy(() => import("./FosShell").then((m) => ({ default: m.FosShell }))),
+  android: AndroidShell,
+  fos: FosShell,
 };
+
 
 const CommandPalette = lazy(() =>
   import("@/components/pretendpro/desktop/CommandPalette").then((m) => ({
