@@ -6,9 +6,15 @@ export type WebPageSchemaInput = {
   name: string;
   url: string;
   description: string;
+  inLanguage?: string;
 };
 
-export function webPageJsonLd({ name, url, description }: WebPageSchemaInput): string {
+export function webPageJsonLd({
+  name,
+  url,
+  description,
+  inLanguage = "en",
+}: WebPageSchemaInput): string {
   return JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -18,9 +24,10 @@ export function webPageJsonLd({ name, url, description }: WebPageSchemaInput): s
     description,
     isPartOf: { "@id": `${siteUrl}/#website` },
     publisher: { "@id": `${siteUrl}/#organization` },
-    inLanguage: "en",
+    inLanguage,
   });
 }
+
 
 export function breadcrumbJsonLd(name: string, url: string): string {
   return JSON.stringify({
