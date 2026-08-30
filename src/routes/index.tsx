@@ -61,16 +61,6 @@ function Index() {
         fullScreen && "bg-foreground",
       )}
     >
-      {fullScreen && (
-        <div
-          className="pointer-events-none fixed inset-0 z-30"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%)",
-          }}
-          aria-hidden="true"
-        />
-      )}
       <SparklesLayer enabled={animated} />
 
       <header className="relative z-10 mx-auto max-w-4xl text-center">
