@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type {} from "@tanstack/start-client-core";
+import type { RouteMethod } from "@tanstack/start-client-core";
+
+type SitemapMethod = Extract<RouteMethod, "GET">;
 
 const BASE_URL = "https://pretend.pro";
 
