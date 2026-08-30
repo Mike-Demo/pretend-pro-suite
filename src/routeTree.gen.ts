@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LocaleRouteRouteImport } from './routes/$locale/route'
 import { Route as AndroidRouteImport } from './routes/android'
 import { Route as AppertureRouteImport } from './routes/apperture'
 import { Route as BufferiumRouteImport } from './routes/bufferium'
@@ -18,10 +19,22 @@ import { Route as FruitRouteImport } from './routes/fruit'
 import { Route as LicensesRouteImport } from './routes/licenses'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as VerifyRouteImport } from './routes/verify'
+import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
+import { Route as LocaleAndroidRouteImport } from './routes/$locale/android'
+import { Route as LocaleAppertureRouteImport } from './routes/$locale/apperture'
+import { Route as LocaleBufferiumRouteImport } from './routes/$locale/bufferium'
+import { Route as LocaleFosRouteImport } from './routes/$locale/fos'
+import { Route as LocaleFruitRouteImport } from './routes/$locale/fruit'
+import { Route as LocaleLicensesRouteImport } from './routes/$locale/licenses'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocaleRouteRoute = LocaleRouteRouteImport.update({
+  id: '/$locale',
+  path: '/$locale',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AndroidRoute = AndroidRouteImport.update({
@@ -64,9 +77,45 @@ const VerifyRoute = VerifyRouteImport.update({
   path: '/verify',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocaleIndexRoute = LocaleIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleAndroidRoute = LocaleAndroidRouteImport.update({
+  id: '/android',
+  path: '/android',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleAppertureRoute = LocaleAppertureRouteImport.update({
+  id: '/apperture',
+  path: '/apperture',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleBufferiumRoute = LocaleBufferiumRouteImport.update({
+  id: '/bufferium',
+  path: '/bufferium',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleFosRoute = LocaleFosRouteImport.update({
+  id: '/fos',
+  path: '/fos',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleFruitRoute = LocaleFruitRouteImport.update({
+  id: '/fruit',
+  path: '/fruit',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleLicensesRoute = LocaleLicensesRouteImport.update({
+  id: '/licenses',
+  path: '/licenses',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$locale': typeof LocaleRouteRouteWithChildren
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
   '/bufferium': typeof BufferiumRoute
@@ -75,6 +124,13 @@ export interface FileRoutesByFullPath {
   '/licenses': typeof LicensesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/verify': typeof VerifyRoute
+  '/$locale/android': typeof LocaleAndroidRoute
+  '/$locale/apperture': typeof LocaleAppertureRoute
+  '/$locale/bufferium': typeof LocaleBufferiumRoute
+  '/$locale/fos': typeof LocaleFosRoute
+  '/$locale/fruit': typeof LocaleFruitRoute
+  '/$locale/licenses': typeof LocaleLicensesRoute
+  '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,10 +142,18 @@ export interface FileRoutesByTo {
   '/licenses': typeof LicensesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/verify': typeof VerifyRoute
+  '/$locale/android': typeof LocaleAndroidRoute
+  '/$locale/apperture': typeof LocaleAppertureRoute
+  '/$locale/bufferium': typeof LocaleBufferiumRoute
+  '/$locale/fos': typeof LocaleFosRoute
+  '/$locale/fruit': typeof LocaleFruitRoute
+  '/$locale/licenses': typeof LocaleLicensesRoute
+  '/$locale': typeof LocaleIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$locale': typeof LocaleRouteRouteWithChildren
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
   '/bufferium': typeof BufferiumRoute
@@ -98,11 +162,19 @@ export interface FileRoutesById {
   '/licenses': typeof LicensesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/verify': typeof VerifyRoute
+  '/$locale/android': typeof LocaleAndroidRoute
+  '/$locale/apperture': typeof LocaleAppertureRoute
+  '/$locale/bufferium': typeof LocaleBufferiumRoute
+  '/$locale/fos': typeof LocaleFosRoute
+  '/$locale/fruit': typeof LocaleFruitRoute
+  '/$locale/licenses': typeof LocaleLicensesRoute
+  '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/$locale'
     | '/android'
     | '/apperture'
     | '/bufferium'
@@ -111,6 +183,13 @@ export interface FileRouteTypes {
     | '/licenses'
     | '/sitemap.xml'
     | '/verify'
+    | '/$locale/android'
+    | '/$locale/apperture'
+    | '/$locale/bufferium'
+    | '/$locale/fos'
+    | '/$locale/fruit'
+    | '/$locale/licenses'
+    | '/$locale/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,9 +201,17 @@ export interface FileRouteTypes {
     | '/licenses'
     | '/sitemap.xml'
     | '/verify'
+    | '/$locale/android'
+    | '/$locale/apperture'
+    | '/$locale/bufferium'
+    | '/$locale/fos'
+    | '/$locale/fruit'
+    | '/$locale/licenses'
+    | '/$locale'
   id:
     | '__root__'
     | '/'
+    | '/$locale'
     | '/android'
     | '/apperture'
     | '/bufferium'
@@ -133,10 +220,18 @@ export interface FileRouteTypes {
     | '/licenses'
     | '/sitemap.xml'
     | '/verify'
+    | '/$locale/android'
+    | '/$locale/apperture'
+    | '/$locale/bufferium'
+    | '/$locale/fos'
+    | '/$locale/fruit'
+    | '/$locale/licenses'
+    | '/$locale/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LocaleRouteRoute: typeof LocaleRouteRouteWithChildren
   AndroidRoute: typeof AndroidRoute
   AppertureRoute: typeof AppertureRoute
   BufferiumRoute: typeof BufferiumRoute
@@ -154,6 +249,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale': {
+      id: '/$locale'
+      path: '/$locale'
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocaleRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/android': {
@@ -212,11 +314,85 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VerifyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$locale/': {
+      id: '/$locale/'
+      path: '/'
+      fullPath: '/$locale/'
+      preLoaderRoute: typeof LocaleIndexRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/android': {
+      id: '/$locale/android'
+      path: '/android'
+      fullPath: '/$locale/android'
+      preLoaderRoute: typeof LocaleAndroidRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/apperture': {
+      id: '/$locale/apperture'
+      path: '/apperture'
+      fullPath: '/$locale/apperture'
+      preLoaderRoute: typeof LocaleAppertureRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/bufferium': {
+      id: '/$locale/bufferium'
+      path: '/bufferium'
+      fullPath: '/$locale/bufferium'
+      preLoaderRoute: typeof LocaleBufferiumRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/fos': {
+      id: '/$locale/fos'
+      path: '/fos'
+      fullPath: '/$locale/fos'
+      preLoaderRoute: typeof LocaleFosRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/fruit': {
+      id: '/$locale/fruit'
+      path: '/fruit'
+      fullPath: '/$locale/fruit'
+      preLoaderRoute: typeof LocaleFruitRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/licenses': {
+      id: '/$locale/licenses'
+      path: '/licenses'
+      fullPath: '/$locale/licenses'
+      preLoaderRoute: typeof LocaleLicensesRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
   }
 }
 
+interface LocaleRouteRouteChildren {
+  LocaleAndroidRoute: typeof LocaleAndroidRoute
+  LocaleAppertureRoute: typeof LocaleAppertureRoute
+  LocaleBufferiumRoute: typeof LocaleBufferiumRoute
+  LocaleFosRoute: typeof LocaleFosRoute
+  LocaleFruitRoute: typeof LocaleFruitRoute
+  LocaleLicensesRoute: typeof LocaleLicensesRoute
+  LocaleIndexRoute: typeof LocaleIndexRoute
+}
+
+const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
+  LocaleAndroidRoute: LocaleAndroidRoute,
+  LocaleAppertureRoute: LocaleAppertureRoute,
+  LocaleBufferiumRoute: LocaleBufferiumRoute,
+  LocaleFosRoute: LocaleFosRoute,
+  LocaleFruitRoute: LocaleFruitRoute,
+  LocaleLicensesRoute: LocaleLicensesRoute,
+  LocaleIndexRoute: LocaleIndexRoute,
+}
+
+const LocaleRouteRouteWithChildren = LocaleRouteRoute._addFileChildren(
+  LocaleRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LocaleRouteRoute: LocaleRouteRouteWithChildren,
   AndroidRoute: AndroidRoute,
   AppertureRoute: AppertureRoute,
   BufferiumRoute: BufferiumRoute,

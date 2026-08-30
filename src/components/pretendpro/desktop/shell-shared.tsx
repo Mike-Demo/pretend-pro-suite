@@ -6,19 +6,10 @@ import { osThemes } from "@/components/pretendpro/WindowFrame";
 import { apps, type AppId } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
 import { preloadAppScreen } from "@/components/pretendpro/app-screens";
+import { useI18n, useStrings } from "@/lib/i18n/context";
+import { localeThemeRoutes } from "@/lib/i18n/locales";
+import { LocalePicker } from "@/components/pretendpro/LocalePicker";
 
-export const themeRoutes: Record<
-  OsTheme,
-  "/fruit" | "/apperture" | "/bufferium" | "/android" | "/fos"
-> = {
-  fruit: "/fruit",
-  apperture: "/apperture",
-  bufferium: "/bufferium",
-  android: "/android",
-  fos: "/fos",
-};
-
-export const licenseJoke = "License expired due to excessive pretending.";
 
 export type ShellProps = {
   osTheme: DesktopOsTheme;
@@ -64,32 +55,33 @@ export function ThemeSwitchLinks({
   className?: string;
   itemClassName?: string;
 }) {
+  const { locale, t } = useI18n();
+  const itemClass = cn("rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted", itemClassName);
   return (
     <div className={cn("flex flex-col", className)}>
       {osThemes
-        .filter((t) => t.id !== osTheme)
-        .map((t) => (
+        .filter((theme) => theme.id !== osTheme)
+        .map((theme) => (
           <Link
-            key={t.id}
-            to={themeRoutes[t.id]}
+            key={theme.id}
+            to={localeThemeRoutes[theme.id]}
+            params={{ locale }}
             search={{ app: active }}
-            className={cn("rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted", itemClassName)}
+            className={itemClass}
           >
-            Switch to {t.name}
+            {t.shell.switchTo(theme.name)}
           </Link>
         ))}
-      <Link
-        to="/"
-        className={cn("rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted", itemClassName)}
-      >
-        Change style…
+      <Link to="/$locale" params={{ locale }} className={itemClass}>
+        {t.shell.changeStyle}
       </Link>
-      <Link
-        to="/licenses"
-        className={cn("rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted", itemClassName)}
-      >
-        Open source licenses
+      <Link to="/$locale/licenses" params={{ locale }} className={itemClass}>
+        {t.shell.licenses}
       </Link>
+      <span className="mt-1 px-2 text-[10px] uppercase tracking-wider text-muted-foreground">
+        {t.shell.language}
+      </span>
+      <LocalePicker variant="menu" className="mt-0.5" />
     </div>
   );
 }
@@ -101,6 +93,7 @@ export function AppLauncherGrid({
   active: AppId;
   onSelect: (id: AppId) => void;
 }) {
+  const t = useStrings();
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
       {apps.map((app, i) => {
@@ -130,7 +123,7 @@ export function AppLauncherGrid({
               {app.name}
             </span>
             <span className="text-[9px] uppercase tracking-wider text-muted-foreground">
-              {i < 9 ? `Press ${i + 1}` : "via palette"}
+              {i < 9 ? t.shell.launcherHint(i + 1) : t.shell.launcherPalette}
             </span>
           </button>
         );

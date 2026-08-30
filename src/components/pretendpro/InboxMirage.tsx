@@ -2,19 +2,21 @@ import { useEffect, useRef, useState } from "react";
 import { AlertTriangle, MailOpen, Inbox } from "lucide-react";
 import { generateFakeEmail, seedEmails, type FakeEmail } from "@/lib/pretendpro/content";
 import { cn } from "@/lib/utils";
+import { useStrings } from "@/lib/i18n/context";
 
 export function InboxMirage({ animated }: { animated: boolean }) {
-  const [emails, setEmails] = useState<FakeEmail[]>(() => seedEmails(5));
+  const pack = useStrings().content;
+  const [emails, setEmails] = useState<FakeEmail[]>(() => seedEmails(5, pack));
   const [readIds, setReadIds] = useState<ReadonlySet<string>>(new Set());
   const counter = useRef(5);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setEmails((prev) => [generateFakeEmail(counter.current), ...prev].slice(0, 12));
+      setEmails((prev) => [generateFakeEmail(counter.current, pack), ...prev].slice(0, 12));
       counter.current += 1;
     }, 6000);
     return () => window.clearInterval(interval);
-  }, []);
+  }, [pack]);
 
   const unread = emails.filter((e) => !readIds.has(e.id)).length;
 

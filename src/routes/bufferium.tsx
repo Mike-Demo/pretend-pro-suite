@@ -1,55 +1,19 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Suite } from "@/components/pretendpro/Suite";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { defaultLocale } from "@/lib/i18n/locales";
 import { parseAppSearch } from "@/lib/pretendpro/search";
-import { breadcrumbJsonLd, webPageJsonLd } from "@/lib/seo";
 
+/**
+ * Legacy unprefixed URL. Locale folders are canonical now, so send visitors and
+ * crawlers to the default-locale page and keep old links working.
+ */
 export const Route = createFileRoute("/bufferium")({
   validateSearch: parseAppSearch,
-  head: () => ({
-    meta: [
-      { title: "PretendPro 3000 — BufferiumOS Edition" },
-      {
-        name: "description",
-        content:
-          "BufferiumOS: a tab-strip window where everything is one click away from looking productive, forever buffering.",
-      },
-      { property: "og:title", content: "PretendPro 3000 — BufferiumOS Edition" },
-      {
-        property: "og:description",
-        content: "Tab-shaped fake work: DocuFaker, SheetShenanigans, BrowserBuddy, Inbox Mirage.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://pretend.pro/bufferium" },
-      { property: "og:image", content: "https://pretend.pro/og/bufferium.png" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "PretendPro 3000 — BufferiumOS Edition" },
-      {
-        name: "twitter:description",
-        content: "Tab-shaped fake work: DocuFaker, SheetShenanigans, BrowserBuddy, Inbox Mirage.",
-      },
-      { name: "twitter:image", content: "https://pretend.pro/og/bufferium.png" },
-    ],
-    links: [{ rel: "canonical", href: "https://pretend.pro/bufferium" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: webPageJsonLd({
-          name: "PretendPro 3000 — BufferiumOS Edition",
-          url: "https://pretend.pro/bufferium",
-          description:
-            "A tab-strip pretend desktop where everything is one click away from looking productive.",
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: breadcrumbJsonLd("BufferiumOS Edition", "https://pretend.pro/bufferium"),
-      },
-    ],
-  }),
-  component: BufferiumPage,
+  beforeLoad: ({ search }) => {
+    throw redirect({
+      to: "/$locale/bufferium",
+      params: { locale: defaultLocale },
+      search,
+      replace: true,
+    });
+  },
 });
-
-function BufferiumPage() {
-  const { app } = Route.useSearch();
-  return <Suite osTheme="bufferium" initialApp={app} />;
-}

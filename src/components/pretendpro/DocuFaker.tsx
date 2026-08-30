@@ -2,14 +2,19 @@ import { useEffect, useMemo, useState } from "react";
 import { Bold, Italic, Underline, AlignLeft, Wand2 } from "lucide-react";
 import { randomJargon } from "@/lib/pretendpro/content";
 import { cn } from "@/lib/utils";
+import { useStrings } from "@/lib/i18n/context";
 
 export function DocuFaker({ animated }: { animated: boolean }) {
-  const [paragraphs, setParagraphs] = useState<string[]>(() => randomJargon(3));
+  const pack = useStrings().content;
+  const [paragraphs, setParagraphs] = useState<string[]>(() => randomJargon(3, 0, pack));
   const [typed, setTyped] = useState("");
   const [typing, setTyping] = useState(false);
   const [flash, setFlash] = useState(false);
 
-  const typingSource = useMemo(() => randomJargon(2).join(" "), [paragraphs.length]);
+  const typingSource = useMemo(
+    () => randomJargon(2, 0, pack).join(" "),
+    [paragraphs.length, pack],
+  );
 
   useEffect(() => {
     if (!typing) return undefined;
@@ -25,7 +30,7 @@ export function DocuFaker({ animated }: { animated: boolean }) {
   }, [typing, typed, typingSource]);
 
   const lookBusy = () => {
-    setParagraphs(randomJargon(6, paragraphs.length));
+    setParagraphs(randomJargon(6, paragraphs.length, pack));
     setTyped("");
     setTyping(true);
     setFlash(true);

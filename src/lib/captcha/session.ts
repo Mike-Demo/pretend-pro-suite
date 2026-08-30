@@ -9,7 +9,15 @@ export const captchaClientFlag = "pretendpro:verified";
 /** Paths that never require the human check. */
 const openPaths = ["/", "/verify", "/licenses", "/robots.txt", "/sitemap.xml", "/manifest.webmanifest"];
 
-export function isOpenPath(pathname: string): boolean {
+/** Locale folders (e.g. /uk-en/licenses) share the unprefixed gate rules. */
+function stripLocale(pathname: string): string {
+  const match = /^\/(us-en|ca-en|uk-en|au-en|at-en|tlh)(\/.*)?$/.exec(pathname);
+  if (!match) return pathname;
+  return match[2] ?? "/";
+}
+
+export function isOpenPath(rawPathname: string): boolean {
+  const pathname = stripLocale(rawPathname);
   if (openPaths.some((p) => pathname === p || pathname.startsWith(`${p}/`))) return true;
   // static assets (icons, images, etc.) are served directly
   return /\.[a-z0-9]+$/i.test(pathname);

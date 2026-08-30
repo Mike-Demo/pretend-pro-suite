@@ -10,10 +10,10 @@ import {
   Popover,
   ThemeSwitchLinks,
   TrayGlyphs,
-  licenseJoke,
   useClock,
   type ShellProps,
 } from "./shell-shared";
+import { useStrings } from "@/lib/i18n/context";
 
 /**
  * Windows-flavoured shell styled with Fluent 2 conventions: centered taskbar,
@@ -31,6 +31,7 @@ export function AppertureShell({
   onOpenPalette,
   children,
 }: ShellProps) {
+  const strings = useStrings();
   const clock = useClock();
   const [startOpen, setStartOpen] = useState(false);
   const [trayOpen, setTrayOpen] = useState(false);
@@ -138,7 +139,7 @@ export function AppertureShell({
           className="fluent-flyout bottom-14 right-2 w-64 p-4"
         >
           <p className="text-xs font-semibold text-popover-foreground">PretendPro status</p>
-          <p className="mt-1 text-[11px] text-muted-foreground">{licenseJoke}</p>
+          <p className="mt-1 text-[11px] text-muted-foreground">{strings.shell.licenseJoke}</p>
           <p className="mt-1 text-[11px] text-muted-foreground">
             Network: pretending to be online.
           </p>

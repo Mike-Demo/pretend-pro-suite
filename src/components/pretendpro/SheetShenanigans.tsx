@@ -1,4 +1,5 @@
 import { spreadsheetFormulas } from "@/lib/pretendpro/content";
+import { useStrings } from "@/lib/i18n/context";
 import { cn } from "@/lib/utils";
 
 const columns = ["A", "B", "C", "D", "E"] as const;
@@ -13,6 +14,8 @@ const chartBars = [
 ];
 
 export function SheetShenanigans({ animated }: { animated: boolean }) {
+  const localized = useStrings().content.formulas;
+  const formulas = localized.length > 0 ? localized : spreadsheetFormulas;
   return (
     <div className="overflow-hidden rounded-2xl border-2 border-border bg-card shadow-lg">
       <div className="flex flex-wrap items-center gap-2 border-b border-border bg-mint px-4 py-2">
@@ -45,7 +48,7 @@ export function SheetShenanigans({ animated }: { animated: boolean }) {
                 </td>
                 {columns.map((c, ci) => {
                   const formula =
-                    spreadsheetFormulas[(r * columns.length + ci) % spreadsheetFormulas.length];
+                    formulas[(r * columns.length + ci) % formulas.length];
                   return (
                     <td
                       key={c}

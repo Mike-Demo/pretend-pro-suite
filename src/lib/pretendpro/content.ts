@@ -63,19 +63,42 @@ export const spreadsheetFormulas = [
   "=HLOOKUP(snacks, hidden_drawer)",
 ] as const;
 
-export function randomJargon(count: number, seedOffset = 0): string[] {
+/** Localized copy injected by callers; defaults keep the US English flavour. */
+export interface ContentPack {
+  jargon: readonly string[];
+  emailAuthors: readonly string[];
+  emailSubjects: readonly string[];
+  emailPreviews: readonly string[];
+}
+
+export const defaultContentPack: ContentPack = {
+  jargon: jargonSnippets,
+  emailAuthors,
+  emailSubjects,
+  emailPreviews,
+};
+
+export function randomJargon(
+  count: number,
+  seedOffset = 0,
+  pack: ContentPack = defaultContentPack,
+): string[] {
+  const source = pack.jargon.length > 0 ? pack.jargon : jargonSnippets;
   const result: string[] = [];
   for (let i = 0; i < count; i += 1) {
-    const idx = (i * 5 + seedOffset * 3) % jargonSnippets.length;
-    result.push(jargonSnippets[idx] ?? jargonSnippets[0] ?? "");
+    const idx = (i * 5 + seedOffset * 3) % source.length;
+    result.push(source[idx] ?? source[0] ?? "");
   }
   return result;
 }
 
-export function generateFakeEmail(sequence: number): FakeEmail {
-  const from = emailAuthors[sequence % emailAuthors.length] ?? "Someone";
-  const subject = emailSubjects[sequence % emailSubjects.length] ?? "Hi";
-  const preview = emailPreviews[sequence % emailPreviews.length] ?? "";
+export function generateFakeEmail(
+  sequence: number,
+  pack: ContentPack = defaultContentPack,
+): FakeEmail {
+  const from = pack.emailAuthors[sequence % pack.emailAuthors.length] ?? "Someone";
+  const subject = pack.emailSubjects[sequence % pack.emailSubjects.length] ?? "Hi";
+  const preview = pack.emailPreviews[sequence % pack.emailPreviews.length] ?? "";
   const urgent = sequence % 2 === 0;
   const minutesAgo = (sequence * 7) % 59;
   return {
@@ -88,6 +111,6 @@ export function generateFakeEmail(sequence: number): FakeEmail {
   };
 }
 
-export function seedEmails(count: number): FakeEmail[] {
-  return Array.from({ length: count }, (_, i) => generateFakeEmail(i));
+export function seedEmails(count: number, pack: ContentPack = defaultContentPack): FakeEmail[] {
+  return Array.from({ length: count }, (_, i) => generateFakeEmail(i, pack));
 }

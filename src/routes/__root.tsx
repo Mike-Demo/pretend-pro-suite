@@ -5,6 +5,8 @@ import {
   createRootRouteWithContext,
   redirect,
   useRouter,
+  useRouterState,
+
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -12,6 +14,7 @@ import { useEffect, type ReactNode } from "react";
 
 import { AppearanceEffect } from "@/components/pretendpro/AppearanceToggle";
 import { getCaptchaGate } from "@/lib/captcha/verify.functions";
+import { isLocaleId, localeMeta } from "@/lib/i18n/locales";
 import { captchaClientFlag, isOpenPath } from "@/lib/captcha/session";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -193,8 +196,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const first = pathname.split("/").filter(Boolean)[0];
+  const lang = isLocaleId(first) ? localeMeta(first).htmlLang : "en";
   return (
-    <html lang="en">
+    <html lang={lang}>
       <head>
         <HeadContent />
       </head>

@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useStrings } from "@/lib/i18n/context";
 import {
   FileText,
   Table2,
@@ -78,25 +79,27 @@ export function SparklesLayer({ enabled }: { enabled: boolean }) {
 }
 
 export function StickyNote() {
+  const t = useStrings();
   return (
     <div className="pointer-events-none absolute right-4 top-4 z-[5] hidden rotate-3 rounded-md bg-butter px-3 py-2 text-xs font-semibold text-butter-foreground shadow-md sm:block">
-      You're doing great, probably.
+      {t.content.stickyNote}
     </div>
   );
 }
 
 export function StuckProgress() {
+  const t = useStrings();
   return (
     <div className="mx-auto mt-6 w-full max-w-sm">
       <div className="mb-1 flex items-center justify-between text-xs text-muted-foreground">
-        <span>Loading productivity…</span>
+        <span>{t.content.progressLabel}</span>
         <span>99%</span>
       </div>
       <div className="h-3 w-full overflow-hidden rounded-full border border-border bg-muted">
         <div className="h-full w-[99%] rounded-full bg-primary" />
       </div>
       <p className="mt-1 text-center text-[11px] text-muted-foreground">
-        Almost done. It's been 99% since 2019.
+        {t.content.progressHint}
       </p>
     </div>
   );
