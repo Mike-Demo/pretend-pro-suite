@@ -35,19 +35,16 @@ export const Route = createFileRoute("/apperture")({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://pretend.pro/" },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Apperture Edition",
-              item: "https://pretend.pro/apperture",
-            },
-          ],
+        children: webPageJsonLd({
+          name: "PretendPro 3000 — Apperture (Windows) Edition",
+          url: "https://pretend.pro/apperture",
+          description:
+            "Fake productivity in an Apperture window with Fluent-style controls and eleven playful fake apps.",
         }),
+      },
+      {
+        type: "application/ld+json",
+        children: breadcrumbJsonLd("Apperture Edition", "https://pretend.pro/apperture"),
       },
     ],
   }),

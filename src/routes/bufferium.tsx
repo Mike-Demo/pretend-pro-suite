@@ -33,19 +33,16 @@ export const Route = createFileRoute("/bufferium")({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://pretend.pro/" },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "BufferiumOS Edition",
-              item: "https://pretend.pro/bufferium",
-            },
-          ],
+        children: webPageJsonLd({
+          name: "PretendPro 3000 — BufferiumOS Edition",
+          url: "https://pretend.pro/bufferium",
+          description:
+            "A tab-strip pretend desktop where everything is one click away from looking productive.",
         }),
+      },
+      {
+        type: "application/ld+json",
+        children: breadcrumbJsonLd("BufferiumOS Edition", "https://pretend.pro/bufferium"),
       },
     ],
   }),
