@@ -17,8 +17,10 @@ export function FruitShell({
   osTheme,
   active,
   onSelect,
-  animated,
-  onToggleAnimated,
+  openApps,
+  focusedApp,
+  funMode,
+  onToggleFunMode,
   onShowShortcuts,
   onOpenPalette,
   children,
@@ -71,10 +73,10 @@ export function FruitShell({
           className="left-24 top-8 w-56"
         >
           <button
-            onClick={onToggleAnimated}
+            onClick={onToggleFunMode}
             className="w-full rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted"
           >
-            {animated ? "Disable" : "Enable"} Animation Mode (A)
+            {funMode ? "Disable" : "Enable"} Fun Mode (A)
           </button>
           <button
             onClick={onOpenPalette}
@@ -97,7 +99,8 @@ export function FruitShell({
         <div className="pointer-events-auto flex items-end gap-2 rounded-2xl border border-border/50 bg-[var(--os-chrome)] px-3 py-2 shadow-xl backdrop-blur">
           {apps.map((app) => {
             const Icon = app.icon;
-            const isActive = app.id === active;
+            const isRunning = openApps.includes(app.id);
+            const isActive = app.id === focusedApp;
             return (
               <button
                 key={app.id}

@@ -18,12 +18,13 @@ export type ShellProps = {
   osTheme: OsTheme;
   active: AppId;
   onSelect: (id: AppId) => void;
-  animated: boolean;
-  onToggleAnimated: () => void;
+  openApps: AppId[];
+  minimizedApps: AppId[];
+  focusedApp: AppId | null;
+  funMode: boolean;
+  onToggleFunMode: () => void;
   onShowShortcuts: () => void;
   onOpenPalette: () => void;
-  maximized: boolean;
-  onToggleMaximized: () => void;
   children: ReactNode;
 };
 

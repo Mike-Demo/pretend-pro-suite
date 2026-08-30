@@ -20,8 +20,10 @@ export function AppertureShell({
   osTheme,
   active,
   onSelect,
-  animated,
-  onToggleAnimated,
+  openApps,
+  focusedApp,
+  funMode,
+  onToggleFunMode,
   onShowShortcuts,
   onOpenPalette,
   children,
@@ -61,7 +63,8 @@ export function AppertureShell({
 
           {apps.map((app) => {
             const Icon = app.icon;
-            const isActive = app.id === active;
+            const isRunning = openApps.includes(app.id);
+            const isActive = app.id === focusedApp;
             return (
               <button
                 key={app.id}
@@ -112,10 +115,10 @@ export function AppertureShell({
           <AppLauncherGrid active={active} onSelect={onSelect} />
           <div className="mt-3 border-t border-border pt-2">
             <button
-              onClick={onToggleAnimated}
+              onClick={onToggleFunMode}
               className="fluent-focus w-full rounded px-2 py-1.5 text-left text-xs hover:bg-muted"
             >
-              {animated ? "Disable" : "Enable"} Animation Mode (A)
+              {funMode ? "Disable" : "Enable"} Fun Mode (A)
             </button>
             <ThemeSwitchLinks osTheme={osTheme} active={active} />
           </div>

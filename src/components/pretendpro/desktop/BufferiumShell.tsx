@@ -16,8 +16,10 @@ export function BufferiumShell({
   osTheme,
   active,
   onSelect,
-  animated,
-  onToggleAnimated,
+  openApps,
+  focusedApp,
+  funMode,
+  onToggleFunMode,
   onShowShortcuts,
   onOpenPalette,
   children,
@@ -43,7 +45,8 @@ export function BufferiumShell({
         <div className="flex items-center gap-1.5">
           {apps.map((app) => {
             const Icon = app.icon;
-            const isActive = app.id === active;
+            const isRunning = openApps.includes(app.id);
+            const isActive = app.id === focusedApp;
             return (
               <button
                 key={app.id}
@@ -115,10 +118,10 @@ export function BufferiumShell({
         >
           <p className="text-xs font-bold text-popover-foreground">Quick settings</p>
           <button
-            onClick={onToggleAnimated}
+            onClick={onToggleFunMode}
             className="mt-2 w-full rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted"
           >
-            Animation Mode: {animated ? "On" : "Off"} (A)
+            Fun Mode: {funMode ? "On" : "Off"} (A)
           </button>
           <ThemeSwitchLinks osTheme={osTheme} active={active} />
           <p className="mt-2 border-t border-border pt-2 text-[11px] text-muted-foreground">
