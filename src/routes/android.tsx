@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Suite } from "@/components/pretendpro/Suite";
 import { parseAppSearch } from "@/lib/pretendpro/search";
+import { breadcrumbJsonLd, webPageJsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/android")({
   validateSearch: parseAppSearch,
@@ -32,19 +33,16 @@ export const Route = createFileRoute("/android")({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://pretend.pro/" },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Android Edition",
-              item: "https://pretend.pro/android",
-            },
-          ],
+        children: webPageJsonLd({
+          name: "PretendPro 3000 — Android Edition",
+          url: "https://pretend.pro/android",
+          description:
+            "A Material-style pretend phone with a home screen, navigation bar, and eleven fake apps.",
         }),
+      },
+      {
+        type: "application/ld+json",
+        children: breadcrumbJsonLd("Android Edition", "https://pretend.pro/android"),
       },
     ],
   }),

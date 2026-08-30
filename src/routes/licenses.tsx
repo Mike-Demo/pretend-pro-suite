@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SocialFooter } from "@/components/pretendpro/SocialFooter";
+import { homeOgImage, webPageJsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/licenses")({
   head: () => ({
@@ -17,14 +18,27 @@ export const Route = createFileRoute("/licenses")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://pretend.pro/licenses" },
+      { property: "og:image", content: homeOgImage },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Open Source Licenses — PretendPro 3000" },
       {
         name: "twitter:description",
         content: "Every open source work used in PretendPro 3000, with author, license, and link.",
       },
+      { name: "twitter:image", content: homeOgImage },
     ],
     links: [{ rel: "canonical", href: "https://pretend.pro/licenses" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: webPageJsonLd({
+          name: "Open Source Licenses — PretendPro 3000",
+          url: "https://pretend.pro/licenses",
+          description:
+            "Attribution and license information for the open source work used to build PretendPro 3000.",
+        }),
+      },
+    ],
   }),
   component: LicensesPage,
 });
