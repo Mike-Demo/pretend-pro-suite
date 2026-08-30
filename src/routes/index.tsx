@@ -19,6 +19,7 @@ import {
   illustrations,
   type IllustrationName,
 } from "@/components/pretendpro/Illustration";
+import { SocialFooter } from "@/components/pretendpro/SocialFooter";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -367,9 +368,7 @@ function Onboarding() {
         </div>
       </main>
 
-      <footer className="mx-auto mt-8 max-w-5xl text-center text-[11px] text-muted-foreground">
-        Illustrations by Pablo Stanley (Transhumans), released under CC0 1.0.
-      </footer>
+      <SocialFooter className="mx-auto mt-8 max-w-5xl" />
     </div>
   );
 }

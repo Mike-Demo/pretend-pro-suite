@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SocialFooter } from "@/components/pretendpro/SocialFooter";
 
 export const Route = createFileRoute("/licenses")({
   head: () => ({
@@ -195,6 +196,8 @@ function LicensesPage() {
           PretendPro 3000 is not affiliated with Apple, Microsoft, or Google. All OS styles are
           affectionate parodies.
         </p>
+
+        <SocialFooter className="mt-6" />
       </div>
     </div>
   );
