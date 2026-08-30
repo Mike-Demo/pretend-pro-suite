@@ -12,6 +12,10 @@ import {
   type ShellProps,
 } from "./shell-shared";
 
+/**
+ * Windows-flavoured shell styled with Fluent 2 conventions: centered taskbar,
+ * active-app underline indicator, acrylic surfaces and shadow16 flyouts.
+ */
 export function AppertureShell({
   osTheme,
   active,
@@ -26,31 +30,35 @@ export function AppertureShell({
   const [startOpen, setStartOpen] = useState(false);
   const [trayOpen, setTrayOpen] = useState(false);
 
+  const taskbarButton =
+    "fluent-focus relative flex items-center gap-1.5 rounded px-2.5 py-1.5 text-xs font-medium text-foreground/90 transition-colors hover:bg-foreground/[0.06] active:bg-foreground/[0.04]";
+
   return (
     <div className="flex h-full flex-col">
-      <div className="flex-1 overflow-y-auto px-3 pb-24 pt-4 sm:px-6">{children}</div>
+      <div className="flex-1 overflow-y-auto px-3 pb-28 pt-4 sm:px-6">{children}</div>
 
-      <div className="relative z-30 flex items-center gap-1 border-t border-border/50 bg-[var(--os-chrome)] px-2 py-1.5 backdrop-blur">
-        <button
-          onClick={() => setStartOpen((v) => !v)}
-          className={cn(
-            "flex items-center gap-1.5 rounded-md px-2 py-1.5 text-xs font-semibold hover:bg-muted",
-            startOpen && "bg-muted",
-          )}
-          aria-expanded={startOpen}
-        >
-          <LayoutGrid className="h-4 w-4 text-primary" />
-          <span className="hidden sm:inline">Start</span>
-        </button>
+      <div className="relative z-30 flex h-12 items-center gap-1 border-t border-border/60 bg-[var(--os-chrome)] px-2 backdrop-blur-2xl">
+        {/* Left: search (Fluent taskbar search box) */}
         <button
           onClick={onOpenPalette}
-          className="hidden items-center gap-1.5 rounded-md border border-border bg-card px-2 py-1.5 text-xs text-muted-foreground hover:bg-muted sm:flex"
+          className="fluent-focus hidden items-center gap-2 rounded border border-border bg-card/80 px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-card sm:flex"
         >
-          <Search className="h-3.5 w-3.5" />
+          <Search className="h-3.5 w-3.5" strokeWidth={1.75} />
           Search apps (Ctrl+K)
         </button>
 
-        <div className="flex items-center gap-1">
+        {/* Center: Start + pinned apps */}
+        <div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-1">
+          <button
+            onClick={() => setStartOpen((v) => !v)}
+            className={cn(taskbarButton, startOpen && "bg-foreground/[0.08]")}
+            aria-expanded={startOpen}
+            aria-label="Start"
+          >
+            <LayoutGrid className="h-4 w-4 text-primary" strokeWidth={1.75} />
+            <span className="hidden sm:inline">Start</span>
+          </button>
+
           {apps.map((app) => {
             const Icon = app.icon;
             const isActive = app.id === active;
@@ -61,17 +69,14 @@ export function AppertureShell({
                 title={app.name}
                 aria-label={app.name}
                 aria-pressed={isActive}
-                className={cn(
-                  "relative flex items-center gap-1.5 rounded-md px-2 py-1.5 text-xs font-medium transition-colors hover:bg-muted",
-                  isActive && "bg-muted",
-                )}
+                className={cn(taskbarButton, isActive && "bg-foreground/[0.08]")}
               >
-                <Icon className="h-4 w-4" />
-                <span className="hidden md:inline">{app.name}</span>
+                <Icon className="h-4 w-4" strokeWidth={1.75} />
+                <span className="hidden lg:inline">{app.name}</span>
                 <span
                   className={cn(
-                    "absolute inset-x-1.5 bottom-0 h-0.5 rounded-full",
-                    isActive ? "bg-primary" : "bg-transparent",
+                    "absolute bottom-0 left-1/2 h-[3px] -translate-x-1/2 rounded-full bg-primary transition-all",
+                    isActive ? "w-4" : "w-0",
                   )}
                 />
               </button>
@@ -79,37 +84,36 @@ export function AppertureShell({
           })}
         </div>
 
-        <div className="ml-auto flex items-center gap-2">
+        {/* Right: tray */}
+        <div className="ml-auto flex items-center gap-1">
           <button
             onClick={onShowShortcuts}
-            className="rounded-md p-1 text-foreground/60 hover:bg-muted"
+            className="fluent-focus rounded p-1.5 text-foreground/70 hover:bg-foreground/[0.06]"
             aria-label="Keyboard shortcuts"
           >
-            <Keyboard className="h-3.5 w-3.5" />
+            <Keyboard className="h-3.5 w-3.5" strokeWidth={1.75} />
           </button>
           <button
             onClick={() => setTrayOpen((v) => !v)}
-            className="flex items-center gap-2 rounded-md px-2 py-1 text-xs hover:bg-muted"
+            className="fluent-focus flex items-center gap-2 rounded px-2 py-1.5 text-xs hover:bg-foreground/[0.06]"
             aria-expanded={trayOpen}
           >
             <TrayGlyphs />
-            <span className="font-semibold text-foreground/80">{clock}</span>
+            <span className="font-medium text-foreground/90">{clock}</span>
           </button>
         </div>
 
         <Popover
           open={startOpen}
           onClose={() => setStartOpen(false)}
-          className="bottom-14 left-2 w-[19rem] p-3"
+          className="fluent-flyout bottom-14 left-1/2 w-[20rem] -translate-x-1/2 p-4 sm:left-2 sm:translate-x-0"
         >
-          <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-            Pinned
-          </p>
+          <p className="mb-2 text-[11px] font-semibold text-muted-foreground">Pinned</p>
           <AppLauncherGrid active={active} onSelect={onSelect} />
           <div className="mt-3 border-t border-border pt-2">
             <button
               onClick={onToggleAnimated}
-              className="w-full rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted"
+              className="fluent-focus w-full rounded px-2 py-1.5 text-left text-xs hover:bg-muted"
             >
               {animated ? "Disable" : "Enable"} Animation Mode (A)
             </button>
@@ -120,9 +124,9 @@ export function AppertureShell({
         <Popover
           open={trayOpen}
           onClose={() => setTrayOpen(false)}
-          className="bottom-14 right-2 w-60 p-3"
+          className="fluent-flyout bottom-14 right-2 w-64 p-4"
         >
-          <p className="text-xs font-bold text-popover-foreground">PretendPro status</p>
+          <p className="text-xs font-semibold text-popover-foreground">PretendPro status</p>
           <p className="mt-1 text-[11px] text-muted-foreground">{licenseJoke}</p>
           <p className="mt-1 text-[11px] text-muted-foreground">
             Network: pretending to be online.

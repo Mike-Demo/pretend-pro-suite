@@ -49,6 +49,13 @@ const libraries: Entry[] = [
   },
   { name: "Tailwind CSS", author: "Tailwind Labs", license: "MIT", url: "https://github.com/tailwindlabs/tailwindcss" },
   { name: "shadcn/ui", author: "shadcn", license: "MIT", url: "https://github.com/shadcn-ui/ui" },
+  {
+    name: "Fluent UI (Fluent 2 design system)",
+    author: "Microsoft",
+    license: "MIT",
+    url: "https://github.com/microsoft/fluentui",
+    note: "Fluent 2 design language used for this site's pages and the Apperture window style. Contributions follow the Microsoft Open Source Code of Conduct. No Fluent UI packages are bundled; tokens were recreated in CSS.",
+  },
   { name: "Radix UI", author: "WorkOS", license: "MIT", url: "https://github.com/radix-ui/primitives" },
   { name: "Sonner", author: "Emil Kowalski", license: "MIT", url: "https://github.com/emilkowalski/sonner" },
   { name: "Vite", author: "Evan You and contributors", license: "MIT", url: "https://github.com/vitejs/vite" },
@@ -81,11 +88,11 @@ const references: Entry[] = [
 function Section({ title, entries }: { title: string; entries: Entry[] }) {
   return (
     <section className="mt-8">
-      <h2 className="text-lg font-bold text-foreground">{title}</h2>
+      <h2 className="text-lg font-semibold text-foreground">{title}</h2>
       <ul className="mt-3 space-y-3">
         {entries.map((entry) => (
-          <li key={entry.name} className="rounded-2xl border border-border bg-card p-4">
-            <p className="text-sm font-bold text-card-foreground">{entry.name}</p>
+          <li key={entry.name} className="fluent-surface p-4">
+            <p className="text-sm font-semibold text-card-foreground">{entry.name}</p>
             <p className="mt-1 text-xs text-muted-foreground">
               {entry.author} — {entry.license}
             </p>
@@ -94,7 +101,7 @@ function Section({ title, entries }: { title: string; entries: Entry[] }) {
               href={entry.url}
               target="_blank"
               rel="noreferrer noopener"
-              className="mt-2 inline-block text-xs font-semibold text-primary underline"
+              className="fluent-focus mt-2 inline-block text-xs font-medium text-primary hover:underline"
             >
               {entry.url}
             </a>
@@ -107,12 +114,12 @@ function Section({ title, entries }: { title: string; entries: Entry[] }) {
 
 function LicensesPage() {
   return (
-    <div className="min-h-screen bg-background px-4 py-10 sm:px-8">
+    <div data-design="fluent" className="min-h-screen bg-background px-4 py-10 sm:px-8">
       <div className="mx-auto max-w-3xl">
-        <Link to="/" className="text-xs font-semibold text-muted-foreground underline hover:text-foreground">
+        <Link to="/" className="fluent-focus text-xs font-medium text-primary hover:underline">
           Back to onboarding
         </Link>
-        <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground">
+        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground">
           Open Source Licenses
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">

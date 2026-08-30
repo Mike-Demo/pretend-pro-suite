@@ -89,22 +89,22 @@ function OptionCard({
       onClick={onSelect}
       aria-pressed={selected}
       className={cn(
-        "relative flex w-full flex-col items-center rounded-2xl border bg-card p-4 text-center transition-all",
+        "fluent-focus relative flex w-full flex-col items-center rounded-lg border bg-card p-4 text-center transition-all",
         selected
-          ? "border-primary shadow-md ring-2 ring-primary/40"
-          : "border-border hover:border-primary/50 hover:shadow-sm",
+          ? "border-primary shadow-[var(--fluent-shadow-8)] ring-1 ring-primary"
+          : "border-border shadow-[var(--fluent-shadow-2)] hover:border-primary/60 hover:shadow-[var(--fluent-shadow-8)]",
       )}
     >
       <span
         className={cn(
-          "absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border",
-          selected ? "border-primary bg-primary text-primary-foreground" : "border-border",
+          "absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border-[1.5px]",
+          selected ? "border-primary bg-primary text-primary-foreground" : "border-foreground/40",
         )}
       >
         {selected && <Check className="h-3 w-3" />}
       </span>
       <img src={art} alt="" aria-hidden="true" className="h-28 w-auto object-contain" loading="lazy" />
-      <span className="mt-3 text-sm font-bold text-foreground">{title}</span>
+      <span className="mt-3 text-sm font-semibold text-foreground">{title}</span>
       <span className="mt-1 text-xs text-muted-foreground">{description}</span>
       {children}
     </button>
@@ -130,25 +130,25 @@ function Onboarding() {
   };
 
   return (
-    <div className="min-h-screen bg-background px-4 py-10 sm:px-8">
-      <header className="mx-auto flex max-w-5xl items-center gap-2 text-sm font-bold text-foreground">
+    <div data-design="fluent" className="min-h-screen bg-background px-4 py-10 sm:px-8">
+      <header className="mx-auto flex max-w-5xl items-center gap-2 text-sm font-semibold text-foreground">
         Onboarding in
-        <span className="rounded-lg bg-primary px-2 py-0.5 text-primary-foreground">PretendPro 3000</span>
+        <span className="rounded bg-primary px-2 py-0.5 text-primary-foreground">PretendPro 3000</span>
         <Link
           to="/licenses"
-          className="ml-auto text-xs font-semibold text-muted-foreground underline hover:text-foreground"
+          className="fluent-focus ml-auto text-xs font-medium text-primary hover:underline"
         >
           Open source licenses
         </Link>
       </header>
 
       <main className="mx-auto mt-8 max-w-5xl">
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-muted/40 px-4 py-10 sm:px-10 sm:py-14">
+        <div className="fluent-surface relative overflow-hidden px-4 py-10 sm:px-10 sm:py-14">
           <div className="mx-auto max-w-3xl">
-            <p className="text-center text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">
+            <p className="text-center text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
               Step {step} of 2
             </p>
-            <h1 className="mt-3 text-center text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
+            <h1 className="mt-3 text-center text-2xl font-semibold tracking-tight text-foreground sm:text-[28px]">
               {step === 1
                 ? "How are you planning to pretend to work?"
                 : "Which window style feels most like your job?"}
@@ -195,16 +195,16 @@ function Onboarding() {
               <button
                 onClick={onContinue}
                 disabled={!canContinue}
-                className="w-full max-w-xs rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground transition-opacity disabled:opacity-40"
+                className="fluent-focus w-full max-w-xs rounded bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-[var(--fluent-shadow-2)] transition-colors hover:bg-[var(--fluent-brand-90)] active:bg-[var(--fluent-brand-100)] disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none"
               >
                 {step === 1 ? "Continue" : "Start pretending"}
               </button>
               {step === 2 && (
                 <button
                   onClick={() => setStep(1)}
-                  className="flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground"
+                  className="fluent-focus flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-muted-foreground hover:text-foreground"
                 >
-                  <ArrowLeft className="h-3.5 w-3.5" />
+                  <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.75} />
                   Back
                 </button>
               )}
