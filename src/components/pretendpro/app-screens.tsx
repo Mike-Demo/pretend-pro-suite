@@ -39,9 +39,15 @@ const loaders: Record<AppId, () => Promise<ScreenModule>> = {
     import("@/components/pretendpro/SoundStage").then((m) => ({ default: m.SoundStage })),
 };
 
-const lazyScreens = Object.fromEntries(
-  (Object.keys(loaders) as AppId[]).map((id) => [id, lazy(loaders[id])]),
-) as Record<AppId, ComponentType<ScreenProps>>;
+const lazyScreens: Record<AppId, ComponentType<ScreenProps>> = (
+  Object.keys(loaders) as AppId[]
+).reduce(
+  (acc, id) => {
+    acc[id] = lazy(loaders[id]);
+    return acc;
+  },
+  {} as Record<AppId, ComponentType<ScreenProps>>,
+);
 
 /** Warm an app's chunk before the user commits to opening it. */
 export function preloadAppScreen(id: AppId): void {
