@@ -115,3 +115,27 @@ export function localeEditionHead(locale: LocaleId, theme: OsTheme) {
     ],
   };
 }
+
+export function localePrivacyHead(locale: LocaleId) {
+  const t = stringsFor(locale);
+  const url = pageUrl(locale, "privacy");
+  return {
+    meta: socialMeta(t.meta.privacyTitle, t.meta.privacyDescription, url, homeOgImage),
+    links: [{ rel: "canonical", href: url }, ...alternateLinks("privacy")],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: webPageJsonLd({
+          name: t.meta.privacyTitle,
+          url,
+          description: t.meta.privacyDescription,
+          inLanguage: localeMeta(locale).htmlLang,
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: breadcrumbJsonLd(t.meta.privacyTitle, url),
+      },
+    ],
+  };
+}
