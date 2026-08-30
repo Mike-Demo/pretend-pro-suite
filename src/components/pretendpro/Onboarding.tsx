@@ -275,7 +275,7 @@ export function Onboarding() {
         </div>
       </main>
 
-      <SocialFooter className="mx-auto mt-8 max-w-5xl" />
+      <SocialFooter className="mx-auto mt-8 max-w-5xl" locale={locale} />
     </div>
   );
 }
