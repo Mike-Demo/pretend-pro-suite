@@ -170,29 +170,52 @@
 [data-os-theme="fruit"] {
   --os-radius: 1.25rem;
   --os-titlebar: oklch(0.94 0.03 220 / 75%);
+  --os-chrome: oklch(0.97 0.02 220 / 80%);
+  --os-wallpaper: radial-gradient(circle at 20% 15%, oklch(0.92 0.07 220), transparent 55%),
+    radial-gradient(circle at 80% 25%, oklch(0.92 0.07 320), transparent 50%),
+    linear-gradient(160deg, oklch(0.95 0.04 210), oklch(0.9 0.06 265));
 }
 
 [data-os-theme="apperture"] {
   --os-radius: 0.5rem;
   --os-titlebar: oklch(0.9 0.05 240 / 80%);
+  --os-chrome: oklch(0.93 0.03 245 / 88%);
+  --os-wallpaper: radial-gradient(circle at 70% 30%, oklch(0.9 0.09 245), transparent 60%),
+    linear-gradient(200deg, oklch(0.94 0.04 250), oklch(0.86 0.07 235));
 }
 
 [data-os-theme="bufferium"] {
   --os-radius: 0.75rem;
   --os-titlebar: oklch(0.9 0.015 260);
+  --os-chrome: oklch(0.95 0.01 260 / 92%);
+  --os-wallpaper: radial-gradient(circle at 30% 80%, oklch(0.93 0.06 165), transparent 55%),
+    linear-gradient(150deg, oklch(0.96 0.02 250), oklch(0.9 0.04 200));
 }
 
 .dark [data-os-theme="fruit"] {
   --os-titlebar: oklch(0.32 0.04 260 / 75%);
+  --os-chrome: oklch(0.28 0.03 260 / 82%);
+  --os-wallpaper: radial-gradient(circle at 20% 15%, oklch(0.35 0.07 265), transparent 55%),
+    linear-gradient(160deg, oklch(0.24 0.03 260), oklch(0.2 0.04 280));
 }
 
 .dark [data-os-theme="apperture"] {
   --os-titlebar: oklch(0.3 0.04 250 / 80%);
+  --os-chrome: oklch(0.26 0.03 250 / 88%);
+  --os-wallpaper: linear-gradient(200deg, oklch(0.26 0.04 250), oklch(0.19 0.05 240));
 }
 
 .dark [data-os-theme="bufferium"] {
   --os-titlebar: oklch(0.28 0.02 260);
+  --os-chrome: oklch(0.25 0.015 260 / 92%);
+  --os-wallpaper: linear-gradient(150deg, oklch(0.26 0.02 250), oklch(0.2 0.03 200));
 }
+
+.os-desktop-bg {
+  background-image: var(--os-wallpaper);
+  background-attachment: fixed;
+}
+
 
 /* PretendPro playful keyframes */
 @keyframes pretend-bounce {
