@@ -1,3 +1,4 @@
+import { z } from "zod";
 import type { OpenverseAsset, OpenverseSearchResult } from "./types";
 
 const API_BASE = "https://api.openverse.org/v1";
@@ -132,3 +133,8 @@ export function searchImages(query: string, pageSize: number): Promise<Openverse
 export function searchAudio(query: string, pageSize: number): Promise<OpenverseSearchResult> {
   return search("audio", query, pageSize);
 }
+
+export const searchInput = z.object({
+  query: z.string().trim().min(1).max(120),
+  pageSize: z.number().int().min(1).max(20).default(8),
+});
