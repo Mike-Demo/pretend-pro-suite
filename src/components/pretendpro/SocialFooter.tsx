@@ -21,7 +21,7 @@ export function SocialFooter({ className, locale }: { className?: string; locale
         <span aria-label={`Copyright ${year}`}>© {year}</span>
       </div>
       <nav
-        aria-label="Legal and social links"
+        aria-label="Legal links"
         className="flex flex-wrap items-center justify-center gap-4"
       >
         <Link
@@ -48,6 +48,11 @@ export function SocialFooter({ className, locale }: { className?: string; locale
           <i className="fa-solid fa-code h-4 w-4 text-[14px]" aria-hidden="true" />
           Open Source
         </Link>
+      </nav>
+      <nav
+        aria-label="Social links"
+        className="flex flex-wrap items-center justify-center gap-4"
+      >
         <a
           href={linkedInUrl}
           target="_blank"

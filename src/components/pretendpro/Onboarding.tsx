@@ -161,13 +161,6 @@ export function Onboarding() {
           PretendPro 3000
         </span>
         <LocalePicker className="ml-auto" />
-        <Link
-          to="/$locale/licenses"
-          params={{ locale }}
-          className="fluent-focus text-xs font-medium text-primary hover:underline"
-        >
-          {t.onboarding.licensesLink}
-        </Link>
         <AppearanceToggle variant="icon" />
       </header>
 
