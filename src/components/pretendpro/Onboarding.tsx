@@ -100,7 +100,7 @@ function OptionCard({
       >
         {selected && <Check className="h-3 w-3" />}
       </span>
-      <Illustration name={art} priority={priority} className="h-28 w-auto" />
+      <Illustration name={art} color={selected} priority={priority} className="h-28 w-auto" />
       <span className="mt-3 text-sm font-semibold text-foreground">{title}</span>
       <span className="mt-1 text-xs text-muted-foreground">{description}</span>
     </button>
