@@ -4,7 +4,16 @@ import { locales, localeMeta, type LocaleId } from "./locales";
 import { stringsFor } from "./strings";
 
 /** Page slug within a locale folder: "" is the onboarding page. */
-export type PageSlug = "" | "fruit" | "apperture" | "bufferium" | "android" | "fos" | "licenses" | "privacy";
+export type PageSlug =
+  | ""
+  | "fruit"
+  | "apperture"
+  | "bufferium"
+  | "android"
+  | "fos"
+  | "licenses"
+  | "privacy"
+  | "terms";
 
 function pageUrl(locale: LocaleId, page: PageSlug): string {
   return `${siteUrl}/${locale}${page ? `/${page}` : ""}`;

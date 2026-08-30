@@ -19,6 +19,7 @@ import { Route as FruitRouteImport } from './routes/fruit'
 import { Route as LicensesRouteImport } from './routes/licenses'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
 import { Route as LocaleAndroidRouteImport } from './routes/$locale/android'
@@ -78,6 +79,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VerifyRoute = VerifyRouteImport.update({
@@ -142,6 +148,7 @@ export interface FileRoutesByFullPath {
   '/licenses': typeof LicensesRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
   '/$locale/android': typeof LocaleAndroidRoute
   '/$locale/apperture': typeof LocaleAppertureRoute
@@ -163,6 +170,7 @@ export interface FileRoutesByTo {
   '/licenses': typeof LicensesRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
   '/$locale/android': typeof LocaleAndroidRoute
   '/$locale/apperture': typeof LocaleAppertureRoute
@@ -186,6 +194,7 @@ export interface FileRoutesById {
   '/licenses': typeof LicensesRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
   '/$locale/android': typeof LocaleAndroidRoute
   '/$locale/apperture': typeof LocaleAppertureRoute
@@ -210,6 +219,7 @@ export interface FileRouteTypes {
     | '/licenses'
     | '/privacy'
     | '/sitemap.xml'
+    | '/terms'
     | '/verify'
     | '/$locale/android'
     | '/$locale/apperture'
@@ -231,6 +241,7 @@ export interface FileRouteTypes {
     | '/licenses'
     | '/privacy'
     | '/sitemap.xml'
+    | '/terms'
     | '/verify'
     | '/$locale/android'
     | '/$locale/apperture'
@@ -253,6 +264,7 @@ export interface FileRouteTypes {
     | '/licenses'
     | '/privacy'
     | '/sitemap.xml'
+    | '/terms'
     | '/verify'
     | '/$locale/android'
     | '/$locale/apperture'
@@ -276,6 +288,7 @@ export interface RootRouteChildren {
   LicensesRoute: typeof LicensesRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsRoute: typeof TermsRoute
   VerifyRoute: typeof VerifyRoute
 }
 
@@ -349,6 +362,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/verify': {
@@ -463,6 +483,7 @@ const rootRouteChildren: RootRouteChildren = {
   LicensesRoute: LicensesRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsRoute: TermsRoute,
   VerifyRoute: VerifyRoute,
 }
 export const routeTree = rootRouteImport
