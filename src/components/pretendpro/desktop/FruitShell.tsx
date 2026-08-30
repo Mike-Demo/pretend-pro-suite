@@ -28,6 +28,7 @@ export function FruitShell({
   children,
 }: ShellProps) {
   const clock = useClock();
+  const [powering, setPowering] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const activeApp = apps.find((a) => a.id === active);
 
@@ -67,6 +68,16 @@ export function FruitShell({
 
         <Popover open={openMenu === "apple"} onClose={() => setOpenMenu(null)} className="left-2 top-8 w-56">
           <p className="px-2 py-1 text-[11px] text-muted-foreground">{licenseJoke}</p>
+          <button
+            onClick={() => {
+              setOpenMenu(null);
+              setPowering(true);
+            }}
+            className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-xs hover:bg-muted"
+          >
+            <Power className="h-3.5 w-3.5" />
+            Pretend to Shut Down…
+          </button>
           <ThemeSwitchLinks osTheme={osTheme} active={active} />
         </Popover>
         <Popover
