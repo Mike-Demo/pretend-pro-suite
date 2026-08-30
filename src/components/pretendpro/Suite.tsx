@@ -29,7 +29,9 @@ export function Suite({
 }) {
   return (
     <>
-      <h1 className="sr-only">{editionHeadings[osTheme]}</h1>
+      <h1 className="px-4 py-2 text-sm font-semibold tracking-tight text-foreground bg-background/80 backdrop-blur-sm border-b border-border">
+        {editionHeadings[osTheme]}
+      </h1>
       {isMobileTheme(osTheme) ? (
         <Phone osTheme={osTheme} initialApp={initialApp} />
       ) : (
