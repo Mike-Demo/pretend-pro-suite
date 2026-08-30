@@ -104,7 +104,7 @@ function OptionCard({
         {selected && <Check className="h-3 w-3" />}
       </span>
       <img src={art} alt="" aria-hidden="true" className="h-28 w-auto object-contain" loading="lazy" />
-      <span className="mt-3 text-sm font-bold text-foreground">{title}</span>
+      <span className="mt-3 text-sm font-semibold text-foreground">{title}</span>
       <span className="mt-1 text-xs text-muted-foreground">{description}</span>
       {children}
     </button>
