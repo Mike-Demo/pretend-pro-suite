@@ -195,16 +195,16 @@ function Onboarding() {
               <button
                 onClick={onContinue}
                 disabled={!canContinue}
-                className="w-full max-w-xs rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground transition-opacity disabled:opacity-40"
+                className="fluent-focus w-full max-w-xs rounded bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-[var(--fluent-shadow-2)] transition-colors hover:bg-[var(--fluent-brand-90)] active:bg-[var(--fluent-brand-100)] disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none"
               >
                 {step === 1 ? "Continue" : "Start pretending"}
               </button>
               {step === 2 && (
                 <button
                   onClick={() => setStep(1)}
-                  className="flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground"
+                  className="fluent-focus flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-muted-foreground hover:text-foreground"
                 >
-                  <ArrowLeft className="h-3.5 w-3.5" />
+                  <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.75} />
                   Back
                 </button>
               )}
