@@ -4,6 +4,7 @@ import { isMobileTheme } from "@/components/pretendpro/WindowFrame";
 import type { AppId } from "@/components/pretendpro/chrome";
 import { Desktop } from "@/components/pretendpro/desktop/Desktop";
 import { Phone } from "@/components/pretendpro/mobile/Phone";
+import { useStrings } from "@/lib/i18n/context";
 
 export { themeRoutes } from "@/components/pretendpro/desktop/shell-shared";
 
@@ -12,14 +13,6 @@ export { themeRoutes } from "@/components/pretendpro/desktop/shell-shared";
 // licenses page never download it.
 const Toaster = lazy(() => import("@/components/ui/sonner").then((m) => ({ default: m.Toaster })));
 
-const editionHeadings: Record<OsTheme, string> = {
-  fruit: "PretendPro 3000 — Fruit (Mac OS X) Edition: a fake desktop for looking busy",
-  apperture: "PretendPro 3000 — Apperture (Windows) Edition: a fake desktop for looking busy",
-  bufferium: "PretendPro 3000 — BufferiumOS Edition: a fake desktop for looking busy",
-  android: "PretendPro 3000 — Android Edition: a fake phone for looking busy",
-  fos: "PretendPro 3000 — fOS Edition: a fake phone for looking busy",
-};
-
 export function Suite({
   osTheme,
   initialApp = "docufaker",
@@ -27,10 +20,11 @@ export function Suite({
   osTheme: OsTheme;
   initialApp?: AppId;
 }) {
+  const t = useStrings();
   return (
     <>
       <h1 className="px-4 py-2 text-sm font-semibold tracking-tight text-foreground bg-background/80 backdrop-blur-sm border-b border-border">
-        {editionHeadings[osTheme]}
+        {t.shell.editionHeading[osTheme]}
       </h1>
       {isMobileTheme(osTheme) ? (
         <Phone osTheme={osTheme} initialApp={initialApp} />
