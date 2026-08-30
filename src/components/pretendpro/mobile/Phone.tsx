@@ -50,17 +50,12 @@ export function Phone({
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [announcement, setAnnouncement] = useState("");
-  const phone = usePhone(`pretendpro:phone:${osTheme}`);
+  // The onboarding app is the foreground app from the first render pass, and its
+  // chunk starts downloading during that pass rather than after an effect commit.
+  if (typeof window !== "undefined") preloadAppScreen(initialApp);
+  const phone = usePhone(`pretendpro:phone:${osTheme}`, initialApp);
   const { tasks, foreground, view, launch, goHome, showRecents, back, closeTask, cycle } = phone;
 
-  // Open the app chosen during onboarding once, unless a session was restored.
-  const bootstrapped = useRef(false);
-  useEffect(() => {
-    if (bootstrapped.current) return;
-    bootstrapped.current = true;
-    if (phone.tasks.length > 0) return;
-    launch(initialApp);
-  }, [initialApp, launch, phone.tasks.length]);
 
   const handleLaunch = useCallback((id: AppId) => launch(id), [launch]);
 
