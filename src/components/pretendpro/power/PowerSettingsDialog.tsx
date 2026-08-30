@@ -1,7 +1,16 @@
+import { useState, useSyncExternalStore } from "react";
 import { X } from "lucide-react";
+import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { speedOrder, type PowerSettings, type PowerSpeed } from "@/lib/pretendpro/power";
+import {
+  isFullscreenActive,
+  isFullscreenSupported,
+  saveFullscreenPreference,
+  subscribeFullscreen,
+  toggleDeviceFullscreen,
+} from "@/lib/pretendpro/fullscreen";
 
 const speedLabels: Record<PowerSpeed, string> = {
   slow: "Slow",
@@ -22,6 +31,31 @@ export function PowerSettingsDialog({
   settings: PowerSettings;
   onUpdate: (patch: Partial<PowerSettings>) => void;
 }) {
+  const fullscreenActive = useSyncExternalStore(subscribeFullscreen, isFullscreenActive, () => false);
+  const [fullscreenBusy, setFullscreenBusy] = useState(false);
+
+  const onToggleFullscreen = async () => {
+    if (fullscreenBusy) return;
+    setFullscreenBusy(true);
+    try {
+      const wasActive = isFullscreenActive();
+      const ok = await toggleDeviceFullscreen();
+      if (!ok) {
+        toast.error(
+          isFullscreenSupported()
+            ? "Fullscreen was blocked — your browser said no. Try clicking again."
+            : "Fullscreen isn't supported by this browser, so PretendPro stays windowed.",
+        );
+        return;
+      }
+      saveFullscreenPreference(!wasActive);
+      if (!wasActive) toast.success("Fullscreen enabled — press Esc anytime to leave.");
+      else toast.success("Fullscreen off — back to windowed pretending.");
+    } finally {
+      setFullscreenBusy(false);
+    }
+  };
+
   if (!open) return null;
 
   return (
