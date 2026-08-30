@@ -17,6 +17,8 @@ import { getCaptchaGate } from "@/lib/captcha/verify.functions";
 import { isLocaleId, localeMeta } from "@/lib/i18n/locales";
 import { captchaClientFlag, isOpenPath } from "@/lib/captcha/session";
 import appCss from "../styles.css?url";
+import nebulaBook from "@/assets/fonts/NebulaSans-Book.woff2.asset.json";
+import nebulaSemibold from "@/assets/fonts/NebulaSans-Semibold.woff2.asset.json";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -118,7 +120,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "PretendPro 3000" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "theme-color", content: "#e9639c" },
+      { name: "theme-color", content: "#2280f5" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       { name: "apple-mobile-web-app-title", content: "PretendPro" },
@@ -130,13 +132,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     styles: [
       {
         children:
-          "html{background:oklch(0.965 0.02 95)}html.dark{background:oklch(0.2 0.03 280)}body{margin:0;font-family:system-ui,-apple-system,'Segoe UI',sans-serif}",
+          "html{background:oklch(0.965 0.02 95)}html.dark{background:oklch(0.2 0.03 280)}body{margin:0;font-family:'Nebula Sans',system-ui,-apple-system,'Segoe UI',sans-serif}",
       },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: nebulaBook.url,
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: nebulaSemibold.url,
+        crossOrigin: "anonymous",
       },
       {
         rel: "stylesheet",

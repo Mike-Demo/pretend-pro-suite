@@ -4,6 +4,7 @@ import { ArrowLeft, Check, Maximize } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
+import { BrandLockup } from "@/components/pretendpro/BrandLockup";
 import { LocalePicker } from "@/components/pretendpro/LocalePicker";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -173,9 +174,7 @@ export function Onboarding() {
     <div data-design="fluent" className="min-h-screen bg-background px-4 py-10 sm:px-8">
       <header className="mx-auto flex max-w-5xl flex-wrap items-center gap-2 text-sm font-semibold text-foreground">
         {t.onboarding.headerPrefix}
-        <span className="rounded bg-primary px-2 py-0.5 text-primary-foreground">
-          PretendPro 3000
-        </span>
+        <BrandLockup />
         <LocalePicker className="ml-auto" />
         <AppearanceToggle variant="icon" />
       </header>
