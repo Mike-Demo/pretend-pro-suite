@@ -212,38 +212,43 @@ function Onboarding() {
                 : "Purely cosmetic. Like most productivity decisions."}
             </p>
 
-            <div
-              className={cn(
-                "mt-8 grid gap-3",
-                step === 1 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3",
-                step === 1 && "max-h-[55vh] overflow-y-auto pr-1",
-              )}
-            >
-              {step === 1
-                ? workOptions.map((option) => (
-                    <OptionCard
-                      key={option.id}
-                      title={option.title}
-                      description={option.description}
-                      art={option.art}
-                      selected={work === option.id}
-                      onSelect={() => setWork(option.id)}
-                    />
-                  ))
-                : styleOptions.map((option) => {
-                    const name = osThemes.find((t) => t.id === option.id)?.name ?? option.id;
-                    return (
-                      <OptionCard
-                        key={option.id}
-                        title={name}
-                        description={option.description}
-                        art={option.art}
-                        selected={style === option.id}
-                        onSelect={() => setStyle(option.id)}
-                      />
-                    );
-                  })}
-            </div>
+            {step === 1 ? (
+              <div className="mt-8 grid max-h-[55vh] gap-3 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-4">
+                {workOptions.map((option) => (
+                  <OptionCard
+                    key={option.id}
+                    title={option.title}
+                    description={option.description}
+                    art={option.art}
+                    selected={work === option.id}
+                    onSelect={() => setWork(option.id)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="mt-8 space-y-6">
+                {styleGroups.map((group) => (
+                  <section key={group.heading}>
+                    <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                      {group.heading}
+                    </h2>
+                    <div className="mt-3 grid gap-3 sm:grid-cols-3">
+                      {group.options.map((option) => (
+                        <OptionCard
+                          key={option.id}
+                          title={osThemes.find((t) => t.id === option.id)?.name ?? option.id}
+                          description={option.description}
+                          art={option.art}
+                          selected={style === option.id}
+                          onSelect={() => setStyle(option.id)}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                ))}
+              </div>
+            )}
+
 
             <div className="mt-8 flex flex-col items-center gap-3">
               <button
