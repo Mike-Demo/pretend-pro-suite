@@ -166,6 +166,21 @@ export function Onboarding() {
     setStyle(deviceDefaults[kind]);
   }, [isMobile]);
 
+  // Ask the server whether the human check is on and already satisfied.
+  useEffect(() => {
+    let cancelled = false;
+    void getCaptchaGate()
+      .then((result) => {
+        if (!cancelled) setGate(result);
+      })
+      .catch(() => {
+        if (!cancelled) setGate({ configured: false, verified: false, siteKey: null });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const toggleFillScreen = (checked: boolean) => {
     setFillScreen(checked);
     saveFullscreenPreference(checked);
@@ -177,19 +192,72 @@ export function Onboarding() {
     setStyle(deviceDefaults[kind]);
   };
 
-  const canContinue = step === 1 ? style !== null : work !== null;
+  const needsVerification = gate !== null && gate.configured && !gate.verified;
+
+  const canContinue =
+    step === 1 ? style !== null : step === 2 ? work !== null : token !== null;
+
+  const handleTokenChange = useCallback((value: string | null) => {
+    setToken(value);
+    setVerifyError(null);
+  }, []);
+
+  /** Cover the screen, then land on the chosen edition behind the panels. */
+  const launchOs = useCallback(
+    async () => {
+      if (!style || !work) return;
+      await transition.run(
+        async () => {
+          await navigate({
+            to: localeThemeRoutes[style],
+            params: { locale },
+            search: { app: work },
+          });
+        },
+        { status: t.onboarding.loaderStatusOs, hold: 600, keepCovered: true },
+      );
+    },
+    [locale, navigate, style, t.onboarding.loaderStatusOs, transition, work],
+  );
 
   const onContinue = () => {
+    // Must fire inside this click — the Fullscreen API requires a user gesture.
     if (step === 1) {
-      setStep(2);
+      void transition.run(() => setStep(2), { status: t.onboarding.loaderStatusStep, hold: 200 });
       return;
     }
-    if (style && work) {
-      // Must fire inside this click — the Fullscreen API requires a user gesture.
+
+    if (step === 2) {
+      if (needsVerification) {
+        void transition.run(() => setStep(3), { status: t.onboarding.loaderStatusStep, hold: 200 });
+        return;
+      }
       if (fillScreen) requestDeviceFullscreen();
-      navigate({ to: localeThemeRoutes[style], params: { locale }, search: { app: work } });
+      void launchOs();
+      return;
     }
+
+    if (!token) return;
+    if (fillScreen) requestDeviceFullscreen();
+    void (async () => {
+      try {
+        const result = await verifyCaptcha({ data: { token } });
+        if (!result.ok) {
+          setVerifyError(t.onboarding.verifyError);
+          setToken(null);
+          setResetKey((n) => n + 1);
+          return;
+        }
+        window.sessionStorage.setItem(captchaClientFlag, "1");
+        await launchOs();
+      } catch {
+        setVerifyError(t.onboarding.verifyLoadError);
+        setToken(null);
+        setResetKey((n) => n + 1);
+      }
+    })();
   };
+
 
   return (
     <div data-design="fluent" className="min-h-screen bg-background px-4 py-10 sm:px-8">
