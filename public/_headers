@@ -19,6 +19,18 @@
   cache-control: public, max-age=604800
 /icon-maskable-512.png
   cache-control: public, max-age=604800
+/splash-750x1334.png
+  cache-control: public, max-age=604800
+/splash-1125x2436.png
+  cache-control: public, max-age=604800
+/splash-1170x2532.png
+  cache-control: public, max-age=604800
+/splash-1290x2796.png
+  cache-control: public, max-age=604800
+/splash-1620x2160.png
+  cache-control: public, max-age=604800
+/splash-2160x1620.png
+  cache-control: public, max-age=604800
 /manifest.webmanifest
   cache-control: public, max-age=86400
 
