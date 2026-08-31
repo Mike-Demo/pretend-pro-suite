@@ -55,27 +55,43 @@ export function Desktop({
   }, [bounds]);
 
   useLayoutEffect(() => {
+    const el = areaRef.current;
+    if (!el) return;
     const update = () => {
-      const el = areaRef.current;
-      if (el && el.clientWidth > 0) {
+      if (el.clientWidth > 0) {
         setBounds({ width: el.clientWidth, height: el.clientHeight });
       }
     };
     update();
+    // A ResizeObserver also fires once the element gets its first real size,
+    // which a one-shot read misses when the desktop mounts hidden (onboarding
+    // transition, fullscreen change, slow route chunk).
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
     window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
-  // Open the app chosen during onboarding once the desktop has been measured.
+  // Open the app chosen during onboarding once the layout is hydrated and the
+  // desktop has a real size. The chosen app always wins over a restored layout,
+  // so the desktop is never left with nothing visible.
   const bootstrapped = useRef(false);
   useEffect(() => {
     if (bootstrapped.current) return;
+    if (!wm.hydrated) return;
     const el = areaRef.current;
     if (!el || el.clientWidth === 0) return;
     bootstrapped.current = true;
-    if (wm.windows.length > 0) return;
-    launch(initialApp, { width: el.clientWidth, height: el.clientHeight });
-  }, [initialApp, launch, wm.windows.length]);
+    const existing = wm.windows.find((w) => w.id === initialApp);
+    if (!existing || existing.minimized) {
+      launch(initialApp, { width: el.clientWidth, height: el.clientHeight });
+    } else {
+      focus(initialApp);
+    }
+  }, [bounds, focus, initialApp, launch, wm.hydrated, wm.windows]);
 
   /** Dock behaviour: launch, focus, or minimize the already-focused window. */
   const handleDockSelect = useCallback(
