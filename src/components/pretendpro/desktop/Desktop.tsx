@@ -56,26 +56,29 @@ export function Desktop({
     return next.width > 0 ? next : bounds;
   }, [bounds]);
 
-  useLayoutEffect(() => {
-    const el = areaRef.current;
-    if (!el) return;
+  /**
+   * The desktop area lives inside a lazily loaded shell, so it is not in the DOM
+   * on first commit. A callback ref plus a ResizeObserver measures it the moment
+   * it mounts (and whenever it resizes) instead of reading a ref once.
+   */
+  const setAreaRef = useCallback((node: HTMLDivElement | null) => {
+    observerRef.current?.disconnect();
+    observerRef.current = null;
+    areaRef.current = node;
+    if (!node) return;
     const update = () => {
-      if (el.clientWidth > 0) {
-        setBounds({ width: el.clientWidth, height: el.clientHeight });
+      if (node.clientWidth > 0) {
+        setBounds({ width: node.clientWidth, height: node.clientHeight });
+        setMeasured(true);
       }
     };
     update();
-    // A ResizeObserver also fires once the element gets its first real size,
-    // which a one-shot read misses when the desktop mounts hidden (onboarding
-    // transition, fullscreen change, slow route chunk).
     const observer = new ResizeObserver(update);
-    observer.observe(el);
-    window.addEventListener("resize", update);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", update);
-    };
+    observer.observe(node);
+    observerRef.current = observer;
   }, []);
+
+  useEffect(() => () => observerRef.current?.disconnect(), []);
 
   // Open the app chosen during onboarding once the layout is hydrated and the
   // desktop has a real size. The chosen app always wins over a restored layout,
@@ -83,17 +86,15 @@ export function Desktop({
   const bootstrapped = useRef(false);
   useEffect(() => {
     if (bootstrapped.current) return;
-    if (!wm.hydrated) return;
-    const el = areaRef.current;
-    if (!el || el.clientWidth === 0) return;
+    if (!wm.hydrated || !measured) return;
     bootstrapped.current = true;
     const existing = wm.windows.find((w) => w.id === initialApp);
     if (!existing || existing.minimized) {
-      launch(initialApp, { width: el.clientWidth, height: el.clientHeight });
+      launch(initialApp, bounds);
     } else {
       focus(initialApp);
     }
-  }, [bounds, focus, initialApp, launch, wm.hydrated, wm.windows]);
+  }, [bounds, focus, initialApp, launch, measured, wm.hydrated, wm.windows]);
 
   /** Dock behaviour: launch, focus, or minimize the already-focused window. */
   const handleDockSelect = useCallback(
