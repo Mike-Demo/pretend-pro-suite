@@ -166,6 +166,43 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon-32.png", type: "image/png", sizes: "32x32" },
       { rel: "icon", href: "/favicon-16.png", type: "image/png", sizes: "16x16" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
+      // iOS home-screen splash screens (iOS ignores the manifest for these).
+      {
+        rel: "apple-touch-startup-image",
+        href: "/splash-750x1334.png",
+        media:
+          "(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)",
+      },
+      {
+        rel: "apple-touch-startup-image",
+        href: "/splash-1125x2436.png",
+        media:
+          "(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)",
+      },
+      {
+        rel: "apple-touch-startup-image",
+        href: "/splash-1170x2532.png",
+        media:
+          "(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)",
+      },
+      {
+        rel: "apple-touch-startup-image",
+        href: "/splash-1290x2796.png",
+        media:
+          "(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)",
+      },
+      {
+        rel: "apple-touch-startup-image",
+        href: "/splash-1620x2160.png",
+        media:
+          "(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)",
+      },
+      {
+        rel: "apple-touch-startup-image",
+        href: "/splash-2160x1620.png",
+        media:
+          "(device-width: 1080px) and (device-height: 810px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)",
+      },
       { rel: "manifest", href: "/manifest.webmanifest" },
     ],
     scripts: [
