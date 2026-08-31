@@ -58,12 +58,12 @@ export function useStepTransition(): StepTransition {
     const reduced = prefersReducedMotion();
     setStatus(options.status ?? null);
     setPhase("covering");
-    await wait(reduced ? 120 : coverMs);
+    await wait(reduced ? 180 : coverMs + staggerMs * (panelTints.length - 1));
     setPhase("holding");
     try {
       await action();
     } finally {
-      await wait(options.hold ?? (reduced ? 120 : 420));
+      await wait(options.hold ?? (reduced ? 180 : 630));
       if (options.keepCovered) {
         busyRef.current = false;
         return;
@@ -72,7 +72,7 @@ export function useStepTransition(): StepTransition {
         setPhase("idle");
       } else {
         setPhase("revealing");
-        await wait(revealMs);
+        await wait(revealMs + staggerMs * (panelTints.length - 1));
         setPhase("idle");
       }
       busyRef.current = false;
@@ -89,18 +89,18 @@ export function useStepTransition(): StepTransition {
                 key={i}
                 className={cn(
                   "h-full flex-1",
-                  tint,
                   phase === "revealing" ? "animate-panel-reveal" : "animate-panel-cover",
                 )}
                 style={{
-                  animationDelay: `${(phase === "revealing" ? panelTints.length - 1 - i : i) * 70}ms`,
+                  backgroundColor: tint,
+                  animationDelay: `${(phase === "revealing" ? panelTints.length - 1 - i : i) * staggerMs}ms`,
                 }}
               />
             ))}
           </div>
 
           {phase !== "revealing" && (
-            <div className="animate-loader-in relative flex flex-col items-center gap-4 text-primary-foreground">
+            <div className="animate-loader-in relative flex flex-col items-center gap-4 rounded-2xl bg-black/55 px-8 py-6 text-white shadow-[var(--fluent-shadow-16)] ring-1 ring-white/15 backdrop-blur-md">
               <span className="flex items-center gap-2">
                 <BrandLockup markOnly className="scale-125" />
                 <span className="text-base font-semibold tracking-tight">PretendPro 3000</span>
