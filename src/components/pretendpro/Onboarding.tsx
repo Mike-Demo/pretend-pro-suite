@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 import { ArrowLeft, Check, Maximize } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -6,8 +6,13 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
 import { BrandLockup } from "@/components/pretendpro/BrandLockup";
 import { LocalePicker } from "@/components/pretendpro/LocalePicker";
+import { VerifyStep } from "@/components/pretendpro/VerifyStep";
+import { useStepTransition } from "@/components/pretendpro/StepTransition";
+import { getCaptchaGate, verifyCaptcha, type CaptchaGate } from "@/lib/captcha/verify.functions";
+import { captchaClientFlag } from "@/lib/captcha/session";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import {
   isFullscreenSupported,
   loadFullscreenPreference,
