@@ -246,5 +246,6 @@ export function useWindowManager(storageKey?: string): WindowManager {
     dock,
     cycle,
     restored,
+    hydrated: ready,
   };
 }
