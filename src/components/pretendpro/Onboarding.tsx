@@ -379,9 +379,9 @@ export function Onboarding() {
                   <span id="fill-screen-hint">{t.onboarding.fullscreenHint}</span>
                 </label>
               )}
-              {step === 2 && (
+              {step > 1 && (
                 <button
-                  onClick={() => setStep(1)}
+                  onClick={() => setStep(step === 3 ? 2 : 1)}
                   className="fluent-focus flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-muted-foreground hover:text-foreground"
                 >
                   <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.75} />
@@ -399,6 +399,8 @@ export function Onboarding() {
       </main>
 
       <SocialFooter className="mx-auto mt-8 max-w-5xl" locale={locale} />
+      {transition.overlay}
+
     </div>
   );
 }
