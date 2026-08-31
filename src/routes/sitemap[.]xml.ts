@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/start-client-core";
 import { localeIds } from "@/lib/i18n/locales";
+import { appIds } from "@/lib/pretendpro/app-ids";
 
 const BASE_URL = "https://pretend.pro";
 
