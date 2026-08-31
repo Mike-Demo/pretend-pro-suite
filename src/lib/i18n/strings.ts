@@ -172,11 +172,11 @@ const base: Strings = {
   },
   shell: {
     editionHeading: {
-      fruit: "PretendPro 3000 — Fruit (Mac OS X) Edition: a fake desktop for looking busy",
-      apperture: "PretendPro 3000 — Apperture (Windows) Edition: a fake desktop for looking busy",
-      bufferium: "PretendPro 3000 — BufferiumOS Edition: a fake desktop for looking busy",
-      android: "PretendPro 3000 — Android Edition: a fake phone for looking busy",
-      fos: "PretendPro 3000 — fOS Edition: a fake phone for looking busy",
+      fruit: "PretendPro Office Suite — Fruit (Mac OS X) Edition: a fake desktop for looking busy",
+      apperture: "PretendPro Office Suite — Apperture (Windows) Edition: a fake desktop for looking busy",
+      bufferium: "PretendPro Office Suite — BufferiumOS Edition: a fake desktop for looking busy",
+      android: "PretendPro Office Suite — Android Edition: a fake phone for looking busy",
+      fos: "PretendPro Office Suite — fOS Edition: a fake phone for looking busy",
     },
     switchTo: (name) => `Switch to ${name}`,
     changeStyle: "Change style…",
@@ -246,12 +246,12 @@ const base: Strings = {
     back: "Back to onboarding",
     title: "Open Source Licenses",
     intro:
-      "PretendPro 3000 is a parody built on generous open source work. Everything used is listed below with its author, license, and a link to the original project.",
+      "PretendPro Office Suite is a parody built on generous open source work. Everything used is listed below with its author, license, and a link to the original project.",
     artwork: "Artwork & icons",
     libraries: "Libraries",
     references: "Design references",
     disclaimer:
-      "PretendPro 3000 is not affiliated with Apple, Microsoft, or Google. All OS styles are affectionate parodies.",
+      "PretendPro Office Suite is not affiliated with Apple, Microsoft, or Google. All OS styles are affectionate parodies.",
   },
   privacy: {
     back: "Back to onboarding",
@@ -262,21 +262,21 @@ const base: Strings = {
     fallbackLabel: "click here to view the policy",
   },
   meta: {
-    homeTitle: "PretendPro 3000 — Set Up Your Fake Workday",
+    homeTitle: "PretendPro Office Suite — Set Up Your Fake Workday",
     homeDescription:
-      "Answer two questions and PretendPro 3000 builds your ideal fake workday: pick the work you want to mimic and the window style that feels most like your job.",
-    licensesTitle: "Open Source Licenses — PretendPro 3000",
+      "Answer two questions and PretendPro Office Suite builds your ideal fake workday: pick the work you want to mimic and the window style that feels most like your job.",
+    licensesTitle: "Open Source Licenses — PretendPro Office Suite",
     licensesDescription:
-      "Attribution and license information for the open source illustrations, icons, and libraries used to build PretendPro 3000.",
-    privacyTitle: "Privacy Policy — PretendPro 3000",
+      "Attribution and license information for the open source illustrations, icons, and libraries used to build PretendPro Office Suite.",
+    privacyTitle: "Privacy Policy — PretendPro Office Suite",
     privacyDescription:
-      "Read the PretendPro 3000 privacy policy, powered by Termageddon and kept current automatically.",
+      "Read the PretendPro Office Suite privacy policy, powered by Termageddon and kept current automatically.",
     editionTitle: {
-      fruit: "PretendPro 3000 — Fruit (Mac OS X) Edition",
-      apperture: "PretendPro 3000 — Apperture (Windows) Edition",
-      bufferium: "PretendPro 3000 — BufferiumOS Edition",
-      android: "PretendPro 3000 — Android Edition",
-      fos: "PretendPro 3000 — fOS Edition",
+      fruit: "PretendPro Office Suite — Fruit (Mac OS X) Edition",
+      apperture: "PretendPro Office Suite — Apperture (Windows) Edition",
+      bufferium: "PretendPro Office Suite — BufferiumOS Edition",
+      android: "PretendPro Office Suite — Android Edition",
+      fos: "PretendPro Office Suite — fOS Edition",
     },
     editionDescription: {
       fruit: "Pretend to work inside a Fruit-flavored Mac OS X desktop with a dock and fake apps.",
@@ -541,11 +541,11 @@ const klingon: DeepPartial<Strings> = {
   },
   shell: {
     editionHeading: {
-      fruit: "PretendPro 3000 — Fruit (Mac OS X): batlh Qu' Hutlh (fake desktop)",
-      apperture: "PretendPro 3000 — Apperture (Windows): batlh Qu' Hutlh (fake desktop)",
-      bufferium: "PretendPro 3000 — BufferiumOS: batlh Qu' Hutlh (fake desktop)",
-      android: "PretendPro 3000 — Android: batlh Qu' Hutlh (fake phone)",
-      fos: "PretendPro 3000 — fOS: batlh Qu' Hutlh (fake phone)",
+      fruit: "PretendPro Office Suite — Fruit (Mac OS X): batlh Qu' Hutlh (fake desktop)",
+      apperture: "PretendPro Office Suite — Apperture (Windows): batlh Qu' Hutlh (fake desktop)",
+      bufferium: "PretendPro Office Suite — BufferiumOS: batlh Qu' Hutlh (fake desktop)",
+      android: "PretendPro Office Suite — Android: batlh Qu' Hutlh (fake phone)",
+      fos: "PretendPro Office Suite — fOS: batlh Qu' Hutlh (fake phone)",
     },
     switchTo: (name) => `${name} ghoS (switch to)`,
     changeStyle: "jan choH… (change style)",
@@ -615,19 +615,19 @@ const klingon: DeepPartial<Strings> = {
     back: "onboarding chegh",
     title: "open source chelqa' (licenses)",
     intro:
-      "PretendPro 3000 'oH parody 'e'. open source Qu' batlh vIlo'. below: author, license, 'ej link.",
+      "PretendPro Office Suite 'oH parody 'e'. open source Qu' batlh vIlo'. below: author, license, 'ej link.",
     artwork: "nagh beQ 'ej Degh (artwork & icons)",
     libraries: "libraries",
     references: "design references",
     disclaimer:
-      "PretendPro 3000 Apple, Microsoft, Google je rurbe'. affectionate parody 'oH.",
+      "PretendPro Office Suite Apple, Microsoft, Google je rurbe'. affectionate parody 'oH.",
   },
   meta: {
-    homeTitle: "PretendPro 3000 — batlh Qu' Hutlh (Klingon)",
+    homeTitle: "PretendPro Office Suite — batlh Qu' Hutlh (Klingon)",
     homeDescription:
-      "cha' yu'meH vIjang 'ej PretendPro 3000 Qu' Hutlh vIchenmoH. Pretend productivity in Klingon.",
-    licensesTitle: "open source chelqa' — PretendPro 3000",
-    licensesDescription: "PretendPro 3000 open source Qu' 'ej chelqa'. Attribution in Klingon.",
+      "cha' yu'meH vIjang 'ej PretendPro Office Suite Qu' Hutlh vIchenmoH. Pretend productivity in Klingon.",
+    licensesTitle: "open source chelqa' — PretendPro Office Suite",
+    licensesDescription: "PretendPro Office Suite open source Qu' 'ej chelqa'. Attribution in Klingon.",
   },
 };
 

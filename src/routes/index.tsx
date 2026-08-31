@@ -16,13 +16,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PretendPro 3000 — Set Up Your Fake Workday" },
+      { title: "PretendPro Office Suite — Set Up Your Fake Workday" },
       {
         name: "description",
         content:
-          "Answer two questions and PretendPro 3000 builds your ideal fake workday: pick the work you want to mimic and the window style that feels most like your job.",
+          "Answer two questions and PretendPro Office Suite builds your ideal fake workday: pick the work you want to mimic and the window style that feels most like your job.",
       },
-      { property: "og:title", content: "PretendPro 3000 — Set Up Your Fake Workday" },
+      { property: "og:title", content: "PretendPro Office Suite — Set Up Your Fake Workday" },
       {
         property: "og:description",
         content:
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/")({
       { property: "og:image:height", content: String(socialOgImageHeight) },
       { property: "og:image:alt", content: socialOgImageAlt },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "PretendPro 3000 — Set Up Your Fake Workday" },
+      { name: "twitter:title", content: "PretendPro Office Suite — Set Up Your Fake Workday" },
       {
         name: "twitter:description",
         content:
@@ -59,10 +59,10 @@ export const Route = createFileRoute("/")({
       {
         type: "application/ld+json",
         children: webPageJsonLd({
-          name: "PretendPro 3000 — Set Up Your Fake Workday",
+          name: "PretendPro Office Suite — Set Up Your Fake Workday",
           url: "https://pretend.pro/",
           description:
-            "Answer two questions and PretendPro 3000 builds your ideal fake workday.",
+            "Answer two questions and PretendPro Office Suite builds your ideal fake workday.",
         }),
       },
     ],
