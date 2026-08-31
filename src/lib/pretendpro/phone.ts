@@ -69,7 +69,7 @@ export function usePhone(storageKey: string, initialApp?: AppId): PhoneManager {
       }
     }
     setReady(true);
-  }, [storageKey]);
+  }, [initialApp, storageKey]);
 
   useEffect(() => {
     if (!ready) return;
