@@ -275,13 +275,22 @@ export function Onboarding() {
               {t.onboarding.stepLabel(step)}
             </p>
             <h1 className="mt-3 text-center text-2xl font-semibold tracking-tight text-foreground sm:text-[28px]">
-              {step === 1 ? t.onboarding.questionStyle : t.onboarding.questionWork}
+              {step === 1
+                ? t.onboarding.questionStyle
+                : step === 2
+                  ? t.onboarding.questionWork
+                  : t.onboarding.verifyHeading}
             </h1>
             <p className="mt-2 text-center text-sm text-muted-foreground">
-              {step === 1 ? t.onboarding.subtitleStyle : t.onboarding.subtitleWork}
+              {step === 1
+                ? t.onboarding.subtitleStyle
+                : step === 2
+                  ? t.onboarding.subtitleWork
+                  : t.onboarding.verifySubtitle}
             </p>
 
             {step === 1 ? (
+
               <Tabs value={device} onValueChange={onDeviceChange} className="mt-8">
                 <TabsList className="mx-auto grid w-full max-w-xs grid-cols-2">
                   <TabsTrigger value="desktop">{t.onboarding.desktopHeading}</TabsTrigger>
