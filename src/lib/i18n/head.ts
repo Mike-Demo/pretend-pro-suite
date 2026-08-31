@@ -1,6 +1,8 @@
 import type { OsTheme } from "@/components/pretendpro/WindowFrame";
+import type { AppId } from "@/components/pretendpro/chrome";
 import {
   breadcrumbJsonLd,
+  breadcrumbTrailJsonLd,
   socialOgImage,
   socialOgImageAlt,
   socialOgImageHeight,
@@ -11,14 +13,13 @@ import {
 import { locales, localeMeta, type LocaleId } from "./locales";
 import { stringsFor } from "./strings";
 
+export type EditionSlug = "fruit" | "apperture" | "bufferium" | "android" | "fos";
+
 /** Page slug within a locale folder: "" is the onboarding page. */
 export type PageSlug =
   | ""
-  | "fruit"
-  | "apperture"
-  | "bufferium"
-  | "android"
-  | "fos"
+  | EditionSlug
+  | `${EditionSlug}/${AppId}`
   | "licenses"
   | "privacy"
   | "terms";
@@ -101,7 +102,7 @@ export function localeLicensesHead(locale: LocaleId) {
   };
 }
 
-const editionSlug: Record<OsTheme, PageSlug> = {
+const editionSlug: Record<OsTheme, EditionSlug> = {
   fruit: "fruit",
   apperture: "apperture",
   bufferium: "bufferium",
@@ -109,12 +110,24 @@ const editionSlug: Record<OsTheme, PageSlug> = {
   fos: "fos",
 };
 
-export function localeEditionHead(locale: LocaleId, theme: OsTheme) {
+/**
+ * Edition metadata. With an app, the page is the edition + work type combination
+ * and gets its own title, description, canonical URL and breadcrumb crumb.
+ */
+export function localeEditionHead(locale: LocaleId, theme: OsTheme, app?: AppId) {
   const t = stringsFor(locale);
-  const slug = editionSlug[theme];
+  const edition = editionSlug[theme];
+  const slug: PageSlug = app ? `${edition}/${app}` : edition;
   const url = pageUrl(locale, slug);
-  const title = `${t.meta.editionTitle[theme]} · ${localeMeta(locale).label}`;
-  const description = t.meta.editionDescription[theme];
+  const editionTitle = t.meta.editionTitle[theme];
+  const editionUrl = pageUrl(locale, edition);
+  const work = app ? t.onboarding.work[app] : null;
+  const title = work
+    ? `${work.title} · ${editionTitle} · ${localeMeta(locale).label}`
+    : `${editionTitle} · ${localeMeta(locale).label}`;
+  const description = work
+    ? `${work.description} ${t.meta.editionDescription[theme]}`
+    : t.meta.editionDescription[theme];
   return {
     meta: socialMeta(title, description, url, socialOgImage),
     links: [{ rel: "canonical", href: url }, ...alternateLinks(slug)],
@@ -130,7 +143,12 @@ export function localeEditionHead(locale: LocaleId, theme: OsTheme) {
       },
       {
         type: "application/ld+json",
-        children: breadcrumbJsonLd(t.meta.editionTitle[theme], url),
+        children: work
+          ? breadcrumbTrailJsonLd([
+              { name: editionTitle, url: editionUrl },
+              { name: work.title, url },
+            ])
+          : breadcrumbJsonLd(editionTitle, url),
       },
     ],
   };

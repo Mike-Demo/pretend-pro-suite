@@ -29,7 +29,7 @@ import {
 } from "@/components/pretendpro/Illustration";
 import { SocialFooter } from "@/components/pretendpro/SocialFooter";
 import { useI18n } from "@/lib/i18n/context";
-import { localeThemeRoutes } from "@/lib/i18n/locales";
+import { localeThemeAppRoutes } from "@/lib/i18n/locales";
 
 const workArt: Record<AppId, IllustrationName> = {
   docufaker: "pondering",
@@ -209,9 +209,8 @@ export function Onboarding() {
       await transition.run(
         async () => {
           await navigate({
-            to: localeThemeRoutes[style],
-            params: { locale },
-            search: { app: work },
+            to: localeThemeAppRoutes[style],
+            params: { locale, app: work },
           });
         },
         { status: t.onboarding.loaderStatusOs, hold: 600, keepCovered: true },
@@ -310,9 +309,8 @@ export function Onboarding() {
                              prefetchColoredIllustration(styleArt[id]);
                              // Warm the edition's route chunk before the user commits.
                              void router.preloadRoute({
-                              to: localeThemeRoutes[id],
-                              params: { locale },
-                              search: { app: work ?? "docufaker" },
+                              to: localeThemeAppRoutes[id],
+                              params: { locale, app: work ?? "docufaker" },
                             });
                           }}
                         />
@@ -336,9 +334,8 @@ export function Onboarding() {
                        prefetchColoredIllustration(workArt[id]);
                        if (!style) return;
                        void router.preloadRoute({
-                        to: localeThemeRoutes[style],
-                        params: { locale },
-                        search: { app: id },
+                        to: localeThemeAppRoutes[style],
+                        params: { locale, app: id },
                       });
                     }}
                   />

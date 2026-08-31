@@ -1,17 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Suite } from "@/components/pretendpro/Suite";
-import { parseAppSearch } from "@/lib/pretendpro/search";
-import { localeEditionHead } from "@/lib/i18n/head";
-import { defaultLocale, isLocaleId } from "@/lib/i18n/locales";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
+/** Edition layout: each work type is a child route under this edition. */
 export const Route = createFileRoute("/$locale/bufferium")({
-  validateSearch: parseAppSearch,
-  head: ({ params }) =>
-    localeEditionHead(isLocaleId(params.locale) ? params.locale : defaultLocale, "bufferium"),
-  component: BufferiumPage,
+  component: BufferiumLayout,
 });
 
-function BufferiumPage() {
-  const { app } = Route.useSearch();
-  return <Suite osTheme="bufferium" initialApp={app} />;
+function BufferiumLayout() {
+  return <Outlet />;
 }

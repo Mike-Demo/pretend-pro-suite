@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import type { DesktopOsTheme } from "@/components/pretendpro/WindowFrame";
 import { apps, SparklesLayer, StickyNote, type AppId } from "@/components/pretendpro/chrome";
 import { AppScreen, preloadAppScreen } from "@/components/pretendpro/app-screens";
@@ -40,8 +40,10 @@ export function Desktop({
   const { funMode, toggleFunMode } = useFunMode();
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
-  const areaRef = useRef<HTMLDivElement>(null);
+  const areaRef = useRef<HTMLDivElement | null>(null);
+  const observerRef = useRef<ResizeObserver | null>(null);
   const [bounds, setBounds] = useState<Bounds>({ width: 1200, height: 700 });
+  const [measured, setMeasured] = useState(false);
 
   const [announcement, setAnnouncement] = useState("");
   const wm = useWindowManager(`pretendpro:layout:${osTheme}`);
@@ -54,28 +56,45 @@ export function Desktop({
     return next.width > 0 ? next : bounds;
   }, [bounds]);
 
-  useLayoutEffect(() => {
+  /**
+   * The desktop area lives inside a lazily loaded shell, so it is not in the DOM
+   * on first commit. A callback ref plus a ResizeObserver measures it the moment
+   * it mounts (and whenever it resizes) instead of reading a ref once.
+   */
+  const setAreaRef = useCallback((node: HTMLDivElement | null) => {
+    observerRef.current?.disconnect();
+    observerRef.current = null;
+    areaRef.current = node;
+    if (!node) return;
     const update = () => {
-      const el = areaRef.current;
-      if (el && el.clientWidth > 0) {
-        setBounds({ width: el.clientWidth, height: el.clientHeight });
+      if (node.clientWidth > 0) {
+        setBounds({ width: node.clientWidth, height: node.clientHeight });
+        setMeasured(true);
       }
     };
     update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    const observer = new ResizeObserver(update);
+    observer.observe(node);
+    observerRef.current = observer;
   }, []);
 
-  // Open the app chosen during onboarding once the desktop has been measured.
+  useEffect(() => () => observerRef.current?.disconnect(), []);
+
+  // Open the app chosen during onboarding once the layout is hydrated and the
+  // desktop has a real size. The chosen app always wins over a restored layout,
+  // so the desktop is never left with nothing visible.
   const bootstrapped = useRef(false);
   useEffect(() => {
     if (bootstrapped.current) return;
-    const el = areaRef.current;
-    if (!el || el.clientWidth === 0) return;
+    if (!wm.hydrated || !measured) return;
     bootstrapped.current = true;
-    if (wm.windows.length > 0) return;
-    launch(initialApp, { width: el.clientWidth, height: el.clientHeight });
-  }, [initialApp, launch, wm.windows.length]);
+    const existing = wm.windows.find((w) => w.id === initialApp);
+    if (!existing || existing.minimized) {
+      launch(initialApp, bounds);
+    } else {
+      focus(initialApp);
+    }
+  }, [bounds, focus, initialApp, launch, measured, wm.hydrated, wm.windows]);
 
   /** Dock behaviour: launch, focus, or minimize the already-focused window. */
   const handleDockSelect = useCallback(
@@ -196,7 +215,7 @@ export function Desktop({
             onShowShortcuts={() => setShortcutsOpen(true)}
             onOpenPalette={() => setPaletteOpen(true)}
           >
-            <div ref={areaRef} data-desktop-area className="relative h-full w-full">
+            <div ref={setAreaRef} data-desktop-area className="relative h-full w-full">
               {funMode && <StickyNote />}
               {windows
                 .filter((w) => !w.minimized)

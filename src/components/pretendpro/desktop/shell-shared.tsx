@@ -7,7 +7,7 @@ import { apps, type AppId } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
 import { preloadAppScreen } from "@/components/pretendpro/app-screens";
 import { useI18n, useStrings } from "@/lib/i18n/context";
-import { localeThemeRoutes } from "@/lib/i18n/locales";
+import { localeThemeAppRoutes } from "@/lib/i18n/locales";
 import { LocalePicker } from "@/components/pretendpro/LocalePicker";
 
 
@@ -64,9 +64,8 @@ export function ThemeSwitchLinks({
         .map((theme) => (
           <Link
             key={theme.id}
-            to={localeThemeRoutes[theme.id]}
-            params={{ locale }}
-            search={{ app: active }}
+            to={localeThemeAppRoutes[theme.id]}
+            params={{ locale, app: active }}
             className={itemClass}
           >
             {t.shell.switchTo(theme.name)}

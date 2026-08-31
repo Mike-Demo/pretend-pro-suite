@@ -30,6 +30,16 @@ import { Route as LocaleFruitRouteImport } from './routes/$locale/fruit'
 import { Route as LocaleLicensesRouteImport } from './routes/$locale/licenses'
 import { Route as LocalePrivacyRouteImport } from './routes/$locale/privacy'
 import { Route as LocaleTermsRouteImport } from './routes/$locale/terms'
+import { Route as LocaleAndroidIndexRouteImport } from './routes/$locale/android.index'
+import { Route as LocaleAndroidAppRouteImport } from './routes/$locale/android.$app'
+import { Route as LocaleAppertureIndexRouteImport } from './routes/$locale/apperture.index'
+import { Route as LocaleAppertureAppRouteImport } from './routes/$locale/apperture.$app'
+import { Route as LocaleBufferiumIndexRouteImport } from './routes/$locale/bufferium.index'
+import { Route as LocaleBufferiumAppRouteImport } from './routes/$locale/bufferium.$app'
+import { Route as LocaleFosIndexRouteImport } from './routes/$locale/fos.index'
+import { Route as LocaleFosAppRouteImport } from './routes/$locale/fos.$app'
+import { Route as LocaleFruitIndexRouteImport } from './routes/$locale/fruit.index'
+import { Route as LocaleFruitAppRouteImport } from './routes/$locale/fruit.$app'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -136,6 +146,56 @@ const LocaleTermsRoute = LocaleTermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => LocaleRouteRoute,
 } as any)
+const LocaleAndroidIndexRoute = LocaleAndroidIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleAndroidRoute,
+} as any)
+const LocaleAndroidAppRoute = LocaleAndroidAppRouteImport.update({
+  id: '/$app',
+  path: '/$app',
+  getParentRoute: () => LocaleAndroidRoute,
+} as any)
+const LocaleAppertureIndexRoute = LocaleAppertureIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleAppertureRoute,
+} as any)
+const LocaleAppertureAppRoute = LocaleAppertureAppRouteImport.update({
+  id: '/$app',
+  path: '/$app',
+  getParentRoute: () => LocaleAppertureRoute,
+} as any)
+const LocaleBufferiumIndexRoute = LocaleBufferiumIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleBufferiumRoute,
+} as any)
+const LocaleBufferiumAppRoute = LocaleBufferiumAppRouteImport.update({
+  id: '/$app',
+  path: '/$app',
+  getParentRoute: () => LocaleBufferiumRoute,
+} as any)
+const LocaleFosIndexRoute = LocaleFosIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleFosRoute,
+} as any)
+const LocaleFosAppRoute = LocaleFosAppRouteImport.update({
+  id: '/$app',
+  path: '/$app',
+  getParentRoute: () => LocaleFosRoute,
+} as any)
+const LocaleFruitIndexRoute = LocaleFruitIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleFruitRoute,
+} as any)
+const LocaleFruitAppRoute = LocaleFruitAppRouteImport.update({
+  id: '/$app',
+  path: '/$app',
+  getParentRoute: () => LocaleFruitRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -150,15 +210,25 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
-  '/$locale/android': typeof LocaleAndroidRoute
-  '/$locale/apperture': typeof LocaleAppertureRoute
-  '/$locale/bufferium': typeof LocaleBufferiumRoute
-  '/$locale/fos': typeof LocaleFosRoute
-  '/$locale/fruit': typeof LocaleFruitRoute
+  '/$locale/android': typeof LocaleAndroidRouteWithChildren
+  '/$locale/apperture': typeof LocaleAppertureRouteWithChildren
+  '/$locale/bufferium': typeof LocaleBufferiumRouteWithChildren
+  '/$locale/fos': typeof LocaleFosRouteWithChildren
+  '/$locale/fruit': typeof LocaleFruitRouteWithChildren
   '/$locale/licenses': typeof LocaleLicensesRoute
   '/$locale/privacy': typeof LocalePrivacyRoute
   '/$locale/terms': typeof LocaleTermsRoute
   '/$locale/': typeof LocaleIndexRoute
+  '/$locale/android/$app': typeof LocaleAndroidAppRoute
+  '/$locale/apperture/$app': typeof LocaleAppertureAppRoute
+  '/$locale/bufferium/$app': typeof LocaleBufferiumAppRoute
+  '/$locale/fos/$app': typeof LocaleFosAppRoute
+  '/$locale/fruit/$app': typeof LocaleFruitAppRoute
+  '/$locale/android/': typeof LocaleAndroidIndexRoute
+  '/$locale/apperture/': typeof LocaleAppertureIndexRoute
+  '/$locale/bufferium/': typeof LocaleBufferiumIndexRoute
+  '/$locale/fos/': typeof LocaleFosIndexRoute
+  '/$locale/fruit/': typeof LocaleFruitIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -172,15 +242,20 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
-  '/$locale/android': typeof LocaleAndroidRoute
-  '/$locale/apperture': typeof LocaleAppertureRoute
-  '/$locale/bufferium': typeof LocaleBufferiumRoute
-  '/$locale/fos': typeof LocaleFosRoute
-  '/$locale/fruit': typeof LocaleFruitRoute
   '/$locale/licenses': typeof LocaleLicensesRoute
   '/$locale/privacy': typeof LocalePrivacyRoute
   '/$locale/terms': typeof LocaleTermsRoute
   '/$locale': typeof LocaleIndexRoute
+  '/$locale/android/$app': typeof LocaleAndroidAppRoute
+  '/$locale/apperture/$app': typeof LocaleAppertureAppRoute
+  '/$locale/bufferium/$app': typeof LocaleBufferiumAppRoute
+  '/$locale/fos/$app': typeof LocaleFosAppRoute
+  '/$locale/fruit/$app': typeof LocaleFruitAppRoute
+  '/$locale/android': typeof LocaleAndroidIndexRoute
+  '/$locale/apperture': typeof LocaleAppertureIndexRoute
+  '/$locale/bufferium': typeof LocaleBufferiumIndexRoute
+  '/$locale/fos': typeof LocaleFosIndexRoute
+  '/$locale/fruit': typeof LocaleFruitIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -196,15 +271,25 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
-  '/$locale/android': typeof LocaleAndroidRoute
-  '/$locale/apperture': typeof LocaleAppertureRoute
-  '/$locale/bufferium': typeof LocaleBufferiumRoute
-  '/$locale/fos': typeof LocaleFosRoute
-  '/$locale/fruit': typeof LocaleFruitRoute
+  '/$locale/android': typeof LocaleAndroidRouteWithChildren
+  '/$locale/apperture': typeof LocaleAppertureRouteWithChildren
+  '/$locale/bufferium': typeof LocaleBufferiumRouteWithChildren
+  '/$locale/fos': typeof LocaleFosRouteWithChildren
+  '/$locale/fruit': typeof LocaleFruitRouteWithChildren
   '/$locale/licenses': typeof LocaleLicensesRoute
   '/$locale/privacy': typeof LocalePrivacyRoute
   '/$locale/terms': typeof LocaleTermsRoute
   '/$locale/': typeof LocaleIndexRoute
+  '/$locale/android/$app': typeof LocaleAndroidAppRoute
+  '/$locale/apperture/$app': typeof LocaleAppertureAppRoute
+  '/$locale/bufferium/$app': typeof LocaleBufferiumAppRoute
+  '/$locale/fos/$app': typeof LocaleFosAppRoute
+  '/$locale/fruit/$app': typeof LocaleFruitAppRoute
+  '/$locale/android/': typeof LocaleAndroidIndexRoute
+  '/$locale/apperture/': typeof LocaleAppertureIndexRoute
+  '/$locale/bufferium/': typeof LocaleBufferiumIndexRoute
+  '/$locale/fos/': typeof LocaleFosIndexRoute
+  '/$locale/fruit/': typeof LocaleFruitIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -230,6 +315,16 @@ export interface FileRouteTypes {
     | '/$locale/privacy'
     | '/$locale/terms'
     | '/$locale/'
+    | '/$locale/android/$app'
+    | '/$locale/apperture/$app'
+    | '/$locale/bufferium/$app'
+    | '/$locale/fos/$app'
+    | '/$locale/fruit/$app'
+    | '/$locale/android/'
+    | '/$locale/apperture/'
+    | '/$locale/bufferium/'
+    | '/$locale/fos/'
+    | '/$locale/fruit/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -243,15 +338,20 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/verify'
+    | '/$locale/licenses'
+    | '/$locale/privacy'
+    | '/$locale/terms'
+    | '/$locale'
+    | '/$locale/android/$app'
+    | '/$locale/apperture/$app'
+    | '/$locale/bufferium/$app'
+    | '/$locale/fos/$app'
+    | '/$locale/fruit/$app'
     | '/$locale/android'
     | '/$locale/apperture'
     | '/$locale/bufferium'
     | '/$locale/fos'
     | '/$locale/fruit'
-    | '/$locale/licenses'
-    | '/$locale/privacy'
-    | '/$locale/terms'
-    | '/$locale'
   id:
     | '__root__'
     | '/'
@@ -275,6 +375,16 @@ export interface FileRouteTypes {
     | '/$locale/privacy'
     | '/$locale/terms'
     | '/$locale/'
+    | '/$locale/android/$app'
+    | '/$locale/apperture/$app'
+    | '/$locale/bufferium/$app'
+    | '/$locale/fos/$app'
+    | '/$locale/fruit/$app'
+    | '/$locale/android/'
+    | '/$locale/apperture/'
+    | '/$locale/bufferium/'
+    | '/$locale/fos/'
+    | '/$locale/fruit/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -441,15 +551,155 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleTermsRouteImport
       parentRoute: typeof LocaleRouteRoute
     }
+    '/$locale/android/': {
+      id: '/$locale/android/'
+      path: '/'
+      fullPath: '/$locale/android/'
+      preLoaderRoute: typeof LocaleAndroidIndexRouteImport
+      parentRoute: typeof LocaleAndroidRoute
+    }
+    '/$locale/android/$app': {
+      id: '/$locale/android/$app'
+      path: '/$app'
+      fullPath: '/$locale/android/$app'
+      preLoaderRoute: typeof LocaleAndroidAppRouteImport
+      parentRoute: typeof LocaleAndroidRoute
+    }
+    '/$locale/apperture/': {
+      id: '/$locale/apperture/'
+      path: '/'
+      fullPath: '/$locale/apperture/'
+      preLoaderRoute: typeof LocaleAppertureIndexRouteImport
+      parentRoute: typeof LocaleAppertureRoute
+    }
+    '/$locale/apperture/$app': {
+      id: '/$locale/apperture/$app'
+      path: '/$app'
+      fullPath: '/$locale/apperture/$app'
+      preLoaderRoute: typeof LocaleAppertureAppRouteImport
+      parentRoute: typeof LocaleAppertureRoute
+    }
+    '/$locale/bufferium/': {
+      id: '/$locale/bufferium/'
+      path: '/'
+      fullPath: '/$locale/bufferium/'
+      preLoaderRoute: typeof LocaleBufferiumIndexRouteImport
+      parentRoute: typeof LocaleBufferiumRoute
+    }
+    '/$locale/bufferium/$app': {
+      id: '/$locale/bufferium/$app'
+      path: '/$app'
+      fullPath: '/$locale/bufferium/$app'
+      preLoaderRoute: typeof LocaleBufferiumAppRouteImport
+      parentRoute: typeof LocaleBufferiumRoute
+    }
+    '/$locale/fos/': {
+      id: '/$locale/fos/'
+      path: '/'
+      fullPath: '/$locale/fos/'
+      preLoaderRoute: typeof LocaleFosIndexRouteImport
+      parentRoute: typeof LocaleFosRoute
+    }
+    '/$locale/fos/$app': {
+      id: '/$locale/fos/$app'
+      path: '/$app'
+      fullPath: '/$locale/fos/$app'
+      preLoaderRoute: typeof LocaleFosAppRouteImport
+      parentRoute: typeof LocaleFosRoute
+    }
+    '/$locale/fruit/': {
+      id: '/$locale/fruit/'
+      path: '/'
+      fullPath: '/$locale/fruit/'
+      preLoaderRoute: typeof LocaleFruitIndexRouteImport
+      parentRoute: typeof LocaleFruitRoute
+    }
+    '/$locale/fruit/$app': {
+      id: '/$locale/fruit/$app'
+      path: '/$app'
+      fullPath: '/$locale/fruit/$app'
+      preLoaderRoute: typeof LocaleFruitAppRouteImport
+      parentRoute: typeof LocaleFruitRoute
+    }
   }
 }
 
+interface LocaleAndroidRouteChildren {
+  LocaleAndroidAppRoute: typeof LocaleAndroidAppRoute
+  LocaleAndroidIndexRoute: typeof LocaleAndroidIndexRoute
+}
+
+const LocaleAndroidRouteChildren: LocaleAndroidRouteChildren = {
+  LocaleAndroidAppRoute: LocaleAndroidAppRoute,
+  LocaleAndroidIndexRoute: LocaleAndroidIndexRoute,
+}
+
+const LocaleAndroidRouteWithChildren = LocaleAndroidRoute._addFileChildren(
+  LocaleAndroidRouteChildren,
+)
+
+interface LocaleAppertureRouteChildren {
+  LocaleAppertureAppRoute: typeof LocaleAppertureAppRoute
+  LocaleAppertureIndexRoute: typeof LocaleAppertureIndexRoute
+}
+
+const LocaleAppertureRouteChildren: LocaleAppertureRouteChildren = {
+  LocaleAppertureAppRoute: LocaleAppertureAppRoute,
+  LocaleAppertureIndexRoute: LocaleAppertureIndexRoute,
+}
+
+const LocaleAppertureRouteWithChildren = LocaleAppertureRoute._addFileChildren(
+  LocaleAppertureRouteChildren,
+)
+
+interface LocaleBufferiumRouteChildren {
+  LocaleBufferiumAppRoute: typeof LocaleBufferiumAppRoute
+  LocaleBufferiumIndexRoute: typeof LocaleBufferiumIndexRoute
+}
+
+const LocaleBufferiumRouteChildren: LocaleBufferiumRouteChildren = {
+  LocaleBufferiumAppRoute: LocaleBufferiumAppRoute,
+  LocaleBufferiumIndexRoute: LocaleBufferiumIndexRoute,
+}
+
+const LocaleBufferiumRouteWithChildren = LocaleBufferiumRoute._addFileChildren(
+  LocaleBufferiumRouteChildren,
+)
+
+interface LocaleFosRouteChildren {
+  LocaleFosAppRoute: typeof LocaleFosAppRoute
+  LocaleFosIndexRoute: typeof LocaleFosIndexRoute
+}
+
+const LocaleFosRouteChildren: LocaleFosRouteChildren = {
+  LocaleFosAppRoute: LocaleFosAppRoute,
+  LocaleFosIndexRoute: LocaleFosIndexRoute,
+}
+
+const LocaleFosRouteWithChildren = LocaleFosRoute._addFileChildren(
+  LocaleFosRouteChildren,
+)
+
+interface LocaleFruitRouteChildren {
+  LocaleFruitAppRoute: typeof LocaleFruitAppRoute
+  LocaleFruitIndexRoute: typeof LocaleFruitIndexRoute
+}
+
+const LocaleFruitRouteChildren: LocaleFruitRouteChildren = {
+  LocaleFruitAppRoute: LocaleFruitAppRoute,
+  LocaleFruitIndexRoute: LocaleFruitIndexRoute,
+}
+
+const LocaleFruitRouteWithChildren = LocaleFruitRoute._addFileChildren(
+  LocaleFruitRouteChildren,
+)
+
 interface LocaleRouteRouteChildren {
-  LocaleAndroidRoute: typeof LocaleAndroidRoute
-  LocaleAppertureRoute: typeof LocaleAppertureRoute
-  LocaleBufferiumRoute: typeof LocaleBufferiumRoute
-  LocaleFosRoute: typeof LocaleFosRoute
-  LocaleFruitRoute: typeof LocaleFruitRoute
+  LocaleAndroidRoute: typeof LocaleAndroidRouteWithChildren
+  LocaleAppertureRoute: typeof LocaleAppertureRouteWithChildren
+  LocaleBufferiumRoute: typeof LocaleBufferiumRouteWithChildren
+  LocaleFosRoute: typeof LocaleFosRouteWithChildren
+  LocaleFruitRoute: typeof LocaleFruitRouteWithChildren
   LocaleLicensesRoute: typeof LocaleLicensesRoute
   LocalePrivacyRoute: typeof LocalePrivacyRoute
   LocaleTermsRoute: typeof LocaleTermsRoute
@@ -457,11 +707,11 @@ interface LocaleRouteRouteChildren {
 }
 
 const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
-  LocaleAndroidRoute: LocaleAndroidRoute,
-  LocaleAppertureRoute: LocaleAppertureRoute,
-  LocaleBufferiumRoute: LocaleBufferiumRoute,
-  LocaleFosRoute: LocaleFosRoute,
-  LocaleFruitRoute: LocaleFruitRoute,
+  LocaleAndroidRoute: LocaleAndroidRouteWithChildren,
+  LocaleAppertureRoute: LocaleAppertureRouteWithChildren,
+  LocaleBufferiumRoute: LocaleBufferiumRouteWithChildren,
+  LocaleFosRoute: LocaleFosRouteWithChildren,
+  LocaleFruitRoute: LocaleFruitRouteWithChildren,
   LocaleLicensesRoute: LocaleLicensesRoute,
   LocalePrivacyRoute: LocalePrivacyRoute,
   LocaleTermsRoute: LocaleTermsRoute,

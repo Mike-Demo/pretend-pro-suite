@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/start-client-core";
 import { localeIds } from "@/lib/i18n/locales";
+import { appIds } from "@/lib/pretendpro/app-ids";
 
 const BASE_URL = "https://pretend.pro";
 
@@ -10,13 +11,19 @@ interface SitemapEntry {
   priority?: string;
 }
 
+const editions = ["fruit", "apperture", "bufferium", "android", "fos"];
+
 const pages: SitemapEntry[] = [
   { path: "", changefreq: "weekly", priority: "1.0" },
-  { path: "fruit", changefreq: "monthly", priority: "0.8" },
-  { path: "apperture", changefreq: "monthly", priority: "0.8" },
-  { path: "bufferium", changefreq: "monthly", priority: "0.8" },
-  { path: "android", changefreq: "monthly", priority: "0.8" },
-  { path: "fos", changefreq: "monthly", priority: "0.8" },
+  // Edition landing pages plus one URL per edition + work type combination.
+  ...editions.flatMap((edition) => [
+    { path: edition, changefreq: "monthly" as const, priority: "0.8" },
+    ...appIds.map((app) => ({
+      path: `${edition}/${app}`,
+      changefreq: "monthly" as const,
+      priority: "0.6",
+    })),
+  ]),
   { path: "licenses", changefreq: "yearly", priority: "0.3" },
   { path: "privacy", changefreq: "yearly", priority: "0.3" },
   { path: "terms", changefreq: "yearly", priority: "0.3" },
