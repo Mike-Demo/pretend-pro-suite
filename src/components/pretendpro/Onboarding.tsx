@@ -381,7 +381,12 @@ export function Onboarding() {
               )}
               {step > 1 && (
                 <button
-                  onClick={() => setStep(step === 3 ? 2 : 1)}
+                  onClick={() =>
+                    void transition.run(() => setStep(step === 3 ? 2 : 1), {
+                      status: t.onboarding.loaderStatusStep,
+                      hold: 200,
+                    })
+                  }
                   className="fluent-focus flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-muted-foreground hover:text-foreground"
                 >
                   <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.75} />

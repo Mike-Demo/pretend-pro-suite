@@ -600,8 +600,15 @@
   --app-tile-to: oklch(0.6 0.14 215);
 }
 
-/* Onboarding step transition — staggered brand panels cover, then reveal.
+/* Onboarding step transition — staggered mono-brand panels cover, then reveal.
    Transition concept inspired by John Heiner (https://codepen.io/johnheiner). */
+:root {
+  --transition-panel-1: #0ea5e9;
+  --transition-panel-2: #0284c7;
+  --transition-panel-3: #0369a1;
+  --transition-panel-4: #0c4a6e;
+}
+
 @keyframes pretend-panel-cover {
   from { transform: translateY(101%); }
   to { transform: translateY(0); }
@@ -618,15 +625,15 @@
 }
 
 @utility animate-panel-cover {
-  animation: pretend-panel-cover 0.5s cubic-bezier(0.65, 0, 0.35, 1) both;
+  animation: pretend-panel-cover 0.93s cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 
 @utility animate-panel-reveal {
-  animation: pretend-panel-reveal 0.45s cubic-bezier(0.65, 0, 0.35, 1) both;
+  animation: pretend-panel-reveal 0.78s cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 
 @utility animate-loader-in {
-  animation: pretend-loader-in 0.3s ease-out both;
+  animation: pretend-loader-in 0.45s ease-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
