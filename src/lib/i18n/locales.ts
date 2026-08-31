@@ -80,12 +80,28 @@ export type LocalePagePath =
   | "/$locale/privacy"
   | "/$locale/terms";
 
+export type LocaleAppPath =
+  | "/$locale/fruit/$app"
+  | "/$locale/apperture/$app"
+  | "/$locale/bufferium/$app"
+  | "/$locale/android/$app"
+  | "/$locale/fos/$app";
+
 export const localeThemeRoutes: Record<OsTheme, LocalePagePath> = {
   fruit: "/$locale/fruit",
   apperture: "/$locale/apperture",
   bufferium: "/$locale/bufferium",
   android: "/$locale/android",
   fos: "/$locale/fos",
+};
+
+/** Canonical per-work-type route for each edition. */
+export const localeThemeAppRoutes: Record<OsTheme, LocaleAppPath> = {
+  fruit: "/$locale/fruit/$app",
+  apperture: "/$locale/apperture/$app",
+  bufferium: "/$locale/bufferium/$app",
+  android: "/$locale/android/$app",
+  fos: "/$locale/fos/$app",
 };
 
 /** Absolute URL for a locale + page, used for canonical/hreflang/sitemap. */
