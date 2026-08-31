@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 import { ArrowLeft, Check, Maximize } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -6,8 +6,13 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { AppearanceToggle } from "@/components/pretendpro/AppearanceToggle";
 import { BrandLockup } from "@/components/pretendpro/BrandLockup";
 import { LocalePicker } from "@/components/pretendpro/LocalePicker";
+import { VerifyStep } from "@/components/pretendpro/VerifyStep";
+import { useStepTransition } from "@/components/pretendpro/StepTransition";
+import { getCaptchaGate, verifyCaptcha, type CaptchaGate } from "@/lib/captcha/verify.functions";
+import { captchaClientFlag } from "@/lib/captcha/session";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import {
   isFullscreenSupported,
   loadFullscreenPreference,
@@ -130,12 +135,18 @@ export function Onboarding() {
   const router = useRouter();
   const isMobile = useIsMobile();
   const { locale, t } = useI18n();
-  const [step, setStep] = useState<1 | 2>(1);
+  const [step, setStep] = useState<1 | 2 | 3>(1);
   const [work, setWork] = useState<AppId | null>(null);
   const [device, setDevice] = useState<DeviceKind>("desktop");
   const [style, setStyle] = useState<OsTheme | null>(deviceDefaults.desktop);
   const [fillScreen, setFillScreen] = useState(false);
   const [fullscreenAvailable, setFullscreenAvailable] = useState(false);
+  const [gate, setGate] = useState<CaptchaGate | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [verifyError, setVerifyError] = useState<string | null>(null);
+  const [resetKey, setResetKey] = useState(0);
+  const transition = useStepTransition();
+
 
   // Read the remembered preference and capability after hydration (browser-only).
   useEffect(() => {
@@ -155,6 +166,21 @@ export function Onboarding() {
     setStyle(deviceDefaults[kind]);
   }, [isMobile]);
 
+  // Ask the server whether the human check is on and already satisfied.
+  useEffect(() => {
+    let cancelled = false;
+    void getCaptchaGate()
+      .then((result) => {
+        if (!cancelled) setGate(result);
+      })
+      .catch(() => {
+        if (!cancelled) setGate({ configured: false, verified: false, siteKey: null });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const toggleFillScreen = (checked: boolean) => {
     setFillScreen(checked);
     saveFullscreenPreference(checked);
@@ -166,19 +192,72 @@ export function Onboarding() {
     setStyle(deviceDefaults[kind]);
   };
 
-  const canContinue = step === 1 ? style !== null : work !== null;
+  const needsVerification = gate !== null && gate.configured && !gate.verified;
+
+  const canContinue =
+    step === 1 ? style !== null : step === 2 ? work !== null : token !== null;
+
+  const handleTokenChange = useCallback((value: string | null) => {
+    setToken(value);
+    setVerifyError(null);
+  }, []);
+
+  /** Cover the screen, then land on the chosen edition behind the panels. */
+  const launchOs = useCallback(
+    async () => {
+      if (!style || !work) return;
+      await transition.run(
+        async () => {
+          await navigate({
+            to: localeThemeRoutes[style],
+            params: { locale },
+            search: { app: work },
+          });
+        },
+        { status: t.onboarding.loaderStatusOs, hold: 600, keepCovered: true },
+      );
+    },
+    [locale, navigate, style, t.onboarding.loaderStatusOs, transition, work],
+  );
 
   const onContinue = () => {
+    // Must fire inside this click — the Fullscreen API requires a user gesture.
     if (step === 1) {
-      setStep(2);
+      void transition.run(() => setStep(2), { status: t.onboarding.loaderStatusStep, hold: 200 });
       return;
     }
-    if (style && work) {
-      // Must fire inside this click — the Fullscreen API requires a user gesture.
+
+    if (step === 2) {
+      if (needsVerification) {
+        void transition.run(() => setStep(3), { status: t.onboarding.loaderStatusStep, hold: 200 });
+        return;
+      }
       if (fillScreen) requestDeviceFullscreen();
-      navigate({ to: localeThemeRoutes[style], params: { locale }, search: { app: work } });
+      void launchOs();
+      return;
     }
+
+    if (!token) return;
+    if (fillScreen) requestDeviceFullscreen();
+    void (async () => {
+      try {
+        const result = await verifyCaptcha({ data: { token } });
+        if (!result.ok) {
+          setVerifyError(t.onboarding.verifyError);
+          setToken(null);
+          setResetKey((n) => n + 1);
+          return;
+        }
+        window.sessionStorage.setItem(captchaClientFlag, "1");
+        await launchOs();
+      } catch {
+        setVerifyError(t.onboarding.verifyLoadError);
+        setToken(null);
+        setResetKey((n) => n + 1);
+      }
+    })();
   };
+
 
   return (
     <div data-design="fluent" className="min-h-screen bg-background px-4 py-10 sm:px-8">
@@ -196,13 +275,22 @@ export function Onboarding() {
               {t.onboarding.stepLabel(step)}
             </p>
             <h1 className="mt-3 text-center text-2xl font-semibold tracking-tight text-foreground sm:text-[28px]">
-              {step === 1 ? t.onboarding.questionStyle : t.onboarding.questionWork}
+              {step === 1
+                ? t.onboarding.questionStyle
+                : step === 2
+                  ? t.onboarding.questionWork
+                  : t.onboarding.verifyHeading}
             </h1>
             <p className="mt-2 text-center text-sm text-muted-foreground">
-              {step === 1 ? t.onboarding.subtitleStyle : t.onboarding.subtitleWork}
+              {step === 1
+                ? t.onboarding.subtitleStyle
+                : step === 2
+                  ? t.onboarding.subtitleWork
+                  : t.onboarding.verifySubtitle}
             </p>
 
             {step === 1 ? (
+
               <Tabs value={device} onValueChange={onDeviceChange} className="mt-8">
                 <TabsList className="mx-auto grid w-full max-w-xs grid-cols-2">
                   <TabsTrigger value="desktop">{t.onboarding.desktopHeading}</TabsTrigger>
@@ -234,7 +322,7 @@ export function Onboarding() {
                   </TabsContent>
                 ))}
               </Tabs>
-            ) : (
+            ) : step === 2 ? (
               <div className="mt-8 grid max-h-[55vh] gap-3 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-4">
                 {workOrder.map((id, i) => (
                   <OptionCard
@@ -257,6 +345,10 @@ export function Onboarding() {
                   />
                 ))}
               </div>
+            ) : gate && gate.configured && gate.siteKey ? (
+              <VerifyStep gate={gate} onToken={handleTokenChange} error={verifyError} resetKey={resetKey} />
+            ) : (
+              <p className="mt-8 text-center text-sm text-muted-foreground">{t.onboarding.verifyOpen}</p>
             )}
 
 
@@ -266,8 +358,9 @@ export function Onboarding() {
                 disabled={!canContinue}
                 className="fluent-focus w-full max-w-xs rounded bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-[var(--fluent-shadow-2)] transition-colors hover:bg-[var(--fluent-brand-90)] active:bg-[var(--fluent-brand-100)] disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none"
               >
-                {step === 1 ? t.onboarding.continue : t.onboarding.start}
+                {step === 1 || (step === 2 && needsVerification) ? t.onboarding.continue : t.onboarding.start}
               </button>
+
               {fullscreenAvailable && (
                 <label
                   htmlFor="fill-screen"
@@ -286,9 +379,9 @@ export function Onboarding() {
                   <span id="fill-screen-hint">{t.onboarding.fullscreenHint}</span>
                 </label>
               )}
-              {step === 2 && (
+              {step > 1 && (
                 <button
-                  onClick={() => setStep(1)}
+                  onClick={() => setStep(step === 3 ? 2 : 1)}
                   className="fluent-focus flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-muted-foreground hover:text-foreground"
                 >
                   <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.75} />
@@ -306,6 +399,8 @@ export function Onboarding() {
       </main>
 
       <SocialFooter className="mx-auto mt-8 max-w-5xl" locale={locale} />
+      {transition.overlay}
+
     </div>
   );
 }
