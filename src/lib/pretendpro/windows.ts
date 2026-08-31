@@ -91,6 +91,8 @@ export type WindowManager = {
   dock: (id: AppId, zone: Exclude<DockZone, null>, bounds: Bounds) => void;
   cycle: (delta: number) => void;
   restored: boolean;
+  /** True once localStorage has been read, so callers can safely seed a window. */
+  hydrated: boolean;
 };
 
 type PersistedLayout = { windows: WindowState[]; order: AppId[] };
