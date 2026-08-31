@@ -216,7 +216,17 @@ function RootShell({ children }: { children: ReactNode }) {
   const first = pathname.split("/").filter(Boolean)[0];
   const htmlLang = isLocaleId(first) ? localeMeta(first).htmlLang : "en";
   return (
-    <html lang={htmlLang || "en
+    <html lang={htmlLang || "en"}>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
