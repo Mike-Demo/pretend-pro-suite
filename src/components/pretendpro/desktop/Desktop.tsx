@@ -85,6 +85,7 @@ export function Desktop({
   // so the desktop is never left with nothing visible.
   const bootstrapped = useRef(false);
   useEffect(() => {
+    console.log('DBG boot', bootstrapped.current, wm.hydrated, measured, JSON.stringify(bounds), wm.windows.length);
     if (bootstrapped.current) return;
     if (!wm.hydrated || !measured) return;
     bootstrapped.current = true;
