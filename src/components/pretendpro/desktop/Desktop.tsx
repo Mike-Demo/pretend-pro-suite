@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import type { DesktopOsTheme } from "@/components/pretendpro/WindowFrame";
 import { apps, SparklesLayer, StickyNote, type AppId } from "@/components/pretendpro/chrome";
 import { AppScreen, preloadAppScreen } from "@/components/pretendpro/app-screens";
