@@ -261,6 +261,7 @@ export function Onboarding() {
 
   return (
     <div data-design="fluent" className="min-h-screen bg-background px-4 py-10 sm:px-8">
+      <header className="mx-auto flex max-w-5xl flex-wrap items-center gap-2 text-sm font-semibold text-foreground">
         <BrandLockup />
         <LocalePicker className="ml-auto" />
         <AppearanceToggle variant="icon" />
