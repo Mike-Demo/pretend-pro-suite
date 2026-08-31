@@ -40,8 +40,10 @@ export function Desktop({
   const { funMode, toggleFunMode } = useFunMode();
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
-  const areaRef = useRef<HTMLDivElement>(null);
+  const areaRef = useRef<HTMLDivElement | null>(null);
+  const observerRef = useRef<ResizeObserver | null>(null);
   const [bounds, setBounds] = useState<Bounds>({ width: 1200, height: 700 });
+  const [measured, setMeasured] = useState(false);
 
   const [announcement, setAnnouncement] = useState("");
   const wm = useWindowManager(`pretendpro:layout:${osTheme}`);
