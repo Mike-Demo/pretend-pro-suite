@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as LocaleRouteRouteImport } from './routes/$locale/route'
 import { Route as AndroidRouteImport } from './routes/android'
 import { Route as AppertureRouteImport } from './routes/apperture'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BufferiumRouteImport } from './routes/bufferium'
 import { Route as FosRouteImport } from './routes/fos'
 import { Route as FruitRouteImport } from './routes/fruit'
@@ -59,6 +60,11 @@ const AndroidRoute = AndroidRouteImport.update({
 const AppertureRoute = AppertureRouteImport.update({
   id: '/apperture',
   path: '/apperture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BufferiumRoute = BufferiumRouteImport.update({
@@ -202,6 +208,7 @@ export interface FileRoutesByFullPath {
   '/$locale': typeof LocaleRouteRouteWithChildren
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
+  '/auth': typeof AuthRoute
   '/bufferium': typeof BufferiumRoute
   '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
@@ -234,6 +241,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
+  '/auth': typeof AuthRoute
   '/bufferium': typeof BufferiumRoute
   '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
@@ -263,6 +271,7 @@ export interface FileRoutesById {
   '/$locale': typeof LocaleRouteRouteWithChildren
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
+  '/auth': typeof AuthRoute
   '/bufferium': typeof BufferiumRoute
   '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
@@ -298,6 +307,7 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/android'
     | '/apperture'
+    | '/auth'
     | '/bufferium'
     | '/fos'
     | '/fruit'
@@ -330,6 +340,7 @@ export interface FileRouteTypes {
     | '/'
     | '/android'
     | '/apperture'
+    | '/auth'
     | '/bufferium'
     | '/fos'
     | '/fruit'
@@ -358,6 +369,7 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/android'
     | '/apperture'
+    | '/auth'
     | '/bufferium'
     | '/fos'
     | '/fruit'
@@ -392,6 +404,7 @@ export interface RootRouteChildren {
   LocaleRouteRoute: typeof LocaleRouteRouteWithChildren
   AndroidRoute: typeof AndroidRoute
   AppertureRoute: typeof AppertureRoute
+  AuthRoute: typeof AuthRoute
   BufferiumRoute: typeof BufferiumRoute
   FosRoute: typeof FosRoute
   FruitRoute: typeof FruitRoute
@@ -430,6 +443,13 @@ declare module '@tanstack/react-router' {
       path: '/apperture'
       fullPath: '/apperture'
       preLoaderRoute: typeof AppertureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bufferium': {
@@ -727,6 +747,7 @@ const rootRouteChildren: RootRouteChildren = {
   LocaleRouteRoute: LocaleRouteRouteWithChildren,
   AndroidRoute: AndroidRoute,
   AppertureRoute: AppertureRoute,
+  AuthRoute: AuthRoute,
   BufferiumRoute: BufferiumRoute,
   FosRoute: FosRoute,
   FruitRoute: FruitRoute,
