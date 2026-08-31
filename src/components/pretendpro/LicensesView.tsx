@@ -41,7 +41,15 @@ const assets: Entry[] = [
     url: "https://iconbuddy.com/mdi/klingon",
     note: "Used as the Klingon locale flag in the language picker.",
   },
+  {
+    name: "Onboarding step transition concept",
+    author: "John Heiner",
+    license: "CodePen demo, used as design inspiration",
+    url: "https://codepen.io/johnheiner",
+    note: "The staggered panel sweep between onboarding steps is inspired by a CodePen by John Heiner; the implementation here is original.",
+  },
 ];
+
 
 const libraries: Entry[] = [
   {
