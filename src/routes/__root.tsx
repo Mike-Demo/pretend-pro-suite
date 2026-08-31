@@ -13,6 +13,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import { AppearanceEffect } from "@/components/pretendpro/AppearanceToggle";
+import { Toaster } from "@/components/ui/sonner";
 import { getCaptchaGate } from "@/lib/captcha/verify.functions";
 import { isLocaleId, localeMeta } from "@/lib/i18n/locales";
 import { captchaClientFlag, isOpenPath } from "@/lib/captcha/session";

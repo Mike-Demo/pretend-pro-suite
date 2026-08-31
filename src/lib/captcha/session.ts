@@ -7,7 +7,7 @@ export const captchaSessionMaxAge = 60 * 60 * 12;
 export const captchaClientFlag = "pretendpro:verified";
 
 /** Paths that never require the human check. */
-const openPaths = ["/", "/verify", "/licenses", "/privacy", "/terms", "/fruit", "/apperture", "/bufferium", "/android", "/fos", "/robots.txt", "/sitemap.xml", "/manifest.webmanifest"];
+const openPaths = ["/", "/verify", "/auth", "/licenses", "/privacy", "/terms", "/fruit", "/apperture", "/bufferium", "/android", "/fos", "/robots.txt", "/sitemap.xml", "/manifest.webmanifest"];
 
 /** Locale folders (e.g. /uk-en/licenses) share the unprefixed gate rules. */
 function stripLocale(pathname: string): string {
