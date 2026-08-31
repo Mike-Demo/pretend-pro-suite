@@ -21,7 +21,7 @@ export function BrandLockup({ markOnly = false, className }: BrandLockupProps) {
       />
       {!markOnly && (
         <span className="text-base font-semibold tracking-tight text-foreground">
-          PretendPro 3000
+          PretendPro Office Suite
         </span>
       )}
     </span>

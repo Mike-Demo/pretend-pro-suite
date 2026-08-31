@@ -46,7 +46,7 @@ export function TermsView() {
             params={{ locale }}
             className="fluent-focus text-xs font-medium text-primary hover:underline"
           >
-            Back to PretendPro 3000
+            Back to PretendPro Office Suite
           </Link>
           <LocalePicker className="ml-auto" />
         </div>

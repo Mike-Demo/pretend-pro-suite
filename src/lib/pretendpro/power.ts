@@ -27,7 +27,7 @@ const copy: Record<OsTheme, ThemeCopy> = {
     boot: ["Starting PretendPro…", "Loading nothing in particular…"],
     lock: ["Locking the pretend screen…"],
     update: [
-      "Downloading PretendPro 3000.1…",
+      "Downloading PretendPro Office Suite.1…",
       "Preparing…",
       "Installing (this will take forever)…",
     ],
@@ -154,7 +154,7 @@ export const returnToasts: Record<PowerAction, { normal: string; fun: string }> 
   },
   update: {
     normal: "Updated to a version that changes nothing.",
-    fun: "PretendPro 3000.1 installed. The icons moved 1px.",
+    fun: "PretendPro Office Suite.1 installed. The icons moved 1px.",
   },
 };
 

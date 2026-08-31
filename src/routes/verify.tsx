@@ -13,14 +13,14 @@ export const Route = createFileRoute("/verify")({
   loader: () => getCaptchaGate(),
   head: () => ({
     meta: [
-      { title: "Human Check — PretendPro 3000" },
+      { title: "Human Check — PretendPro Office Suite" },
       {
         name: "description",
         content:
-          "Confirm you are a human before entering PretendPro 3000, the parody productivity suite for pretending to work.",
+          "Confirm you are a human before entering PretendPro Office Suite, the parody productivity suite for pretending to work.",
       },
       { name: "robots", content: "noindex, nofollow" },
-      { property: "og:title", content: "Human Check — PretendPro 3000" },
+      { property: "og:title", content: "Human Check — PretendPro Office Suite" },
       {
         property: "og:description",
         content: "A quick hCaptcha check before your fake workday begins.",
@@ -140,7 +140,7 @@ function VerifyPage() {
   return (
     <main className="flex min-h-screen flex-col bg-background text-foreground">
       <header className="flex items-center justify-between border-b border-border px-4 py-3 sm:px-8">
-        <span className="text-sm font-semibold tracking-tight">PretendPro 3000</span>
+        <span className="text-sm font-semibold tracking-tight">PretendPro Office Suite</span>
         <AppearanceToggle />
       </header>
 

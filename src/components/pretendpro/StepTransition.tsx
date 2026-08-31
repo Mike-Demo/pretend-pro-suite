@@ -103,7 +103,7 @@ export function useStepTransition(): StepTransition {
             <div className="animate-loader-in relative flex flex-col items-center gap-4 rounded-2xl bg-black/55 px-8 py-6 text-white shadow-[var(--fluent-shadow-16)] ring-1 ring-white/15 backdrop-blur-md">
               <span className="flex items-center gap-2">
                 <BrandLockup markOnly className="scale-125" />
-                <span className="text-base font-semibold tracking-tight">PretendPro 3000</span>
+                <span className="text-base font-semibold tracking-tight">PretendPro Office Suite</span>
               </span>
 
               <svg viewBox="0 0 36 36" className="animate-arc-rotate h-9 w-9" aria-hidden="true">

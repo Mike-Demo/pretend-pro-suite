@@ -1,5 +1,5 @@
 export const siteUrl = "https://pretend.pro";
-export const siteName = "PretendPro 3000";
+export const siteName = "PretendPro Office Suite";
 export const socialOgImage = `${siteUrl}/og/social.png`;
 export const socialOgImageWidth = 1200;
 export const socialOgImageHeight = 630;

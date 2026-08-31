@@ -163,9 +163,9 @@ export function localePrivacyHead(locale: LocaleId) {
 /** Terms of service metadata. Legal copy is not translated. */
 export function localeTermsHead(locale: LocaleId) {
   const url = pageUrl(locale, "terms");
-  const title = "Terms of Service — PretendPro 3000";
+  const title = "Terms of Service — PretendPro Office Suite";
   const description =
-    "Read the PretendPro 3000 terms of service, powered by Termageddon and kept current automatically.";
+    "Read the PretendPro Office Suite terms of service, powered by Termageddon and kept current automatically.";
   return {
     meta: socialMeta(title, description, url, socialOgImage),
     links: [{ rel: "canonical", href: url }, ...alternateLinks("terms")],

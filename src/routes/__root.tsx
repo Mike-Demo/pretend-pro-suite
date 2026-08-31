@@ -104,27 +104,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PretendPro 3000 — Fake Productivity Suite" },
+      { title: "PretendPro Office Suite — Fake Productivity Suite" },
       {
         name: "description",
         content:
-          "PretendPro 3000 is a playful parody office suite for pretending to work: DocuFaker, SheetShenanigans, BrowserBuddy and Inbox Mirage.",
+          "PretendPro Office Suite is a playful parody office suite for pretending to work: DocuFaker, SheetShenanigans, BrowserBuddy and Inbox Mirage.",
       },
-      { name: "author", content: "PretendPro 3000" },
-      { property: "og:title", content: "PretendPro 3000 — Fake Productivity Suite" },
+      { name: "author", content: "PretendPro Office Suite" },
+      { property: "og:title", content: "PretendPro Office Suite — Fake Productivity Suite" },
       {
         property: "og:description",
         content:
           "A cheerful parody office suite for getting absolutely nothing done, in three desktop styles.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "PretendPro 3000" },
+      { property: "og:site_name", content: "PretendPro Office Suite" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#2280f5" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       { name: "apple-mobile-web-app-title", content: "PretendPro" },
-      { name: "application-name", content: "PretendPro 3000" },
+      { name: "application-name", content: "PretendPro Office Suite" },
     ],
     // Critical CSS: paints the correct background and font instantly while the
     // (small, Brotli-compressed) stylesheet is still in flight — no flash of
@@ -174,7 +174,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@context": "https://schema.org",
           "@type": "Organization",
           "@id": "https://pretend.pro/#organization",
-          name: "PretendPro 3000",
+          name: "PretendPro Office Suite",
           url: "https://pretend.pro/",
           logo: {
             "@type": "ImageObject",
@@ -196,7 +196,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@type": "WebSite",
           "@id": "https://pretend.pro/#website",
           url: "https://pretend.pro/",
-          name: "PretendPro 3000",
+          name: "PretendPro Office Suite",
           description:
             "A playful parody productivity suite with five pretend operating-system editions.",
           publisher: { "@id": "https://pretend.pro/#organization" },
