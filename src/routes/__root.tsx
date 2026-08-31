@@ -237,6 +237,7 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <AppearanceEffect />
       <Outlet />
+      <Toaster />
     </QueryClientProvider>
   );
 }
