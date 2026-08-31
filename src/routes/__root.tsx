@@ -216,7 +216,7 @@ function RootShell({ children }: { children: ReactNode }) {
   const first = pathname.split("/").filter(Boolean)[0];
   const htmlLang = isLocaleId(first) ? localeMeta(first).htmlLang : "en";
   return (
-    <html lang={htmlLang}>
+    <html lang={htmlLang || "en"}>
       <head>
         <HeadContent />
       </head>
