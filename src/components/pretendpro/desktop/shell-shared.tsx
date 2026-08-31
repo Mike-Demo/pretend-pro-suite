@@ -7,7 +7,7 @@ import { apps, type AppId } from "@/components/pretendpro/chrome";
 import { cn } from "@/lib/utils";
 import { preloadAppScreen } from "@/components/pretendpro/app-screens";
 import { useI18n, useStrings } from "@/lib/i18n/context";
-import { localeThemeRoutes } from "@/lib/i18n/locales";
+import { localeThemeAppRoutes } from "@/lib/i18n/locales";
 import { LocalePicker } from "@/components/pretendpro/LocalePicker";
 
 
