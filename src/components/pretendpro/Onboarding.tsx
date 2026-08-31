@@ -322,7 +322,7 @@ export function Onboarding() {
                   </TabsContent>
                 ))}
               </Tabs>
-            ) : (
+            ) : step === 2 ? (
               <div className="mt-8 grid max-h-[55vh] gap-3 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-4">
                 {workOrder.map((id, i) => (
                   <OptionCard
@@ -345,6 +345,10 @@ export function Onboarding() {
                   />
                 ))}
               </div>
+            ) : gate && gate.configured && gate.siteKey ? (
+              <VerifyStep gate={gate} onToken={handleTokenChange} error={verifyError} resetKey={resetKey} />
+            ) : (
+              <p className="mt-8 text-center text-sm text-muted-foreground">{t.onboarding.verifyOpen}</p>
             )}
 
 
@@ -354,8 +358,9 @@ export function Onboarding() {
                 disabled={!canContinue}
                 className="fluent-focus w-full max-w-xs rounded bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-[var(--fluent-shadow-2)] transition-colors hover:bg-[var(--fluent-brand-90)] active:bg-[var(--fluent-brand-100)] disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none"
               >
-                {step === 1 ? t.onboarding.continue : t.onboarding.start}
+                {step === 1 || (step === 2 && needsVerification) ? t.onboarding.continue : t.onboarding.start}
               </button>
+
               {fullscreenAvailable && (
                 <label
                   htmlFor="fill-screen"
