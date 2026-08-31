@@ -1,6 +1,8 @@
 import type { OsTheme } from "@/components/pretendpro/WindowFrame";
+import type { AppId } from "@/components/pretendpro/chrome";
 import {
   breadcrumbJsonLd,
+  breadcrumbTrailJsonLd,
   socialOgImage,
   socialOgImageAlt,
   socialOgImageHeight,
