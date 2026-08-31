@@ -64,9 +64,8 @@ export function ThemeSwitchLinks({
         .map((theme) => (
           <Link
             key={theme.id}
-            to={localeThemeRoutes[theme.id]}
-            params={{ locale }}
-            search={{ app: active }}
+            to={localeThemeAppRoutes[theme.id]}
+            params={{ locale, app: active }}
             className={itemClass}
           >
             {t.shell.switchTo(theme.name)}
