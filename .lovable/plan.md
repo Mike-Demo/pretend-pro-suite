@@ -33,6 +33,8 @@ Matching keyframe durations in `src/styles.css` (`pretend-panel-cover`, `pretend
 
 ## Technical notes
 
+- The Back buttons (step 3 -> 2 and step 2 -> 1) also route through the same cover/reveal transition with the short step status, instead of switching steps instantly.
+
 - Files touched: `src/components/pretendpro/StepTransition.tsx`, `src/styles.css` only.
 - Panel animation-delay math and reveal order stay the same; only constants change.
 - Verify with `bunx tsgo --noEmit` and a quick Playwright pass through onboarding step 1 -> 2 to screenshot the new palette and chip.
