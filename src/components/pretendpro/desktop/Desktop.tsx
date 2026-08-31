@@ -215,7 +215,7 @@ export function Desktop({
             onShowShortcuts={() => setShortcutsOpen(true)}
             onOpenPalette={() => setPaletteOpen(true)}
           >
-            <div ref={areaRef} data-desktop-area className="relative h-full w-full">
+            <div ref={setAreaRef} data-desktop-area className="relative h-full w-full">
               {funMode && <StickyNote />}
               {windows
                 .filter((w) => !w.minimized)
