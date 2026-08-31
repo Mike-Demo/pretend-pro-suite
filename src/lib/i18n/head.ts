@@ -11,14 +11,13 @@ import {
 import { locales, localeMeta, type LocaleId } from "./locales";
 import { stringsFor } from "./strings";
 
+export type EditionSlug = "fruit" | "apperture" | "bufferium" | "android" | "fos";
+
 /** Page slug within a locale folder: "" is the onboarding page. */
 export type PageSlug =
   | ""
-  | "fruit"
-  | "apperture"
-  | "bufferium"
-  | "android"
-  | "fos"
+  | EditionSlug
+  | `${EditionSlug}/${AppId}`
   | "licenses"
   | "privacy"
   | "terms";
