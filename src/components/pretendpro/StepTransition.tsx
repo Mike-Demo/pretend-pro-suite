@@ -11,14 +11,15 @@ import { BrandLockup } from "@/components/pretendpro/BrandLockup";
 export type TransitionPhase = "idle" | "covering" | "holding" | "revealing";
 
 const panelTints = [
-  "bg-primary",
-  "bg-[color-mix(in_oklab,var(--color-primary)_72%,var(--color-accent))]",
-  "bg-accent",
-  "bg-[color-mix(in_oklab,var(--color-accent)_65%,var(--color-primary))]",
+  "var(--transition-panel-1)",
+  "var(--transition-panel-2)",
+  "var(--transition-panel-3)",
+  "var(--transition-panel-4)",
 ] as const;
 
-const coverMs = 620;
-const revealMs = 520;
+const coverMs = 930;
+const revealMs = 780;
+const staggerMs = 105;
 
 function wait(ms: number): Promise<void> {
   return new Promise((resolve) => {
