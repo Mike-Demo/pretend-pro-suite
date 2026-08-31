@@ -135,12 +135,18 @@ export function Onboarding() {
   const router = useRouter();
   const isMobile = useIsMobile();
   const { locale, t } = useI18n();
-  const [step, setStep] = useState<1 | 2>(1);
+  const [step, setStep] = useState<1 | 2 | 3>(1);
   const [work, setWork] = useState<AppId | null>(null);
   const [device, setDevice] = useState<DeviceKind>("desktop");
   const [style, setStyle] = useState<OsTheme | null>(deviceDefaults.desktop);
   const [fillScreen, setFillScreen] = useState(false);
   const [fullscreenAvailable, setFullscreenAvailable] = useState(false);
+  const [gate, setGate] = useState<CaptchaGate | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [verifyError, setVerifyError] = useState<string | null>(null);
+  const [resetKey, setResetKey] = useState(0);
+  const transition = useStepTransition();
+
 
   // Read the remembered preference and capability after hydration (browser-only).
   useEffect(() => {
