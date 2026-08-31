@@ -36,12 +36,22 @@ export function webPageJsonLd({
 
 
 export function breadcrumbJsonLd(name: string, url: string): string {
+  return breadcrumbTrailJsonLd([{ name, url }]);
+}
+
+/** Breadcrumb list with Home first, then each supplied crumb in order. */
+export function breadcrumbTrailJsonLd(trail: { name: string; url: string }[]): string {
   return JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-      { "@type": "ListItem", position: 2, name, item: url },
+      ...trail.map((crumb, i) => ({
+        "@type": "ListItem",
+        position: i + 2,
+        name: crumb.name,
+        item: crumb.url,
+      })),
     ],
   });
 }
