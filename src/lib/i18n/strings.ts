@@ -4,7 +4,6 @@ import type { LocaleId } from "./locales";
 
 export interface Strings {
   onboarding: {
-    headerPrefix: string;
     licensesLink: string;
     stepLabel: (step: number) => string;
     questionWork: string;
@@ -92,7 +91,6 @@ type DeepPartial<T> = {
 
 const base: Strings = {
   onboarding: {
-    headerPrefix: "Onboarding in",
     licensesLink: "Open source licenses",
     stepLabel: (step) => `Step ${step} of 3`,
     questionWork: "How are you planning to pretend to work?",
@@ -495,7 +493,6 @@ const austrian: DeepPartial<Strings> = {
 
 const klingon: DeepPartial<Strings> = {
   onboarding: {
-    headerPrefix: "taghlu' — onboarding in",
     licensesLink: "chelqa' open source (licenses)",
     stepLabel: (step) => `qaSpu' ${step} / 3`,
     questionWork: "nuqDaq Qu' DaSIQrup'a'? (which work will you pretend?)",
