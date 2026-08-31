@@ -57,10 +57,16 @@ export function usePhone(storageKey: string, initialApp?: AppId): PhoneManager {
     hydrated.current = true;
     const parsed = parseTasks(window.localStorage.getItem(storageKey));
     if (parsed && parsed.length > 0) {
-      setTasks(parsed);
       setRestored(true);
-      // A restored session lands on the launcher, as it did before.
-      setView("home");
+      if (initialApp) {
+        // The app the URL asked for always wins: keep the restored task stack
+        // but bring the requested app to the foreground.
+        setTasks([...parsed.filter((id) => id !== initialApp), initialApp]);
+        setView("app");
+      } else {
+        setTasks(parsed);
+        setView("home");
+      }
     }
     setReady(true);
   }, [storageKey]);
