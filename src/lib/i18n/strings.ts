@@ -19,6 +19,15 @@ export interface Strings {
     fullscreenLabel: string;
     fullscreenHint: string;
     localePickerLabel: string;
+    verifyHeading: string;
+    verifySubtitle: string;
+    verifyLoading: string;
+    verifyError: string;
+    verifyWidgetError: string;
+    verifyLoadError: string;
+    verifyOpen: string;
+    loaderStatusStep: string;
+    loaderStatusOs: string;
     work: Record<AppId, { title: string; description: string }>;
     styles: Record<OsTheme, string>;
   };
@@ -85,7 +94,7 @@ const base: Strings = {
   onboarding: {
     headerPrefix: "Onboarding in",
     licensesLink: "Open source licenses",
-    stepLabel: (step) => `Step ${step} of 2`,
+    stepLabel: (step) => `Step ${step} of 3`,
     questionWork: "How are you planning to pretend to work?",
     questionStyle: "Which device style feels most like your job?",
     subtitleWork: "We'll streamline your fake setup experience accordingly.",
@@ -98,6 +107,15 @@ const base: Strings = {
     fullscreenLabel: "Fill my entire device screen",
     fullscreenHint: "(press Esc anytime to leave)",
     localePickerLabel: "Language",
+    verifyHeading: "Prove you're a human pretending to work",
+    verifySubtitle: "One quick check and your fake workday begins.",
+    verifyLoading: "Loading the check…",
+    verifyError: "That check didn't pass. Give it one more try.",
+    verifyWidgetError: "The check widget hit a snag. Try again.",
+    verifyLoadError: "The check couldn't load. Check your connection and refresh.",
+    verifyOpen: "The human check isn't switched on, so the door is open.",
+    loaderStatusStep: "Warming up the pretending…",
+    loaderStatusOs: "Booting your pretend workspace…",
     work: {
       docufaker: {
         title: "Deep Document Work",
@@ -479,7 +497,7 @@ const klingon: DeepPartial<Strings> = {
   onboarding: {
     headerPrefix: "taghlu' — onboarding in",
     licensesLink: "chelqa' open source (licenses)",
-    stepLabel: (step) => `qaSpu' ${step} / 2`,
+    stepLabel: (step) => `qaSpu' ${step} / 3`,
     questionWork: "nuqDaq Qu' DaSIQrup'a'? (which work will you pretend?)",
     questionStyle: "nuq jan DaparHa'? (which device style?)",
     subtitleWork: "batlh Qu' DaHutlh. Honour without labour.",
@@ -491,6 +509,15 @@ const klingon: DeepPartial<Strings> = {
     back: "chegh (back)",
     fullscreenLabel: "Hoch jIH lo' (fill entire screen)",
     fullscreenHint: "(Esc — mej)",
+    verifyHeading: "tlhIngan SoH'a'? (are you human?)",
+    verifySubtitle: "wa' waQ — then the pretending begins.",
+    verifyLoading: "loS… (loading the check)",
+    verifyError: "Qapla' Hutlh — it did not pass. try again.",
+    verifyWidgetError: "jan Qagh (the widget erred). try again.",
+    verifyLoadError: "ghoS Qagh — it could not load. refresh.",
+    verifyOpen: "lojmIt poSmoH — the door stands open.",
+    loaderStatusStep: "Qu' vIghro' — warming up…",
+    loaderStatusOs: "yInSeH taghlu' — booting your pretend workspace…",
     work: {
       docufaker: { title: "ghItlh Qu' (documents)", description: "batlh mu'mey qaS — nonsense, boldly." },
       sheets: { title: "mI' raS (spreadsheets)", description: "mI'mey Hutlh meq. Numbers without reason." },
