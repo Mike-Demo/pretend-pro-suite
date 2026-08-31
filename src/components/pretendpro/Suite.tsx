@@ -21,9 +21,9 @@ export function Suite({
   const t = useStrings();
   return (
     <>
-      <h1 className="px-4 py-2 text-sm font-semibold tracking-tight text-foreground bg-background/80 backdrop-blur-sm border-b border-border">
-        {t.shell.editionHeading[osTheme]}
-      </h1>
+      {/* SEO/accessibility heading only — visible bars would push the h-screen
+          OS surface down and clip the dock below the viewport. */}
+      <h1 className="sr-only">{t.shell.editionHeading[osTheme]}</h1>
       {isMobileTheme(osTheme) ? (
         <Phone osTheme={osTheme} initialApp={initialApp} />
       ) : (
