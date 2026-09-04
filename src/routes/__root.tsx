@@ -126,6 +126,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       { name: "apple-mobile-web-app-title", content: "PretendPro" },
       { name: "application-name", content: "PretendPro Office Suite" },
+      {
+        name: "google-site-verification",
+        content: "ULZC7bFseAJWc-94iAzz-yz_iDCOB98k-y7sV6YzGjw",
+      },
+
     ],
     // Critical CSS: paints the correct background and font instantly while the
     // (small, Brotli-compressed) stylesheet is still in flight — no flash of
