@@ -92,7 +92,7 @@ type DeepPartial<T> = {
 const base: Strings = {
   onboarding: {
     licensesLink: "Open source licenses",
-    stepLabel: (step) => `Step ${step} of 3`,
+    stepLabel: (step) => `Step ${step} of 2`,
     questionWork: "How are you planning to pretend to work?",
     questionStyle: "Which device style feels most like your job?",
     subtitleWork: "We'll streamline your fake setup experience accordingly.",
@@ -494,7 +494,7 @@ const austrian: DeepPartial<Strings> = {
 const klingon: DeepPartial<Strings> = {
   onboarding: {
     licensesLink: "chelqa' open source (licenses)",
-    stepLabel: (step) => `qaSpu' ${step} / 3`,
+    stepLabel: (step) => `qaSpu' ${step} / 2`,
     questionWork: "nuqDaq Qu' DaSIQrup'a'? (which work will you pretend?)",
     questionStyle: "nuq jan DaparHa'? (which device style?)",
     subtitleWork: "batlh Qu' DaHutlh. Honour without labour.",
