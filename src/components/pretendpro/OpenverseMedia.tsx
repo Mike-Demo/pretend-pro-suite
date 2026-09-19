@@ -1,25 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
 import { ImageOff } from "lucide-react";
-import { searchOpenverseAudio, searchOpenverseImages } from "@/lib/openverse/openverse.functions";
+import { searchOpenverseAudio, searchOpenverseImages } from "@/lib/openverse/search";
 import type { OpenverseAsset } from "@/lib/openverse/types";
 import { cn } from "@/lib/utils";
 
 export function useOpenverseImages(query: string, pageSize = 8) {
-  const search = useServerFn(searchOpenverseImages);
   return useQuery({
     queryKey: ["openverse", "images", query, pageSize],
-    queryFn: () => search({ data: { query, pageSize } }),
+    queryFn: () => searchOpenverseImages(query, pageSize),
     staleTime: 10 * 60 * 1000,
+    // Prerendered HTML must not depend on a live API response.
+    enabled: typeof window !== "undefined",
   });
 }
 
 export function useOpenverseAudio(query: string, pageSize = 6) {
-  const search = useServerFn(searchOpenverseAudio);
   return useQuery({
     queryKey: ["openverse", "audio", query, pageSize],
-    queryFn: () => search({ data: { query, pageSize } }),
+    queryFn: () => searchOpenverseAudio(query, pageSize),
     staleTime: 10 * 60 * 1000,
+    enabled: typeof window !== "undefined",
   });
 }
 
