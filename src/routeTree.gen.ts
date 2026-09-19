@@ -13,15 +13,12 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as LocaleRouteRouteImport } from './routes/$locale/route'
 import { Route as AndroidRouteImport } from './routes/android'
 import { Route as AppertureRouteImport } from './routes/apperture'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BufferiumRouteImport } from './routes/bufferium'
 import { Route as FosRouteImport } from './routes/fos'
 import { Route as FruitRouteImport } from './routes/fruit'
 import { Route as LicensesRouteImport } from './routes/licenses'
 import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
 import { Route as LocaleAndroidRouteImport } from './routes/$locale/android'
 import { Route as LocaleAppertureRouteImport } from './routes/$locale/apperture'
@@ -62,11 +59,6 @@ const AppertureRoute = AppertureRouteImport.update({
   path: '/apperture',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BufferiumRoute = BufferiumRouteImport.update({
   id: '/bufferium',
   path: '/bufferium',
@@ -92,19 +84,9 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const VerifyRoute = VerifyRouteImport.update({
-  id: '/verify',
-  path: '/verify',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LocaleIndexRoute = LocaleIndexRouteImport.update({
@@ -208,15 +190,12 @@ export interface FileRoutesByFullPath {
   '/$locale': typeof LocaleRouteRouteWithChildren
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
-  '/auth': typeof AuthRoute
   '/bufferium': typeof BufferiumRoute
   '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
   '/privacy': typeof PrivacyRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/verify': typeof VerifyRoute
   '/$locale/android': typeof LocaleAndroidRouteWithChildren
   '/$locale/apperture': typeof LocaleAppertureRouteWithChildren
   '/$locale/bufferium': typeof LocaleBufferiumRouteWithChildren
@@ -241,15 +220,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
-  '/auth': typeof AuthRoute
   '/bufferium': typeof BufferiumRoute
   '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
   '/privacy': typeof PrivacyRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/verify': typeof VerifyRoute
   '/$locale/licenses': typeof LocaleLicensesRoute
   '/$locale/privacy': typeof LocalePrivacyRoute
   '/$locale/terms': typeof LocaleTermsRoute
@@ -271,15 +247,12 @@ export interface FileRoutesById {
   '/$locale': typeof LocaleRouteRouteWithChildren
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
-  '/auth': typeof AuthRoute
   '/bufferium': typeof BufferiumRoute
   '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
   '/privacy': typeof PrivacyRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/verify': typeof VerifyRoute
   '/$locale/android': typeof LocaleAndroidRouteWithChildren
   '/$locale/apperture': typeof LocaleAppertureRouteWithChildren
   '/$locale/bufferium': typeof LocaleBufferiumRouteWithChildren
@@ -307,15 +280,12 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/android'
     | '/apperture'
-    | '/auth'
     | '/bufferium'
     | '/fos'
     | '/fruit'
     | '/licenses'
     | '/privacy'
-    | '/sitemap.xml'
     | '/terms'
-    | '/verify'
     | '/$locale/android'
     | '/$locale/apperture'
     | '/$locale/bufferium'
@@ -340,15 +310,12 @@ export interface FileRouteTypes {
     | '/'
     | '/android'
     | '/apperture'
-    | '/auth'
     | '/bufferium'
     | '/fos'
     | '/fruit'
     | '/licenses'
     | '/privacy'
-    | '/sitemap.xml'
     | '/terms'
-    | '/verify'
     | '/$locale/licenses'
     | '/$locale/privacy'
     | '/$locale/terms'
@@ -369,15 +336,12 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/android'
     | '/apperture'
-    | '/auth'
     | '/bufferium'
     | '/fos'
     | '/fruit'
     | '/licenses'
     | '/privacy'
-    | '/sitemap.xml'
     | '/terms'
-    | '/verify'
     | '/$locale/android'
     | '/$locale/apperture'
     | '/$locale/bufferium'
@@ -404,15 +368,12 @@ export interface RootRouteChildren {
   LocaleRouteRoute: typeof LocaleRouteRouteWithChildren
   AndroidRoute: typeof AndroidRoute
   AppertureRoute: typeof AppertureRoute
-  AuthRoute: typeof AuthRoute
   BufferiumRoute: typeof BufferiumRoute
   FosRoute: typeof FosRoute
   FruitRoute: typeof FruitRoute
   LicensesRoute: typeof LicensesRoute
   PrivacyRoute: typeof PrivacyRoute
-  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
-  VerifyRoute: typeof VerifyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -443,13 +404,6 @@ declare module '@tanstack/react-router' {
       path: '/apperture'
       fullPath: '/apperture'
       preLoaderRoute: typeof AppertureRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bufferium': {
@@ -487,25 +441,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/terms': {
       id: '/terms'
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/verify': {
-      id: '/verify'
-      path: '/verify'
-      fullPath: '/verify'
-      preLoaderRoute: typeof VerifyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$locale/': {
@@ -747,15 +687,12 @@ const rootRouteChildren: RootRouteChildren = {
   LocaleRouteRoute: LocaleRouteRouteWithChildren,
   AndroidRoute: AndroidRoute,
   AppertureRoute: AppertureRoute,
-  AuthRoute: AuthRoute,
   BufferiumRoute: BufferiumRoute,
   FosRoute: FosRoute,
   FruitRoute: FruitRoute,
   LicensesRoute: LicensesRoute,
   PrivacyRoute: PrivacyRoute,
-  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
-  VerifyRoute: VerifyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

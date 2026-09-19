@@ -62,11 +62,46 @@ function precompressAssets(): Plugin {
   };
 }
 
+// Every public page, enumerated as concrete paths: `pages` takes no patterns,
+// and the locale/edition/app routes are parameterized. The unprefixed legacy
+// routes (/fruit, /licenses, ...) are redirect-only and are intentionally not
+// prerendered; the SPA fallback in public/_redirects handles them.
+const locales = ["us-en", "ca-en", "uk-en", "au-en", "at-en", "tlh"] as const;
+const editions = ["fruit", "apperture", "bufferium", "android", "fos"] as const;
+const apps = [
+  "docufaker",
+  "sheets",
+  "browser",
+  "inbox",
+  "codeweb",
+  "codegame",
+  "deck",
+  "reader",
+  "photos",
+  "reels",
+  "sound",
+] as const;
+const legal = ["licenses", "privacy", "terms"] as const;
+
+const staticPaths: string[] = [
+  "/",
+  ...locales.flatMap((locale) => [
+    `/${locale}`,
+    ...editions.flatMap((edition) => [
+      `/${locale}/${edition}`,
+      ...apps.map((app) => `/${locale}/${edition}/${app}`),
+    ]),
+    ...legal.map((page) => `/${locale}/${page}`),
+  ]),
+];
+
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
+    pages: staticPaths.map((path) => ({ path })),
+    prerender: { enabled: true, autoStaticPathsDiscovery: false },
   },
   plugins: [precompressAssets()],
 });

@@ -1,6 +1,12 @@
 import { z } from "zod";
+
 import type { OpenverseAsset, OpenverseSearchResult } from "./types";
 
+/**
+ * Browser-side Openverse lookup. The static site has no server to proxy
+ * through, so requests go straight to the public (anonymous) API. Every
+ * failure resolves to an empty set — each surface has placeholder art.
+ */
 const API_BASE = "https://api.openverse.org/v1";
 const CACHE_TTL_MS = 10 * 60 * 1000;
 const REQUEST_TIMEOUT_MS = 8000;
@@ -11,7 +17,6 @@ interface CacheEntry {
 }
 
 const cache = new Map<string, CacheEntry>();
-let cachedToken: { token: string; expiresAt: number } | null = null;
 
 function readCache(key: string): OpenverseSearchResult | null {
   const entry = cache.get(key);
@@ -26,38 +31,6 @@ function readCache(key: string): OpenverseSearchResult | null {
 function writeCache(key: string, value: OpenverseSearchResult): void {
   if (cache.size > 200) cache.clear();
   cache.set(key, { value, expiresAt: Date.now() + CACHE_TTL_MS });
-}
-
-/** OAuth client-credentials token, only when secrets are configured. */
-async function getAccessToken(): Promise<string | null> {
-  const clientId = process.env["OPENVERSE_CLIENT_ID"];
-  const clientSecret = process.env["OPENVERSE_CLIENT_SECRET"];
-  if (!clientId || !clientSecret) return null;
-  if (cachedToken && cachedToken.expiresAt > Date.now() + 30_000) {
-    return cachedToken.token;
-  }
-  try {
-    const res = await fetch(`${API_BASE}/auth_tokens/token/`, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        client_id: clientId,
-        client_secret: clientSecret,
-        grant_type: "client_credentials",
-      }),
-      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-    });
-    if (!res.ok) return null;
-    const data = (await res.json()) as { access_token?: string; expires_in?: number };
-    if (!data.access_token) return null;
-    cachedToken = {
-      token: data.access_token,
-      expiresAt: Date.now() + (data.expires_in ?? 3600) * 1000,
-    };
-    return data.access_token;
-  } catch {
-    return null;
-  }
 }
 
 interface RawResult {
@@ -100,41 +73,35 @@ async function search(
   const hit = readCache(key);
   if (hit) return hit;
 
-  const token = await getAccessToken();
   const endpoint = kind === "image" ? "images" : "audio";
   const url = `${API_BASE}/${endpoint}/?q=${encodeURIComponent(query)}&page_size=${pageSize}`;
 
-  const headers: Record<string, string> = {
-    "User-Agent": "PretendPro3000/1.0 (parody productivity suite)",
-  };
-  if (token) headers["Authorization"] = `Bearer ${token}`;
-
   try {
-    const res = await fetch(url, { headers, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
+    const res = await fetch(url, { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
     if (!res.ok) throw new Error(`Openverse ${res.status}`);
     const data = (await res.json()) as { results?: RawResult[] };
     const assets = (data.results ?? [])
       .map((r) => toAsset(r, kind))
       .filter((a): a is OpenverseAsset => a !== null);
-    const result: OpenverseSearchResult = { assets, anonymous: token === null };
+    const result: OpenverseSearchResult = { assets, anonymous: true };
     writeCache(key, result);
     return result;
   } catch {
-    // Slow / rate-limited / offline: return an empty set; every surface has a
-    // built-in placeholder so the apps still look right.
-    return { assets: [], anonymous: token === null };
+    return { assets: [], anonymous: true };
   }
-}
-
-export function searchImages(query: string, pageSize: number): Promise<OpenverseSearchResult> {
-  return search("image", query, pageSize);
-}
-
-export function searchAudio(query: string, pageSize: number): Promise<OpenverseSearchResult> {
-  return search("audio", query, pageSize);
 }
 
 export const searchInput = z.object({
   query: z.string().trim().min(1).max(120),
   pageSize: z.number().int().min(1).max(20).default(8),
 });
+
+export function searchOpenverseImages(query: string, pageSize: number) {
+  const input = searchInput.parse({ query, pageSize });
+  return search("image", input.query, input.pageSize);
+}
+
+export function searchOpenverseAudio(query: string, pageSize: number) {
+  const input = searchInput.parse({ query, pageSize });
+  return search("audio", input.query, input.pageSize);
+}
