@@ -159,8 +159,6 @@ export function Onboarding() {
     setStyle(deviceDefaults[kind]);
   }, [isMobile]);
 
-  }, []);
-
   const toggleFillScreen = (checked: boolean) => {
     setFillScreen(checked);
     saveFullscreenPreference(checked);
