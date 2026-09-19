@@ -14,9 +14,7 @@ import { useEffect, type ReactNode } from "react";
 
 import { AppearanceEffect } from "@/components/pretendpro/AppearanceToggle";
 import { Toaster } from "@/components/ui/sonner";
-import { getCaptchaGate } from "@/lib/captcha/verify.functions";
 import { isLocaleId, localeMeta } from "@/lib/i18n/locales";
-import { captchaClientFlag, isOpenPath } from "@/lib/captcha/session";
 import appCss from "../styles.css?url";
 import nebulaBook from "@/assets/fonts/NebulaSans-Book.woff2.asset.json";
 import nebulaSemibold from "@/assets/fonts/NebulaSans-Semibold.woff2.asset.json";
@@ -83,24 +81,6 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  beforeLoad: async ({ location }) => {
-    if (isOpenPath(location.pathname)) return;
-    if (typeof window !== "undefined" && window.sessionStorage.getItem(captchaClientFlag) === "1") {
-      return;
-    }
-
-    const gate = await getCaptchaGate();
-
-    if (!gate.configured) return;
-    if (gate.verified) {
-      if (typeof window !== "undefined") {
-        window.sessionStorage.setItem(captchaClientFlag, "1");
-      }
-      return;
-    }
-
-    throw redirect({ to: "/verify", search: { redirect: location.href } });
-  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
