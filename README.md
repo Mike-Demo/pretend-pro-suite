@@ -1,34 +1,104 @@
 # PretendPro Office Suite
 
-PretendPro 3000 — The world’s most advanced productivity suite for getting absolutely nothing done.
+**PretendPro 3000 — the world's most advanced productivity suite for getting absolutely nothing done.**
 
-Generate a cheerful, colorful, slightly retro UI mockup of a fake office software suite designed entirely for pretending to work. Include multiple app icons and screens:• DocuFaker — a fake document editor with nonsense paragraphs (“synergizing waffle metrics”), animated typing mode, and a giant “Look Busy” button.
+A playful parody office suite: pick a pretend operating system, boot into a full
+fake desktop or phone, and open eleven equally fake apps that look busy and do
+nothing useful. Everything is a static site — no accounts, no data, no server.
 
-• SheetShenanigans — a spreadsheet full of absurd formulas (=VLOOKUP(CHAOS)), rainbow charts, and a “Quarterly Vibes Report.”
+- **Live site:** https://pretend.pro
+- **Lovable-hosted build:** https://pretend-pro-suite.lovable.app
+- **Editor:** https://lovable.dev/projects/2062ba14-0b45-477d-8691-b3b7cc4732d8
 
-• BrowserBuddy — a parody web browser with tabs like “Important Research,” “Definitely Work,” and “Cat Videos (Incognito).”
+## Key features
 
-• Inbox Mirage — an email client that auto‑generates fake urgent messages from imaginary coworkers.Include Full‑Screen Mode (dramatic, cinematic lighting), Animation Mode (bouncy UI elements), and Page View Mode (tabs for each app).Style: adorable, friendly, high‑contrast UI; soft rounded corners; playful micro‑animations; pastel color palette; subtle sparkles; cozy “fake productivity” vibes.Tone: wholesome, humorous, and delightfully unproductive—like a children’s toy version of office software.Add tiny easter eggs: a progress bar stuck at 99%, a motivational sticky note (“You’re doing great, probably”), and a fake system alert (“Your PretendPro license has expired due to excessive pretending”).Final output should feel like a marketing poster for a lovable parody productivity suite.
+- **Five pretend editions** — three desktop shells (Fruit, Apperture, Bufferium)
+  and two mobile shells (Android, FOS), each with its own window chrome, dock or
+  home screen, and loading animation.
+- **Eleven parody apps** — DocuFaker, SheetShenanigans, BrowserBuddy, Inbox
+  Mirage, CodeFaker (web + game), DeckDreamer, ReaderRealm, PhotoPretender,
+  ReelPretender and SoundStage.
+- **Real windowing** — draggable/resizable windows, a dock, recents, a command
+  palette, keyboard shortcuts and a pretend power center (restart, status,
+  settings, fake updates).
+- **Six locales** — `us-en`, `ca-en`, `uk-en`, `au-en`, `at-en` and `tlh`
+  (Klingon), each as a URL prefix with its own `lang`/`hreflang`.
+- **Fun extras** — fullscreen cinematic mode, bouncy animation mode, light/dark
+  appearance, a progress bar stuck at 99% and other easter eggs.
+- **Free media, gracefully** — photo and audio surfaces pull from the public
+  Openverse API in the browser and fall back to built-in placeholder art.
+- **Installable PWA** — full icon set, web app manifest and iOS splash screens.
+- **Static and fast** — all 385 public pages are prerendered to HTML at build
+  time, with critical inline CSS, font preloads and Brotli/gzip precompression.
 
-This project was built with [Lovable](https://lovable.dev).
+## Attribution
 
-**Live app**: https://pretend-pro-suite.lovable.app
+- Web component/icon tooling from **Web Awesome 3** and **Font Awesome Free 7**
+  (MIT / CC BY 4.0 for icons) — see `src/design-system/`.
+- Illustrations from the **Transhumans** set — see `src/assets/transhumans/`.
+- **Nebula Sans** webfonts — see `src/assets/fonts/`.
+- Photos and audio from **Openverse** (openly licensed works; per-item credit is
+  shown in the app and on the in-app licenses page).
+- Full in-app credits live at `/licenses` (`src/components/pretendpro/LicensesView.tsx`).
 
-## Build with Lovable
+This project is not a fork. It parodies real office software; no trademarks of
+any real vendor are used.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/2062ba14-0b45-477d-8691-b3b7cc4732d8).
+## Tech stack
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+| Layer      | Choice                                                        |
+| ---------- | ------------------------------------------------------------- |
+| Framework  | React 19 + TanStack Start (SSR/prerender) with Vite 8         |
+| Routing    | TanStack Router, file-based under `src/routes`                 |
+| Styling    | Tailwind CSS v4 (`src/styles.css`), shadcn/ui, Radix, lucide   |
+| Data       | TanStack Query (client-side only)                              |
+| Validation | Zod                                                           |
+| Tooling    | TypeScript (strict), ESLint, Prettier, Bun or npm              |
 
-## Development
+There is **no database, no auth and no request-time server code**. Generated
+Lovable Cloud client files exist under `src/integrations/` but no page uses them.
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Local development
+
+Prerequisites: **Node.js 20+** (Node 22 recommended). **Bun 1.1+** is optional
+and used for the committed `bun.lock`.
 
 ```sh
 git clone <this-repository-url>
 cd <repository-name>
-npm i
-npm run dev
+
+bun install      # or: npm install
+bun run dev      # or: npm run dev   → http://localhost:8080
 ```
+
+**`.env` is not required.** Nothing in the app reads an environment variable at
+build or runtime; the Lovable-generated `.env` only holds unused backend keys.
+See [docs/environment.md](docs/environment.md).
+
+Other scripts: `bun run lint`, `bun run format`, `bun run preview`.
+
+## Build & deployment
+
+```sh
+bun run build    # vite build && node scripts/copy-static-output.mjs
+```
+
+- Prerendering writes every page into `.output/public`.
+- The post-build script copies that to **`dist/client`** — this is the folder to
+  deploy.
+- Serve `dist/client` from any static host. `public/_redirects`
+  (`/*  /index.html  200`) makes deep links and refreshes work, and
+  `public/_headers` sets the cache policy.
+
+Details and host-specific notes: [docs/deployment.md](docs/deployment.md).
+
+## Documentation index
+
+- [docs/architecture.md](docs/architecture.md) — codebase layout, design
+  decisions, gotchas and lessons learned.
+- [docs/deployment.md](docs/deployment.md) — hosting, redirects, domain/DNS,
+  sitemap and search-console notes.
+- [docs/environment.md](docs/environment.md) — every environment variable name
+  and what it controls (no values).
+- [SPACEFAST.md](SPACEFAST.md) — short build spec for the static host.
+- [roadmap.md](roadmap.md) — completed milestones and open ideas.
