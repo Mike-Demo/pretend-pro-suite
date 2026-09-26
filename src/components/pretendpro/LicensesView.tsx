@@ -96,6 +96,12 @@ const libraries: Entry[] = [
     license: "MIT",
     url: "https://github.com/vitejs/vite",
   },
+  {
+    name: "Supabase",
+    author: "Supabase, Inc.",
+    license: "MIT (client libraries)",
+    url: "https://github.com/supabase/supabase-js/blob/master/LICENSE",
+  },
 ];
 
 const references: Entry[] = [
