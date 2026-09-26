@@ -10,6 +10,7 @@ import {
   socialOgImageAlt,
   socialOgImageHeight,
   socialOgImageWidth,
+  webApplicationJsonLd,
   webPageJsonLd,
 } from "@/lib/seo";
 
@@ -64,6 +65,10 @@ export const Route = createFileRoute("/")({
           description:
             "Answer two questions and PretendPro Office Suite builds your ideal fake workday.",
         }),
+      },
+      {
+        type: "application/ld+json",
+        children: webApplicationJsonLd(),
       },
     ],
   }),
