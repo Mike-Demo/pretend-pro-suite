@@ -8,6 +8,7 @@ import {
   socialOgImageHeight,
   socialOgImageWidth,
   siteUrl,
+  webApplicationJsonLd,
   webPageJsonLd,
 } from "@/lib/seo";
 import { locales, localeMeta, type LocaleId } from "./locales";
@@ -78,6 +79,10 @@ export function localeHomeHead(locale: LocaleId) {
           inLanguage: localeMeta(locale).htmlLang,
         }),
       },
+      {
+        type: "application/ld+json",
+        children: webApplicationJsonLd(),
+      },
     ],
   };
 }
@@ -140,6 +145,10 @@ export function localeEditionHead(locale: LocaleId, theme: OsTheme, app?: AppId)
           description,
           inLanguage: localeMeta(locale).htmlLang,
         }),
+      },
+      {
+        type: "application/ld+json",
+        children: webApplicationJsonLd(),
       },
       {
         type: "application/ld+json",
