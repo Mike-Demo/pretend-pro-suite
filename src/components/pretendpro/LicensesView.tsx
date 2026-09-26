@@ -183,6 +183,20 @@ export function LicensesView() {
           {t.licenses.title}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">{t.licenses.intro}</p>
+        <div className="mt-4">
+        <a
+          href="https://app.aikido.dev/audit-report/external/smlvhLoPnScdRnVeF7TjudEr/request"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Aikido Security Audit Report (opens in new tab)"
+        >
+          <img
+            src="https://app.aikido.dev/assets/badges/full-light-theme.svg"
+            alt="Aikido Security Audit Report"
+            height={40}
+          />
+        </a>
+        </div>
 
         <Section title={t.licenses.artwork} entries={assets} />
         <Section title={t.licenses.libraries} entries={libraries} />
