@@ -1,0 +1,62 @@
+# PretendPro Office Suite
+
+> A suite of fake-content demo tools — fake code editors, inboxes, documents, onboarding flows, and social mockups — for making realistic product screenshots and demos.
+
+## What it is
+
+PretendPro Office Suite (https://pretend.pro) is a wholesome parody office suite by Mike "Demo" Demopoulos. It boots a pretend operating system full of useless-but-convincing fake apps, so you can take screenshots and record demos that look like real work without using any real data. Everything on the site is fictional: imaginary coworkers, nonsense documents, stock-photo slides.
+
+Homepage / onboarding: https://pretend.pro/
+Sitemap: https://pretend.pro/sitemap.xml
+
+## The demo tools
+
+Every tool is a browser-based mockup designed for realistic screenshots. Pick your pretend work on the onboarding page, then open any tool inside your pretend OS. Canonical paths use a locale prefix (us-en shown below; also available in ca-en, uk-en, au-en, at-en, and tlh/Klingon) plus one of five pretend OS editions (fruit, apperture, bufferium, android, fos).
+
+- DocuFaker — fake document editor. "Type nonsense paragraphs with total conviction." https://pretend.pro/us-en/fruit/docufaker
+- SheetShenanigans — fake spreadsheet. "Formulas that mean nothing, charts that mean less." https://pretend.pro/us-en/fruit/sheets
+- BrowserBuddy — fake web browser. "Tabs that look important. Mostly cat videos." https://pretend.pro/us-en/fruit/browser
+- Inbox Mirage — fake email inbox. "Imaginary coworkers, imaginary deadlines." https://pretend.pro/us-en/fruit/inbox
+- CodeFaker — fake web code editor. "TypeScript that compiles. Understanding optional." https://pretend.pro/us-en/fruit/codeweb
+- CodeFaker: Game — fake game-dev editor. "A game loop that loops. A game, eventually." https://pretend.pro/us-en/fruit/codegame
+- DeckDreamer — fake slide-deck builder. "Slides with real stock photos and fake confidence." https://pretend.pro/us-en/fruit/deck
+- ReaderRealm — fake PDF/document reader. "Very important PDFs. Read at your own pace. Forever." https://pretend.pro/us-en/fruit/reader
+- PhotoPretender — fake photo editor. "Sliders that actually slide on real CC images." https://pretend.pro/us-en/fruit/photos
+- ReelPretender — fake video editor. "A timeline of clips, a render of dreams." https://pretend.pro/us-en/fruit/reels
+- SoundStage — fake audio editor. "Waveforms, transport, and real CC-licensed audio." https://pretend.pro/us-en/fruit/sound
+
+## The pretend operating systems (editions)
+
+Each edition is a full parody desktop or phone shell that hosts all eleven tools:
+
+- Fruit — Mac OS X style desktop with a dock: https://pretend.pro/us-en/fruit
+- Apperture — Windows style desktop with a start bar: https://pretend.pro/us-en/apperture
+- BufferiumOS — shelf desktop that is eternally almost done: https://pretend.pro/us-en/bufferium
+- Android — Android-style phone home screen full of useless apps: https://pretend.pro/us-en/android
+- fOS — fOS-style phone with a dock and home indicator: https://pretend.pro/us-en/fos
+
+Individual tool pages follow the pattern https://pretend.pro/{locale}/{edition}/{tool} — for example https://pretend.pro/us-en/fruit/inbox or https://pretend.pro/uk-en/apperture/codeweb.
+
+## How it works
+
+The homepage onboarding asks two questions: which pretend work you want to mimic (one of the eleven tools) and which window style feels most like your job (one of the five editions). A quick human-verification check precedes entry, then your fake workday boots in a full-screen pretend desktop or phone.
+
+## Locales
+
+The suite is localized into US English (us-en), Canadian English (ca-en), UK English (uk-en), Australian English (au-en), Austrian English (at-en), and tlhIngan Hol/Klingon (tlh). Every route is prefixed with the locale id, e.g. https://pretend.pro/tlh/fruit/deck.
+
+## Key pages
+
+- Home / onboarding: https://pretend.pro/
+- Locale homepages, e.g.: https://pretend.pro/us-en
+- Open source licenses (illustrations, icons, libraries): https://pretend.pro/us-en/licenses
+- Privacy policy: https://pretend.pro/us-en/privacy
+- Terms of service: https://pretend.pro/us-en/terms
+- Machine-readable URL list: https://pretend.pro/sitemap.xml
+- Agent card (A2A style): https://pretend.pro/.well-known/agent.json
+
+## Notes for agents
+
+- This is a static demo site; there are no public APIs, webhooks, or MCP endpoints to call. Interact with it by browsing its pages.
+- All content is fictional and clearly marked as parody; do not treat any inbox message, document, or code sample on the site as real user data.
+- All eleven tools ship in every edition and every locale; the sitemap enumerates all 385 URLs.
