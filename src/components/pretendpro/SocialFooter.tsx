@@ -5,6 +5,7 @@ import type { LocaleId } from "@/lib/i18n/locales";
 const linkedInUrl = "https://www.linkedin.com/in/mikedemopoulos";
 const xUrl = "https://x.com/mike_demo";
 const threadsUrl = "https://www.threads.com/@mdemop";
+const githubUrl = "https://github.com/Mike-Demo";
 
 export function SocialFooter({ className, locale }: { className?: string; locale?: LocaleId }) {
   const year = new Date().getFullYear();
@@ -53,6 +54,16 @@ export function SocialFooter({ className, locale }: { className?: string; locale
         aria-label="Social links"
         className="flex flex-wrap items-center justify-center gap-4"
       >
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="MikeDemo on GitHub (opens in new tab)"
+          className="fluent-focus inline-flex items-center gap-1.5 rounded px-1.5 py-1 font-medium text-foreground/80 hover:text-foreground"
+        >
+          <i className="fa-brands fa-github h-4 w-4 text-[14px] transition-colors duration-200 hover:text-black dark:hover:text-white" aria-hidden="true" />
+          GitHub
+        </a>
         <a
           href={linkedInUrl}
           target="_blank"
