@@ -55,3 +55,25 @@ export function breadcrumbTrailJsonLd(trail: { name: string; url: string }[]): s
     ],
   });
 }
+
+/**
+ * WebApplication structured data for the suite home / edition pages.
+ * Marks the whole site as the interactive app it is, so agent audits that
+ * look for application-level JSON-LD pass alongside the per-page WebPage node.
+ */
+export function webApplicationJsonLd(): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "@id": `${siteUrl}/#webapp`,
+    url: siteUrl,
+    name: siteName,
+    description:
+      "A suite of fake-content demo tools — fake code editors, inboxes, documents, onboarding flows, and social mockups — for realistic product screenshots and demos.",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Web",
+    inLanguage: "en",
+    isPartOf: { "@id": `${siteUrl}/#website` },
+    publisher: { "@id": `${siteUrl}/#organization` },
+  });
+}
