@@ -16,8 +16,6 @@ import { AppearanceEffect } from "@/components/pretendpro/AppearanceToggle";
 import { Toaster } from "@/components/ui/sonner";
 import { isLocaleId, localeMeta } from "@/lib/i18n/locales";
 import appCss from "../styles.css?url";
-import nebulaBook from "@/assets/fonts/NebulaSans-Book.woff2.asset.json";
-import nebulaSemibold from "@/assets/fonts/NebulaSans-Semibold.woff2.asset.json";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -163,14 +161,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "preload",
         as: "font",
         type: "font/woff2",
-        href: nebulaBook.url,
+        href: "/fonts/NebulaSans-Book.woff2",
         crossOrigin: "anonymous",
       },
       {
         rel: "preload",
         as: "font",
         type: "font/woff2",
-        href: nebulaSemibold.url,
+        href: "/fonts/NebulaSans-Semibold.woff2",
         crossOrigin: "anonymous",
       },
       { rel: "icon", href: "/favicon.ico", sizes: "48x48" },

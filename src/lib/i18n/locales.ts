@@ -1,4 +1,3 @@
-import klingonFlagAsset from "@/assets/klingon.svg.asset.json";
 import type { OsTheme } from "@/components/pretendpro/WindowFrame";
 
 export const localeIds = ["us-en", "ca-en", "uk-en", "au-en", "at-en", "tlh"] as const;
@@ -25,7 +24,7 @@ export const locales: readonly LocaleMeta[] = [
   { id: "uk-en", flag: "🇬🇧", label: "UK English", htmlLang: "en-GB" },
   { id: "au-en", flag: "🇦🇺", label: "Australian English", htmlLang: "en-AU" },
   { id: "at-en", flag: "🇦🇹", label: "Austrian English", htmlLang: "en-AT" },
-  { id: "tlh", flag: "🛡️", flagImg: klingonFlagAsset.url, label: "tlhIngan Hol (Klingon)", htmlLang: "tlh" },
+  { id: "tlh", flag: "🛡️", label: "tlhIngan Hol (Klingon)", htmlLang: "tlh" },
 ];
 
 export function isLocaleId(value: unknown): value is LocaleId {
