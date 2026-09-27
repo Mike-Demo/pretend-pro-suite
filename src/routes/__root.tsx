@@ -80,11 +80,43 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
+/**
+ * Content-Security-Policy delivered via meta tag (the static host serves HTML
+ * without custom response headers). Tightest policy that allows every
+ * third-party resource the app loads:
+ * - cdn.jsdelivr.net: FontAwesome stylesheet + webfonts
+ * - policies.termageddon.com: privacy/terms embed script + iframe
+ * - api.openverse.org: CC image/audio search API (fetch)
+ * - arbitrary https: images/audio: Openverse returns third-party media URLs
+ *   (thumbnails, audio files) hosted anywhere on the internet
+ * - app.aikido.dev: security badge on the licenses page (covered by https:)
+ * Inline styles need 'unsafe-inline' (React inline styles + critical CSS);
+ * scripts do not (no inline scripts; JSON-LD blocks are non-executable).
+ * NOTE: frame-ancestors cannot be set via meta tag — it needs a response
+ * header if clickjacking protection is wanted.
+ */
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  "script-src 'self' https://policies.termageddon.com",
+  "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://policies.termageddon.com",
+  "font-src 'self' https://cdn.jsdelivr.net",
+  "img-src 'self' https:",
+  "media-src 'self' https:",
+  "connect-src 'self' https://api.openverse.org https://policies.termageddon.com",
+  "frame-src https://policies.termageddon.com",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "manifest-src 'self'",
+  "worker-src 'self'",
+].join("; ");
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { httpEquiv: "Content-Security-Policy", content: CONTENT_SECURITY_POLICY },
       { title: "PretendPro Office Suite — Fake Productivity Suite" },
       {
         name: "description",
