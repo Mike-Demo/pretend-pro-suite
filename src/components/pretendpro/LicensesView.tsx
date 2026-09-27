@@ -208,6 +208,22 @@ export function LicensesView() {
         <Section title={t.licenses.libraries} entries={libraries} />
         <Section title={t.licenses.references} entries={references} />
 
+        <section className="mt-8">
+          <h2 className="text-lg font-semibold text-foreground">Open source</h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            This site's source code is on{" "}
+            <a
+              href="https://github.com/Mike-Demo/pretend-pro-suite"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="fluent-focus font-medium text-primary hover:underline"
+            >
+              GitHub
+            </a>
+            .
+          </p>
+        </section>
+
         <p className="mt-10 text-[11px] text-muted-foreground">{t.licenses.disclaimer}</p>
 
         <SocialFooter className="mt-6" locale={locale} />
