@@ -1,0 +1,12 @@
+version = "0.5"
+last_updated = 2026-09-27
+
+[org]
+disclosures = [
+    { doc_type = "web-page", url = "https://pretend.pro/licenses", domain = "pretend.pro", title = "Carbon disclosure for PretendPro" },
+]
+
+[upstream]
+services = [
+    { domain = "www.spacefast.com", service_type = "shared-hosting" },
+]
