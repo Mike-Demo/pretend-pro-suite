@@ -20,7 +20,7 @@ export function Suite({
 }) {
   const t = useStrings();
   return (
-    <>
+    <main>
       {/* SEO/accessibility heading only — visible bars would push the h-screen
           OS surface down and clip the dock below the viewport. */}
       <h1 className="sr-only">{t.shell.editionHeading[osTheme]}</h1>
@@ -32,6 +32,6 @@ export function Suite({
       <Suspense fallback={null}>
         <Toaster />
       </Suspense>
-    </>
+    </main>
   );
 }

@@ -35,7 +35,7 @@ export function PrivacyView() {
   }, []);
 
   return (
-    <div data-design="fluent" className="min-h-screen bg-background px-4 py-10 sm:px-8">
+    <main data-design="fluent" className="min-h-screen bg-background px-4 py-10 sm:px-8">
       <div className="mx-auto max-w-3xl">
         <div className="flex flex-wrap items-center gap-3">
           <BrandLockup markOnly />
@@ -82,6 +82,6 @@ export function PrivacyView() {
 
         <SocialFooter className="mt-6" />
       </div>
-    </div>
+    </main>
   );
 }
