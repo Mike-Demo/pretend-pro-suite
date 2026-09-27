@@ -1,4 +1,3 @@
-import logo from "@/assets/pretendpro-logo.svg.asset.json";
 import { cn } from "@/lib/utils";
 
 type BrandLockupProps = {
@@ -12,7 +11,7 @@ export function BrandLockup({ markOnly = false, className }: BrandLockupProps) {
   return (
     <span className={cn("inline-flex items-center gap-2", className)}>
       <img
-        src={logo.url}
+        src="/icon-512.png"
         alt=""
         aria-hidden="true"
         width={28}
