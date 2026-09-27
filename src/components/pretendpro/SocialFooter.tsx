@@ -26,7 +26,7 @@ export function SocialFooter({ className, locale }: { className?: string; locale
         className="flex flex-wrap items-center justify-center gap-4"
       >
         <Link
-          to="/$locale/privacy"
+          to="/$locale/privacy/"
           params={{ locale: locale ?? "us-en" }}
           className="fluent-focus inline-flex items-center gap-1.5 rounded px-1.5 py-1 font-medium text-foreground/80 hover:text-foreground"
         >
@@ -34,7 +34,7 @@ export function SocialFooter({ className, locale }: { className?: string; locale
           Privacy
         </Link>
         <Link
-          to="/$locale/terms"
+          to="/$locale/terms/"
           params={{ locale: locale ?? "us-en" }}
           className="fluent-focus inline-flex items-center gap-1.5 rounded px-1.5 py-1 font-medium text-foreground/80 hover:text-foreground"
         >
@@ -42,7 +42,7 @@ export function SocialFooter({ className, locale }: { className?: string; locale
           Terms
         </Link>
         <Link
-          to="/$locale/licenses"
+          to="/$locale/licenses/"
           params={{ locale: locale ?? "us-en" }}
           className="fluent-focus inline-flex items-center gap-1.5 rounded px-1.5 py-1 font-medium text-foreground/80 hover:text-foreground"
         >

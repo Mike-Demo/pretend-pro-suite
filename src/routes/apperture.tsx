@@ -12,11 +12,11 @@ export const Route = createFileRoute("/apperture")({
     throw redirect(
       search.app
         ? {
-            to: "/$locale/apperture/$app",
+            to: "/$locale/apperture/$app/",
             params: { locale: defaultLocale, app: search.app },
             replace: true,
           }
-        : { to: "/$locale/apperture", params: { locale: defaultLocale }, replace: true },
+        : { to: "/$locale/apperture/", params: { locale: defaultLocale }, replace: true },
     );
   },
 });

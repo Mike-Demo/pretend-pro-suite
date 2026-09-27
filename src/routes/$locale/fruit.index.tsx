@@ -11,7 +11,7 @@ export const Route = createFileRoute("/$locale/fruit/")({
   beforeLoad: ({ params, search }) => {
     if (search.app) {
       throw redirect({
-        to: "/$locale/fruit/$app",
+        to: "/$locale/fruit/$app/",
         params: { locale: params.locale, app: search.app },
         replace: true,
       });

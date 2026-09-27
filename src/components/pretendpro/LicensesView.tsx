@@ -177,7 +177,7 @@ export function LicensesView() {
         <div className="flex flex-wrap items-center gap-3">
           <BrandLockup markOnly />
           <Link
-            to="/$locale"
+            to="/$locale/"
             params={{ locale }}
             className="fluent-focus text-xs font-medium text-primary hover:underline"
           >

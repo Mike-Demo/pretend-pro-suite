@@ -12,11 +12,11 @@ export const Route = createFileRoute("/bufferium")({
     throw redirect(
       search.app
         ? {
-            to: "/$locale/bufferium/$app",
+            to: "/$locale/bufferium/$app/",
             params: { locale: defaultLocale, app: search.app },
             replace: true,
           }
-        : { to: "/$locale/bufferium", params: { locale: defaultLocale }, replace: true },
+        : { to: "/$locale/bufferium/", params: { locale: defaultLocale }, replace: true },
     );
   },
 });

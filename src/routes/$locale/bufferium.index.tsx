@@ -11,7 +11,7 @@ export const Route = createFileRoute("/$locale/bufferium/")({
   beforeLoad: ({ params, search }) => {
     if (search.app) {
       throw redirect({
-        to: "/$locale/bufferium/$app",
+        to: "/$locale/bufferium/$app/",
         params: { locale: params.locale, app: search.app },
         replace: true,
       });

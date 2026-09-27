@@ -26,12 +26,15 @@ export type PageSlug =
   | "terms";
 
 function pageUrl(locale: LocaleId, page: PageSlug): string {
-  return `${siteUrl}/${locale}${page ? `/${page}` : ""}`;
+  // Trailing-slash canonicals: the static host 308-redirects extensionless
+  // paths (e.g. /us-en/licenses -> /us-en/licenses/), so the canonical URL
+  // must be the final, post-redirect form.
+  return `${siteUrl}/${locale}${page ? `/${page}` : ""}/`;
 }
 
 /** hreflang alternates for every locale, plus the unprefixed x-default page. */
 export function alternateLinks(page: PageSlug) {
-  const defaultHref = `${siteUrl}/${page}`;
+  const defaultHref = page ? `${siteUrl}/${page}/` : `${siteUrl}/`;
   return [
     ...locales.map((l) => ({
       rel: "alternate" as const,

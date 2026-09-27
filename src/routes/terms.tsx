@@ -5,7 +5,7 @@ import { defaultLocale } from "@/lib/i18n/locales";
 export const Route = createFileRoute("/terms")({
   beforeLoad: () => {
     throw redirect({
-      to: "/$locale/terms",
+      to: "/$locale/terms/",
       params: { locale: defaultLocale },
       replace: true,
     });

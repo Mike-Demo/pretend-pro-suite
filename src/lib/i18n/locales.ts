@@ -70,42 +70,44 @@ export function saveLocale(id: LocaleId): void {
 }
 
 export type LocalePagePath =
-  | "/$locale"
-  | "/$locale/fruit"
-  | "/$locale/apperture"
-  | "/$locale/bufferium"
-  | "/$locale/android"
-  | "/$locale/fos"
-  | "/$locale/licenses"
-  | "/$locale/privacy"
-  | "/$locale/terms";
+  | "/$locale/"
+  | "/$locale/fruit/"
+  | "/$locale/apperture/"
+  | "/$locale/bufferium/"
+  | "/$locale/android/"
+  | "/$locale/fos/"
+  | "/$locale/licenses/"
+  | "/$locale/privacy/"
+  | "/$locale/terms/";
 
 export type LocaleAppPath =
-  | "/$locale/fruit/$app"
-  | "/$locale/apperture/$app"
-  | "/$locale/bufferium/$app"
-  | "/$locale/android/$app"
-  | "/$locale/fos/$app";
+  | "/$locale/fruit/$app/"
+  | "/$locale/apperture/$app/"
+  | "/$locale/bufferium/$app/"
+  | "/$locale/android/$app/"
+  | "/$locale/fos/$app/";
 
 export const localeThemeRoutes: Record<OsTheme, LocalePagePath> = {
-  fruit: "/$locale/fruit",
-  apperture: "/$locale/apperture",
-  bufferium: "/$locale/bufferium",
-  android: "/$locale/android",
-  fos: "/$locale/fos",
+  fruit: "/$locale/fruit/",
+  apperture: "/$locale/apperture/",
+  bufferium: "/$locale/bufferium/",
+  android: "/$locale/android/",
+  fos: "/$locale/fos/",
 };
 
 /** Canonical per-work-type route for each edition. */
 export const localeThemeAppRoutes: Record<OsTheme, LocaleAppPath> = {
-  fruit: "/$locale/fruit/$app",
-  apperture: "/$locale/apperture/$app",
-  bufferium: "/$locale/bufferium/$app",
-  android: "/$locale/android/$app",
-  fos: "/$locale/fos/$app",
+  fruit: "/$locale/fruit/$app/",
+  apperture: "/$locale/apperture/$app/",
+  bufferium: "/$locale/bufferium/$app/",
+  android: "/$locale/android/$app/",
+  fos: "/$locale/fos/$app/",
 };
 
 /** Absolute URL for a locale + page, used for canonical/hreflang/sitemap. */
 export function localeUrl(base: string, locale: LocaleId, page: string): string {
-  const suffix = page === "" ? "" : `/${page}`;
+  // Trailing-slash canonicals (see head.ts pageUrl): the static host
+  // 308-redirects extensionless paths to their trailing-slash form.
+  const suffix = page === "" ? "/" : `/${page}/`;
   return `${base}/${locale}${suffix}`;
 }

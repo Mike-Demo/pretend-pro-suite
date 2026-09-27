@@ -13,7 +13,9 @@ function hrefForLocale(pathname: string, search: string, locale: LocaleId): stri
   const segments = pathname.split("/").filter(Boolean);
   if (segments.length > 0 && isLocaleId(segments[0])) segments.shift();
   const rest = segments.join("/");
-  return `/${locale}${rest ? `/${rest}` : ""}${search}`;
+  // Trailing-slash canonicals: the static host 308-redirects extensionless
+  // paths, so emit the final trailing-slash form directly.
+  return `/${locale}${rest ? `/${rest}/` : "/"}${search}`;
 }
 
 export function LocalePicker({
