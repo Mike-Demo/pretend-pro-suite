@@ -95,12 +95,12 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
  */
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
-  "script-src 'self' https://policies.termageddon.com",
+  "script-src 'self' https://policies.termageddon.com https://umami-lite.view.fast",
   "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://policies.termageddon.com",
   "font-src 'self' https://cdn.jsdelivr.net",
   "img-src 'self' https:",
   "media-src 'self' https:",
-  "connect-src 'self' https://api.openverse.org https://policies.termageddon.com",
+  "connect-src 'self' https://api.openverse.org https://policies.termageddon.com https://umami-lite.view.fast",
   "frame-src https://policies.termageddon.com",
   "object-src 'none'",
   "base-uri 'self'",
@@ -215,6 +215,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "manifest", href: "/manifest.webmanifest" },
     ],
     scripts: [
+      // Private analytics (Umami Lite) — first-party privacy-friendly tracker.
+      {
+        src: "https://umami-lite.view.fast/tracker.js",
+        defer: true,
+        "data-website-id": "24a950dd-e81e-4000-89d3-fd848b54117b",
+      },
       {
         type: "application/ld+json",
         children: JSON.stringify({
