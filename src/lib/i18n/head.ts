@@ -68,9 +68,12 @@ function socialMeta(title: string, description: string, url: string, image: stri
 export function localeHomeHead(locale: LocaleId) {
   const t = stringsFor(locale);
   const url = pageUrl(locale, "");
-  const title = `${t.meta.homeTitle} · ${localeMeta(locale).label}`;
+  const label = localeMeta(locale).label;
+  const title = `${t.meta.homeTitle} · ${label}`;
+  // Locale label keeps the description unique across the six locale routes.
+  const description = `${t.meta.homeDescription} (${label})`;
   return {
-    meta: socialMeta(title, t.meta.homeDescription, url, socialOgImage),
+    meta: socialMeta(title, description, url, socialOgImage),
     links: [{ rel: "canonical", href: url }, ...alternateLinks("")],
     scripts: [
       {
@@ -78,7 +81,7 @@ export function localeHomeHead(locale: LocaleId) {
         children: webPageJsonLd({
           name: title,
           url,
-          description: t.meta.homeDescription,
+          description,
           inLanguage: localeMeta(locale).htmlLang,
         }),
       },
@@ -93,16 +96,20 @@ export function localeHomeHead(locale: LocaleId) {
 export function localeLicensesHead(locale: LocaleId) {
   const t = stringsFor(locale);
   const url = pageUrl(locale, "licenses");
+  // Locale label keeps title/description unique across the six locale routes.
+  const label = localeMeta(locale).label;
+  const title = `${t.meta.licensesTitle} · ${label}`;
+  const description = `${t.meta.licensesDescription} (${label})`;
   return {
-    meta: socialMeta(t.meta.licensesTitle, t.meta.licensesDescription, url, socialOgImage),
+    meta: socialMeta(title, description, url, socialOgImage),
     links: [{ rel: "canonical", href: url }, ...alternateLinks("licenses")],
     scripts: [
       {
         type: "application/ld+json",
         children: webPageJsonLd({
-          name: t.meta.licensesTitle,
+          name: title,
           url,
-          description: t.meta.licensesDescription,
+          description,
           inLanguage: localeMeta(locale).htmlLang,
         }),
       },
@@ -130,12 +137,14 @@ export function localeEditionHead(locale: LocaleId, theme: OsTheme, app?: AppId)
   const editionTitle = t.meta.editionTitle[theme];
   const editionUrl = pageUrl(locale, edition);
   const work = app ? t.onboarding.work[app] : null;
+  const label = localeMeta(locale).label;
   const title = work
-    ? `${work.title} · ${editionTitle} · ${localeMeta(locale).label}`
-    : `${editionTitle} · ${localeMeta(locale).label}`;
+    ? `${work.title} · ${editionTitle} · ${label}`
+    : `${editionTitle} · ${label}`;
+  // Locale label keeps the description unique across the six locale routes.
   const description = work
-    ? `${work.description} ${t.meta.editionDescription[theme]}`
-    : t.meta.editionDescription[theme];
+    ? `${work.description} ${t.meta.editionDescription[theme]} (${label})`
+    : `${t.meta.editionDescription[theme]} (${label})`;
   return {
     meta: socialMeta(title, description, url, socialOgImage),
     links: [{ rel: "canonical", href: url }, ...alternateLinks(slug)],
@@ -169,22 +178,26 @@ export function localeEditionHead(locale: LocaleId, theme: OsTheme, app?: AppId)
 export function localePrivacyHead(locale: LocaleId) {
   const t = stringsFor(locale);
   const url = pageUrl(locale, "privacy");
+  // Locale label keeps title/description unique across the six locale routes.
+  const label = localeMeta(locale).label;
+  const title = `${t.meta.privacyTitle} · ${label}`;
+  const description = `${t.meta.privacyDescription} (${label})`;
   return {
-    meta: socialMeta(t.meta.privacyTitle, t.meta.privacyDescription, url, socialOgImage),
+    meta: socialMeta(title, description, url, socialOgImage),
     links: [{ rel: "canonical", href: url }, ...alternateLinks("privacy")],
     scripts: [
       {
         type: "application/ld+json",
         children: webPageJsonLd({
-          name: t.meta.privacyTitle,
+          name: title,
           url,
-          description: t.meta.privacyDescription,
+          description,
           inLanguage: localeMeta(locale).htmlLang,
         }),
       },
       {
         type: "application/ld+json",
-        children: breadcrumbJsonLd(t.meta.privacyTitle, url),
+        children: breadcrumbJsonLd(title, url),
       },
     ],
   };
@@ -193,9 +206,11 @@ export function localePrivacyHead(locale: LocaleId) {
 /** Terms of service metadata. Legal copy is not translated. */
 export function localeTermsHead(locale: LocaleId) {
   const url = pageUrl(locale, "terms");
-  const title = "Terms of Service — PretendPro Office Suite";
-  const description =
-    "Read the PretendPro Office Suite terms of service, powered by Termageddon and kept current automatically.";
+  // Locale label keeps titles/descriptions unique across the six locale routes
+  // (legal copy itself is not translated).
+  const label = localeMeta(locale).label;
+  const title = `Terms of Service — PretendPro Office Suite · ${label}`;
+  const description = `Read the PretendPro Office Suite terms of service (${label}), powered by Termageddon and kept current automatically.`;
   return {
     meta: socialMeta(title, description, url, socialOgImage),
     links: [{ rel: "canonical", href: url }, ...alternateLinks("terms")],
