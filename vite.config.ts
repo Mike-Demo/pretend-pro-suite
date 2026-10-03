@@ -81,7 +81,7 @@ const apps = [
   "reels",
   "sound",
 ] as const;
-const legal = ["licenses", "privacy", "terms"] as const;
+const legal = ["licenses", "privacy", "terms", "about", "contact", "developers"] as const;
 
 const staticPaths: string[] = [
   "/",

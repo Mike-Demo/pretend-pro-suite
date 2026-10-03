@@ -11,18 +11,24 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LocaleRouteRouteImport } from './routes/$locale/route'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as AndroidRouteImport } from './routes/android'
 import { Route as AppertureRouteImport } from './routes/apperture'
 import { Route as BufferiumRouteImport } from './routes/bufferium'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DevelopersRouteImport } from './routes/developers'
 import { Route as FosRouteImport } from './routes/fos'
 import { Route as FruitRouteImport } from './routes/fruit'
 import { Route as LicensesRouteImport } from './routes/licenses'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
+import { Route as LocaleAboutRouteImport } from './routes/$locale/about'
 import { Route as LocaleAndroidRouteImport } from './routes/$locale/android'
 import { Route as LocaleAppertureRouteImport } from './routes/$locale/apperture'
 import { Route as LocaleBufferiumRouteImport } from './routes/$locale/bufferium'
+import { Route as LocaleContactRouteImport } from './routes/$locale/contact'
+import { Route as LocaleDevelopersRouteImport } from './routes/$locale/developers'
 import { Route as LocaleFosRouteImport } from './routes/$locale/fos'
 import { Route as LocaleFruitRouteImport } from './routes/$locale/fruit'
 import { Route as LocaleLicensesRouteImport } from './routes/$locale/licenses'
@@ -49,6 +55,11 @@ const LocaleRouteRoute = LocaleRouteRouteImport.update({
   path: '/$locale',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AndroidRoute = AndroidRouteImport.update({
   id: '/android',
   path: '/android',
@@ -62,6 +73,16 @@ const AppertureRoute = AppertureRouteImport.update({
 const BufferiumRoute = BufferiumRouteImport.update({
   id: '/bufferium',
   path: '/bufferium',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DevelopersRoute = DevelopersRouteImport.update({
+  id: '/developers',
+  path: '/developers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FosRoute = FosRouteImport.update({
@@ -94,6 +115,11 @@ const LocaleIndexRoute = LocaleIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LocaleRouteRoute,
 } as any)
+const LocaleAboutRoute = LocaleAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
 const LocaleAndroidRoute = LocaleAndroidRouteImport.update({
   id: '/android',
   path: '/android',
@@ -107,6 +133,16 @@ const LocaleAppertureRoute = LocaleAppertureRouteImport.update({
 const LocaleBufferiumRoute = LocaleBufferiumRouteImport.update({
   id: '/bufferium',
   path: '/bufferium',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleContactRoute = LocaleContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleDevelopersRoute = LocaleDevelopersRouteImport.update({
+  id: '/developers',
+  path: '/developers',
   getParentRoute: () => LocaleRouteRoute,
 } as any)
 const LocaleFosRoute = LocaleFosRouteImport.update({
@@ -188,17 +224,23 @@ const LocaleFruitAppRoute = LocaleFruitAppRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteRouteWithChildren
+  '/about': typeof AboutRoute
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
   '/bufferium': typeof BufferiumRoute
+  '/contact': typeof ContactRoute
+  '/developers': typeof DevelopersRoute
   '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/$locale/about': typeof LocaleAboutRoute
   '/$locale/android': typeof LocaleAndroidRouteWithChildren
   '/$locale/apperture': typeof LocaleAppertureRouteWithChildren
   '/$locale/bufferium': typeof LocaleBufferiumRouteWithChildren
+  '/$locale/contact': typeof LocaleContactRoute
+  '/$locale/developers': typeof LocaleDevelopersRoute
   '/$locale/fos': typeof LocaleFosRouteWithChildren
   '/$locale/fruit': typeof LocaleFruitRouteWithChildren
   '/$locale/licenses': typeof LocaleLicensesRoute
@@ -218,14 +260,20 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
   '/bufferium': typeof BufferiumRoute
+  '/contact': typeof ContactRoute
+  '/developers': typeof DevelopersRoute
   '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/$locale/about': typeof LocaleAboutRoute
+  '/$locale/contact': typeof LocaleContactRoute
+  '/$locale/developers': typeof LocaleDevelopersRoute
   '/$locale/licenses': typeof LocaleLicensesRoute
   '/$locale/privacy': typeof LocalePrivacyRoute
   '/$locale/terms': typeof LocaleTermsRoute
@@ -245,17 +293,23 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteRouteWithChildren
+  '/about': typeof AboutRoute
   '/android': typeof AndroidRoute
   '/apperture': typeof AppertureRoute
   '/bufferium': typeof BufferiumRoute
+  '/contact': typeof ContactRoute
+  '/developers': typeof DevelopersRoute
   '/fos': typeof FosRoute
   '/fruit': typeof FruitRoute
   '/licenses': typeof LicensesRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/$locale/about': typeof LocaleAboutRoute
   '/$locale/android': typeof LocaleAndroidRouteWithChildren
   '/$locale/apperture': typeof LocaleAppertureRouteWithChildren
   '/$locale/bufferium': typeof LocaleBufferiumRouteWithChildren
+  '/$locale/contact': typeof LocaleContactRoute
+  '/$locale/developers': typeof LocaleDevelopersRoute
   '/$locale/fos': typeof LocaleFosRouteWithChildren
   '/$locale/fruit': typeof LocaleFruitRouteWithChildren
   '/$locale/licenses': typeof LocaleLicensesRoute
@@ -278,17 +332,23 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/$locale'
+    | '/about'
     | '/android'
     | '/apperture'
     | '/bufferium'
+    | '/contact'
+    | '/developers'
     | '/fos'
     | '/fruit'
     | '/licenses'
     | '/privacy'
     | '/terms'
+    | '/$locale/about'
     | '/$locale/android'
     | '/$locale/apperture'
     | '/$locale/bufferium'
+    | '/$locale/contact'
+    | '/$locale/developers'
     | '/$locale/fos'
     | '/$locale/fruit'
     | '/$locale/licenses'
@@ -308,14 +368,20 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/android'
     | '/apperture'
     | '/bufferium'
+    | '/contact'
+    | '/developers'
     | '/fos'
     | '/fruit'
     | '/licenses'
     | '/privacy'
     | '/terms'
+    | '/$locale/about'
+    | '/$locale/contact'
+    | '/$locale/developers'
     | '/$locale/licenses'
     | '/$locale/privacy'
     | '/$locale/terms'
@@ -334,17 +400,23 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/$locale'
+    | '/about'
     | '/android'
     | '/apperture'
     | '/bufferium'
+    | '/contact'
+    | '/developers'
     | '/fos'
     | '/fruit'
     | '/licenses'
     | '/privacy'
     | '/terms'
+    | '/$locale/about'
     | '/$locale/android'
     | '/$locale/apperture'
     | '/$locale/bufferium'
+    | '/$locale/contact'
+    | '/$locale/developers'
     | '/$locale/fos'
     | '/$locale/fruit'
     | '/$locale/licenses'
@@ -366,9 +438,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LocaleRouteRoute: typeof LocaleRouteRouteWithChildren
+  AboutRoute: typeof AboutRoute
   AndroidRoute: typeof AndroidRoute
   AppertureRoute: typeof AppertureRoute
   BufferiumRoute: typeof BufferiumRoute
+  ContactRoute: typeof ContactRoute
+  DevelopersRoute: typeof DevelopersRoute
   FosRoute: typeof FosRoute
   FruitRoute: typeof FruitRoute
   LicensesRoute: typeof LicensesRoute
@@ -392,6 +467,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/android': {
       id: '/android'
       path: '/android'
@@ -411,6 +493,20 @@ declare module '@tanstack/react-router' {
       path: '/bufferium'
       fullPath: '/bufferium'
       preLoaderRoute: typeof BufferiumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/developers': {
+      id: '/developers'
+      path: '/developers'
+      fullPath: '/developers'
+      preLoaderRoute: typeof DevelopersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fos': {
@@ -455,6 +551,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleIndexRouteImport
       parentRoute: typeof LocaleRouteRoute
     }
+    '/$locale/about': {
+      id: '/$locale/about'
+      path: '/about'
+      fullPath: '/$locale/about'
+      preLoaderRoute: typeof LocaleAboutRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
     '/$locale/android': {
       id: '/$locale/android'
       path: '/android'
@@ -474,6 +577,20 @@ declare module '@tanstack/react-router' {
       path: '/bufferium'
       fullPath: '/$locale/bufferium'
       preLoaderRoute: typeof LocaleBufferiumRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/contact': {
+      id: '/$locale/contact'
+      path: '/contact'
+      fullPath: '/$locale/contact'
+      preLoaderRoute: typeof LocaleContactRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/developers': {
+      id: '/$locale/developers'
+      path: '/developers'
+      fullPath: '/$locale/developers'
+      preLoaderRoute: typeof LocaleDevelopersRouteImport
       parentRoute: typeof LocaleRouteRoute
     }
     '/$locale/fos': {
@@ -655,9 +772,12 @@ const LocaleFruitRouteWithChildren = LocaleFruitRoute._addFileChildren(
 )
 
 interface LocaleRouteRouteChildren {
+  LocaleAboutRoute: typeof LocaleAboutRoute
   LocaleAndroidRoute: typeof LocaleAndroidRouteWithChildren
   LocaleAppertureRoute: typeof LocaleAppertureRouteWithChildren
   LocaleBufferiumRoute: typeof LocaleBufferiumRouteWithChildren
+  LocaleContactRoute: typeof LocaleContactRoute
+  LocaleDevelopersRoute: typeof LocaleDevelopersRoute
   LocaleFosRoute: typeof LocaleFosRouteWithChildren
   LocaleFruitRoute: typeof LocaleFruitRouteWithChildren
   LocaleLicensesRoute: typeof LocaleLicensesRoute
@@ -667,9 +787,12 @@ interface LocaleRouteRouteChildren {
 }
 
 const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
+  LocaleAboutRoute: LocaleAboutRoute,
   LocaleAndroidRoute: LocaleAndroidRouteWithChildren,
   LocaleAppertureRoute: LocaleAppertureRouteWithChildren,
   LocaleBufferiumRoute: LocaleBufferiumRouteWithChildren,
+  LocaleContactRoute: LocaleContactRoute,
+  LocaleDevelopersRoute: LocaleDevelopersRoute,
   LocaleFosRoute: LocaleFosRouteWithChildren,
   LocaleFruitRoute: LocaleFruitRouteWithChildren,
   LocaleLicensesRoute: LocaleLicensesRoute,
@@ -685,9 +808,12 @@ const LocaleRouteRouteWithChildren = LocaleRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LocaleRouteRoute: LocaleRouteRouteWithChildren,
+  AboutRoute: AboutRoute,
   AndroidRoute: AndroidRoute,
   AppertureRoute: AppertureRoute,
   BufferiumRoute: BufferiumRoute,
+  ContactRoute: ContactRoute,
+  DevelopersRoute: DevelopersRoute,
   FosRoute: FosRoute,
   FruitRoute: FruitRoute,
   LicensesRoute: LicensesRoute,

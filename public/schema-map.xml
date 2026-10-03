@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:sf="https://nlweb.ai/schema-feeds">
+  <url>
+    <loc>https://pretend.pro/feeds/tools.jsonl</loc>
+    <sf:feed>
+      <sf:format>jsonl</sf:format>
+      <sf:schema>https://schema.org/SoftwareApplication</sf:schema>
+      <sf:description>JSONL feed of the eleven PretendPro demo tools as schema.org SoftwareApplication records.</sf:description>
+    </sf:feed>
+  </url>
+</urlset>

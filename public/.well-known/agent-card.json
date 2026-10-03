@@ -1,0 +1,72 @@
+{
+  "$schema": "https://a2a-protocol.org/schemas/agent-card.json",
+  "name": "PretendPro Office Suite",
+  "description": "Wholesome parody office suite: browser-based fake-content demo tools for realistic product screenshots and demos. Documentation surface only — this is a static site with no API, no accounts, and no interactive agent endpoint.",
+  "url": "https://pretend.pro/",
+  "provider": {
+    "organization": "Mike \"Demo\" Demopoulos",
+    "url": "https://mikedemo.dev"
+  },
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "defaultInputModes": [
+    "text"
+  ],
+  "defaultOutputModes": [
+    "text"
+  ],
+  "documentationUrl": "https://pretend.pro/developers",
+  "skills": [
+    {
+      "id": "browse-demo-tools",
+      "name": "Browse the demo tools",
+      "description": "List and describe the eleven fake-content demo tools: DocuFaker (fake document editor), SheetShenanigans (fake spreadsheet), BrowserBuddy (fake browser), Inbox Mirage (fake email inbox), CodeFaker (fake web code editor), CodeFaker: Game (fake game-dev editor), DeckDreamer (fake slide-deck builder), ReaderRealm (fake PDF reader), PhotoPretender (fake photo editor), ReelPretender (fake video editor), and SoundStage (fake audio editor).",
+      "tags": [
+        "demo-tools",
+        "screenshots",
+        "product-demos",
+        "mockups",
+        "parody"
+      ]
+    },
+    {
+      "id": "resolve-tool-url",
+      "name": "Resolve a tool page URL",
+      "description": "Resolve the canonical URL for any tool inside any pretend OS edition and locale, following the pattern https://pretend.pro/{locale}/{edition}/{tool} — for example https://pretend.pro/us-en/fruit/docufaker. Editions: fruit, apperture, bufferium, android, fos. Locales: us-en, ca-en, uk-en, au-en, at-en, tlh.",
+      "tags": [
+        "urls",
+        "navigation",
+        "reference",
+        "locales",
+        "editions"
+      ]
+    },
+    {
+      "id": "describe-editions",
+      "name": "Describe the pretend OS editions",
+      "description": "Describe the five pretend operating-system editions: Fruit (Mac OS X style desktop with a dock), Apperture (Windows style desktop with a start bar), BufferiumOS (a shelf desktop that is eternally almost done), Android (Android-style phone home screen), and fOS (fOS-style phone with a dock and home indicator).",
+      "tags": [
+        "editions",
+        "operating-systems",
+        "parody",
+        "desktop",
+        "mobile"
+      ]
+    },
+    {
+      "id": "site-pages",
+      "name": "Locate key site pages",
+      "description": "Locate the key pages of the site: the onboarding homepage (https://pretend.pro/), locale homepages, open-source licenses (/{locale}/licenses), privacy policy (/{locale}/privacy), terms of service (/{locale}/terms), the XML sitemap (/sitemap.xml), and the llms.txt overview (/llms.txt).",
+      "tags": [
+        "pages",
+        "legal",
+        "sitemap",
+        "navigation"
+      ]
+    }
+  ]
+}

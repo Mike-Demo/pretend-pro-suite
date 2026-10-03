@@ -330,6 +330,55 @@ export function Onboarding() {
         </div>
       </main>
 
+      <section
+        aria-label="About PretendPro Office Suite"
+        className="mx-auto mt-8 max-w-5xl px-4 sm:px-8"
+      >
+        <div className="fluent-surface px-4 py-8 sm:px-10">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground">
+            What is PretendPro Office Suite?
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            PretendPro Office Suite is a wholesome parody office suite: eleven
+            browser-based fake-content demo tools — DocuFaker, SheetShenanigans,
+            BrowserBuddy, Inbox Mirage, CodeFaker, CodeFaker: Game, DeckDreamer,
+            ReaderRealm, PhotoPretender, ReelPretender, and SoundStage — running
+            inside five pretend operating systems (Fruit, Apperture, BufferiumOS,
+            Android, fOS) across six locales. Pick the pretend work you want to
+            mimic and the window style that feels most like your job, and your
+            fake workday boots in a full-screen pretend desktop or phone.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            It exists for one job: realistic product screenshots and demos
+            without real data. Stage a fake inbox triage, a fake code review, a
+            fake slide deck — then capture it. Everything on the site is
+            fictional parody: imaginary coworkers, nonsense documents,
+            stock-photo slides. Free forever, no accounts, no API.{" "}
+            <a
+              href="/us-en/about/"
+              className="fluent-focus font-medium text-primary hover:underline"
+            >
+              Learn more about the suite
+            </a>
+            , read the{" "}
+            <a
+              href="/llms.txt"
+              className="fluent-focus font-medium text-primary hover:underline"
+            >
+              agent docs
+            </a>
+            , or browse the{" "}
+            <a
+              href="https://github.com/Mike-Demo/pretend-pro-suite"
+              className="fluent-focus font-medium text-primary hover:underline"
+            >
+              open-source repo
+            </a>
+            .
+          </p>
+        </div>
+      </section>
+
       <SocialFooter className="mx-auto mt-8 max-w-5xl" locale={locale} />
       {transition.overlay}
 

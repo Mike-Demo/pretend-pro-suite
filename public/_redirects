@@ -1,1 +1,11 @@
+# Markdown twins: serve heading-led markdown at .md URLs via .txt fallback
+/index.md /index.txt 200
+/about.md /about.txt 200
+/contact.md /contact.txt 200
+/privacy.md /privacy.txt 200
+/developers.md /developers.txt 200
+/auth.md /auth.txt 200
+/pricing.md /pricing.txt 200
+/llms.md /llms.txt 200
+
 /*  /index.html  200

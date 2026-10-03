@@ -1,0 +1,28 @@
+{
+  "$schema": "https://agent-skills.org/schemas/index-v0.2.0.json",
+  "name": "PretendPro Office Suite agent skills",
+  "description": "Real workflows for PretendPro Office Suite: staging fake product screenshots, planning fake demo videos, and touring the parody OS editions. The product is a static parody site with no API.",
+  "skills": [
+    {
+      "id": "fake-screenshots",
+      "name": "Generate fake product screenshots with PretendPro",
+      "description": "Use PretendPro's browser-based parody tools to stage realistic product screenshots without using any real data.",
+      "path": "/.well-known/agent-skills/skills/fake-screenshots.md",
+      "digest": "sha256:2440c8db7c10d5d6a01f7f0baf1e2c3401ccd47f74f8ec64daadd1f14ede2f52"
+    },
+    {
+      "id": "demo-video-workflow",
+      "name": "Plan a fake demo video with PretendPro",
+      "description": "Stage a multi-scene fake workday across PretendPro's parody OS editions for a demo video or walkthrough.",
+      "path": "/.well-known/agent-skills/skills/demo-video-workflow.md",
+      "digest": "sha256:1f816c3780d899d018b8612a10ce2dfda451b7932b8c3c7231a90d71d9fe6e20"
+    },
+    {
+      "id": "parody-os-tour",
+      "name": "Tour the pretend OS editions",
+      "description": "Orient yourself (or a user) across PretendPro's five parody operating-system editions and six locales.",
+      "path": "/.well-known/agent-skills/skills/parody-os-tour.md",
+      "digest": "sha256:6c90ee3fce2652953e0b1647da0b9665cd176976838f31ca454de888529a3512"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/plugin-v1.0.0.json",
+  "name": "pretendpro-office-suite",
+  "version": "1.0.0",
+  "description": "PretendPro Office Suite — wholesome parody office suite of fake-content demo tools. Documentation and skills only; no MCP servers (the product is a static site with no API).",
+  "homepage": "https://pretend.pro/",
+  "repository": "https://github.com/Mike-Demo/pretend-pro-suite",
+  "skills": [
+    ".well-known/agent-skills/skills/fake-screenshots.md",
+    ".well-known/agent-skills/skills/demo-video-workflow.md",
+    ".well-known/agent-skills/skills/parody-os-tour.md"
+  ],
+  "agentSkillsIndex": "https://pretend.pro/.well-known/agent-skills/index.json",
+  "agentCard": "https://pretend.pro/.well-known/agent-card.json",
+  "ard": "https://pretend.pro/.well-known/ard.json"
+}

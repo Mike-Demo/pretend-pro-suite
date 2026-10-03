@@ -38,6 +38,22 @@
 /fonts/*
   cache-control: public, max-age=31536000, immutable
 
+# Markdown twins — serve as text/markdown so agents get a real markdown body
+/index.txt
+  content-type: text/markdown; charset=utf-8
+/about.txt
+  content-type: text/markdown; charset=utf-8
+/contact.txt
+  content-type: text/markdown; charset=utf-8
+/privacy.txt
+  content-type: text/markdown; charset=utf-8
+/developers.txt
+  content-type: text/markdown; charset=utf-8
+/auth.txt
+  content-type: text/markdown; charset=utf-8
+/pricing.txt
+  content-type: text/markdown; charset=utf-8
+
 # HTML and everything else — always revalidate so deploys ship instantly
 /*
   cache-control: public, max-age=0, must-revalidate

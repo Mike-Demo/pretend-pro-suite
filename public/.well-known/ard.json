@@ -1,0 +1,160 @@
+{
+  "specVersion": "1.0",
+  "host": "pretend.pro",
+  "description": "Agent Resource Discovery catalog for PretendPro Office Suite (https://pretend.pro) — a wholesome parody office suite of fake-content demo tools. Static site: all resources are public, read-only, and require no authentication. There is no public API, no OAuth, and no MCP server.",
+  "entries": [
+    {
+      "identifier": "urn:air:pretend.pro:webapp",
+      "displayName": "PretendPro Office Suite",
+      "description": "Wholesome parody office suite: browser-based fake-content demo tools (fake code editors, inboxes, documents, onboarding flows, social mockups) for realistic product screenshots and demos. Boots a pretend OS with fictional coworkers and nonsense documents. Free, no accounts, no API. Everything on the site is fictional parody.",
+      "url": "https://pretend.pro/",
+      "type": "text/html",
+      "tags": [
+        "parody",
+        "demo-tools",
+        "screenshots",
+        "mockups",
+        "office-suite"
+      ],
+      "representativeQueries": [
+        "What is PretendPro Office Suite?",
+        "What fake demo tools does pretend.pro offer?"
+      ],
+      "trustManifest": {
+        "identity": "https://github.com/Mike-Demo/pretend-pro-suite",
+        "identityType": "source-repository",
+        "attestations": [
+          {
+            "type": "source-code-availability",
+            "statement": "Source code is published at https://github.com/Mike-Demo/pretend-pro-suite and this catalog entry describes resources served from that codebase."
+          }
+        ]
+      }
+    },
+    {
+      "identifier": "urn:air:pretend.pro:llms-txt",
+      "displayName": "PretendPro llms.txt",
+      "description": "Machine-readable index of PretendPro Office Suite: the eleven demo tools, five pretend OS editions, six locales, and key pages. Includes a 'when to use this' section for AI agents.",
+      "url": "https://pretend.pro/llms.txt",
+      "type": "text/plain",
+      "tags": [
+        "llms-txt",
+        "agent-docs",
+        "index"
+      ],
+      "representativeQueries": [
+        "Where is pretend.pro documented for AI agents?"
+      ],
+      "trustManifest": {
+        "identity": "https://github.com/Mike-Demo/pretend-pro-suite",
+        "identityType": "source-repository",
+        "attestations": [
+          {
+            "type": "source-code-availability",
+            "statement": "Source code is published at https://github.com/Mike-Demo/pretend-pro-suite and this catalog entry describes resources served from that codebase."
+          }
+        ]
+      }
+    },
+    {
+      "identifier": "urn:air:pretend.pro:agent-card",
+      "displayName": "PretendPro agent card",
+      "description": "A2A-style agent card describing PretendPro Office Suite capabilities, skills, and the documentation-only contact surface. There is no message endpoint: this is a static parody site, not an interactive agent.",
+      "url": "https://pretend.pro/.well-known/agent.json",
+      "type": "application/json",
+      "tags": [
+        "agent-card",
+        "a2a",
+        "capabilities"
+      ],
+      "representativeQueries": [
+        "What are pretend.pro's agent capabilities?"
+      ],
+      "trustManifest": {
+        "identity": "https://github.com/Mike-Demo/pretend-pro-suite",
+        "identityType": "source-repository",
+        "attestations": [
+          {
+            "type": "source-code-availability",
+            "statement": "Source code is published at https://github.com/Mike-Demo/pretend-pro-suite and this catalog entry describes resources served from that codebase."
+          }
+        ]
+      }
+    },
+    {
+      "identifier": "urn:air:pretend.pro:agent-skills",
+      "displayName": "PretendPro agent skills index",
+      "description": "Index of agent skills for PretendPro Office Suite: real workflows for generating fake product screenshots, planning a fake demo video, and touring the parody OS editions. Each skill ships a SKILL.md with a sha256 digest.",
+      "url": "https://pretend.pro/.well-known/agent-skills/index.json",
+      "type": "application/json",
+      "tags": [
+        "agent-skills",
+        "workflows",
+        "skills"
+      ],
+      "representativeQueries": [
+        "What agent skills does pretend.pro publish?"
+      ],
+      "trustManifest": {
+        "identity": "https://github.com/Mike-Demo/pretend-pro-suite",
+        "identityType": "source-repository",
+        "attestations": [
+          {
+            "type": "source-code-availability",
+            "statement": "Source code is published at https://github.com/Mike-Demo/pretend-pro-suite and this catalog entry describes resources served from that codebase."
+          }
+        ]
+      }
+    },
+    {
+      "identifier": "urn:air:pretend.pro:plugin",
+      "displayName": "PretendPro agent plugin manifest",
+      "description": "Agent Plugins manifest bundling the PretendPro documentation surface and agent skills. No MCP servers: the product is a static site with no API.",
+      "url": "https://pretend.pro/plugin.json",
+      "type": "application/json",
+      "tags": [
+        "agent-plugins",
+        "manifest"
+      ],
+      "representativeQueries": [
+        "Is there a pretend.pro agent plugin?"
+      ],
+      "trustManifest": {
+        "identity": "https://github.com/Mike-Demo/pretend-pro-suite",
+        "identityType": "source-repository",
+        "attestations": [
+          {
+            "type": "source-code-availability",
+            "statement": "Source code is published at https://github.com/Mike-Demo/pretend-pro-suite and this catalog entry describes resources served from that codebase."
+          }
+        ]
+      }
+    },
+    {
+      "identifier": "urn:air:pretend.pro:tools-feed",
+      "displayName": "PretendPro tools JSONL feed",
+      "description": "JSONL feed of the eleven PretendPro demo tools as schema.org SoftwareApplication records, with canonical locale-prefixed URLs.",
+      "url": "https://pretend.pro/feeds/tools.jsonl",
+      "type": "application/x-ndjson",
+      "tags": [
+        "feed",
+        "jsonl",
+        "schema-org",
+        "tools"
+      ],
+      "representativeQueries": [
+        "List all PretendPro demo tools with URLs"
+      ],
+      "trustManifest": {
+        "identity": "https://github.com/Mike-Demo/pretend-pro-suite",
+        "identityType": "source-repository",
+        "attestations": [
+          {
+            "type": "source-code-availability",
+            "statement": "Source code is published at https://github.com/Mike-Demo/pretend-pro-suite and this catalog entry describes resources served from that codebase."
+          }
+        ]
+      }
+    }
+  ]
+}

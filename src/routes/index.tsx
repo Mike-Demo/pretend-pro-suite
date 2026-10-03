@@ -48,6 +48,7 @@ export const Route = createFileRoute("/")({
     links: [
       { rel: "canonical", href: "https://pretend.pro/" },
       ...alternateLinks(""),
+      { rel: "alternate", type: "text/markdown", href: "https://pretend.pro/index.md" },
       {
         rel: "preload",
         as: "image",
@@ -69,6 +70,65 @@ export const Route = createFileRoute("/")({
       {
         type: "application/ld+json",
         children: webApplicationJsonLd(),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "@id": "https://pretend.pro/#organization",
+          name: "PretendPro Office Suite",
+          url: "https://pretend.pro/",
+          description:
+            "Wholesome parody office suite: browser-based fake-content demo tools for realistic product screenshots and demos.",
+          sameAs: [
+            "https://github.com/Mike-Demo",
+            "https://www.linkedin.com/in/mikedemopoulos",
+            "https://x.com/mike_demo",
+            "https://www.threads.com/@mdemop",
+          ],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "What is PretendPro Office Suite?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "PretendPro Office Suite is a wholesome parody office suite: browser-based fake-content demo tools (fake code editors, inboxes, documents, onboarding flows, social mockups) for making realistic product screenshots and demos. Everything on the site is fictional.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Is PretendPro free?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes. PretendPro is free forever, with no accounts, no tiers, and no paid plans. Everything runs in your browser.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Does PretendPro have an API?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "No. PretendPro is a fully client-side static site with no public API, no OAuth, no accounts, and no MCP server.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Is any of the content on PretendPro real?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "No. Every coworker name, email, document, and code sample is fictional parody. Nothing on the site is real user data.",
+              },
+            },
+          ],
+        }),
       },
     ],
   }),

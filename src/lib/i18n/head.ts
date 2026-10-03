@@ -23,7 +23,10 @@ export type PageSlug =
   | `${EditionSlug}/${AppId}`
   | "licenses"
   | "privacy"
-  | "terms";
+  | "terms"
+  | "about"
+  | "contact"
+  | "developers";
 
 function pageUrl(locale: LocaleId, page: PageSlug): string {
   // Trailing-slash canonicals: the static host 308-redirects extensionless
@@ -214,6 +217,99 @@ export function localeTermsHead(locale: LocaleId) {
   return {
     meta: socialMeta(title, description, url, socialOgImage),
     links: [{ rel: "canonical", href: url }, ...alternateLinks("terms")],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: webPageJsonLd({
+          name: title,
+          url,
+          description,
+          inLanguage: localeMeta(locale).htmlLang,
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: breadcrumbJsonLd(title, url),
+      },
+    ],
+  };
+}
+
+/** About page metadata. Copy is not translated. */
+export function localeAboutHead(locale: LocaleId) {
+  const url = pageUrl(locale, "about");
+  const label = localeMeta(locale).label;
+  const title = `About — PretendPro Office Suite · ${label}`;
+  const description = `What PretendPro Office Suite is, who made it, and why it exists (${label}). A wholesome parody office suite of fake-content demo tools.`;
+  return {
+    meta: socialMeta(title, description, url, socialOgImage),
+    links: [
+      { rel: "canonical", href: url },
+      ...alternateLinks("about"),
+      { rel: "alternate", type: "text/markdown", href: "https://pretend.pro/about.md" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: webPageJsonLd({
+          name: title,
+          url,
+          description,
+          inLanguage: localeMeta(locale).htmlLang,
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: breadcrumbJsonLd(title, url),
+      },
+    ],
+  };
+}
+
+/** Contact page metadata. Copy is not translated. */
+export function localeContactHead(locale: LocaleId) {
+  const url = pageUrl(locale, "contact");
+  const label = localeMeta(locale).label;
+  const title = `Contact — PretendPro Office Suite · ${label}`;
+  const description = `How to reach the maker of PretendPro Office Suite (${label}): GitHub issues and public profiles.`;
+  return {
+    meta: socialMeta(title, description, url, socialOgImage),
+    links: [
+      { rel: "canonical", href: url },
+      ...alternateLinks("contact"),
+      { rel: "alternate", type: "text/markdown", href: "https://pretend.pro/contact.md" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: webPageJsonLd({
+          name: title,
+          url,
+          description,
+          inLanguage: localeMeta(locale).htmlLang,
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: breadcrumbJsonLd(title, url),
+      },
+    ],
+  };
+}
+
+/** Developers page metadata. Copy is not translated. */
+export function localeDevelopersHead(locale: LocaleId) {
+  const url = pageUrl(locale, "developers");
+  const label = localeMeta(locale).label;
+  const title = `Developers — PretendPro Office Suite · ${label}`;
+  const description = `Developer and agent resources for PretendPro (${label}): docs, agent skills, and the honest truth that there is no API.`;
+  return {
+    meta: socialMeta(title, description, url, socialOgImage),
+    links: [
+      { rel: "canonical", href: url },
+      ...alternateLinks("developers"),
+      { rel: "alternate", type: "text/markdown", href: "https://pretend.pro/developers.md" },
+    ],
     scripts: [
       {
         type: "application/ld+json",
