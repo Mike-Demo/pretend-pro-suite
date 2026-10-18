@@ -1,0 +1,211 @@
+{
+  "boltSlidesVersion": 1,
+  "boltSlidesId": "11011050-f9d6-4d43-8a9e-3e43af51bbaf",
+  "deck": {
+    "title": "Pretend Pro Suite",
+    "transition": "fade",
+    "font": "space",
+    "accent": "#2fd6e8"
+  },
+  "slides": [
+    {
+      "id": "s1",
+      "position": 0,
+      "layout": "cover",
+      "props": {
+        "kicker": "Mission-control energy · Pure play",
+        "title": "Pretend ==Pro== Suite",
+        "subtitle": "All the gravitas of a pro console. None of the consequences.",
+        "foot": "github.com/Mike-Demo/pretend-pro-suite"
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Hook: everyone loves the way a mission-control console feels. This deck is about bottling that feeling as a toy.",
+      "status": "none"
+    },
+    {
+      "id": "s2",
+      "position": 1,
+      "layout": "manifesto",
+      "props": {
+        "label": "The idea",
+        "text": "The big screens. The dials. The ==mission-control energy==. Everybody loves the feeling of a high-stakes professional dashboard — so we made it a toy you can tap, flip, and perform with."
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Land the thesis: it's the *feeling* of a pro console, kept and played with. Pause before moving on.",
+      "status": "none"
+    },
+    {
+      "id": "s3",
+      "position": 2,
+      "layout": "bento",
+      "props": {
+        "kicker": "What it is",
+        "title": "Pretend workstations, ==beautifully== pointless.",
+        "tiles": [
+          {
+            "k": "CONSOLE-01",
+            "title": "Themed stations",
+            "body": "Mock consoles and pro-style tools, each with its own mission.",
+            "c": 4,
+            "variant": "accent"
+          },
+          {
+            "k": "DECK-A",
+            "title": "Convincing controls",
+            "body": "Switches, dials and readouts that look the part.",
+            "c": 2
+          },
+          {
+            "k": "DECK-B",
+            "title": "Delightfully little",
+            "body": "They do almost nothing — gloriously.",
+            "c": 2
+          },
+          {
+            "k": "PROP-X",
+            "title": "Made for performing",
+            "body": "Tap, flip, narrate. The fun is the performance.",
+            "c": 4
+          }
+        ]
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "One sentence: a suite of themed pretend workstations — convincing-looking controls that do delightfully little, beautifully.",
+      "status": "none"
+    },
+    {
+      "id": "s4",
+      "position": 3,
+      "layout": "pillars",
+      "props": {
+        "title": "Who it's for.",
+        "items": [
+          {
+            "title": "Kids playing grown-up",
+            "body": "A cockpit-sized career day, minus the paperwork."
+          },
+          {
+            "title": "Streamers & creators",
+            "body": "A prop console that reads as pro on camera."
+          },
+          {
+            "title": "Teachers demoing concepts",
+            "body": "Big readable dials for explaining the idea of a dashboard."
+          },
+          {
+            "title": "Button-mashers at heart",
+            "body": "Anyone who ever mashed buttons on a toy cockpit."
+          }
+        ]
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Four audiences, one shared instinct: the joy of pushing buttons that look important.",
+      "status": "none"
+    },
+    {
+      "id": "s5",
+      "position": 4,
+      "layout": "contrast",
+      "props": {
+        "kicker": "Honest by design",
+        "title": "A toy and a prop. ==Never== a deception tool.",
+        "left": {
+          "label": "What it is",
+          "title": "Openly pretend",
+          "points": [
+            "Labeling says pretend, right on the console",
+            "The fun is the performance, not the trick",
+            "Built to be shown off, not passed off"
+          ]
+        },
+        "right": {
+          "label": "What it isn't",
+          "title": "Not a fake-out",
+          "points": [
+            "No impersonating real systems or tools",
+            "No passing it off as genuine software",
+            "No stakes — consequences stay imaginary"
+          ]
+        }
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Key trust slide: the pretend-ness is labeled openly. The play is collaborative — everyone's in on it.",
+      "status": "none"
+    },
+    {
+      "id": "s6",
+      "position": 5,
+      "layout": "statGrid",
+      "props": {
+        "kicker": "Key features",
+        "title": "Everything a pretend pro needs.",
+        "stats": [
+          { "value": "6+", "label": "Themed workstations", "caption": " consoles, cockpits, control rooms" },
+          { "value": "100%", "label": "Tappable controls", "caption": " switches, dials, sliders, readouts" },
+          { "value": "0", "label": "Consequences", "caption": " nothing breaks, nothing bills" },
+          { "value": "∞", "label": "Replays", "caption": " reset the mission, run it again" }
+        ]
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Read the stats with a straight face — the deadpan delivery is part of the bit.",
+      "status": "none"
+    },
+    {
+      "id": "s7",
+      "position": 6,
+      "layout": "bigNumber",
+      "props": {
+        "kicker": "Status",
+        "value": "$0",
+        "caption": "admission. The suite is playable today and ==open source== under a permissive license.",
+        "foot": "github.com/Mike-Demo/pretend-pro-suite"
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Status: it ships. Playable suite, open source, free — fork it, mod it, perform with it.",
+      "status": "none"
+    },
+    {
+      "id": "s8",
+      "position": 7,
+      "layout": "cover",
+      "props": {
+        "kicker": "Your console is waiting",
+        "title": "Come ==pretend== with us.",
+        "subtitle": "Grab the code, open a station, start performing.",
+        "foot": "github.com/Mike-Demo/pretend-pro-suite"
+      },
+      "background": {
+        "type": "gradient",
+        "from": "#06080d",
+        "to": "#08222a",
+        "angle": 160
+      },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Close with the invite: the repo link is on screen. Ding — mission complete.",
+      "status": "none"
+    }
+  ]
+}
