@@ -95,6 +95,9 @@ export function SocialFooter({ className, locale }: { className?: string; locale
           Threads
         </a>
       </nav>
+      <div style={{ textAlign: "center", margin: "0.5rem 0 0" }}>
+        <a href="https://brandmylaptop.com/demo?ref=demo"><img src="https://brandmylaptop.com/api/badge/demo?theme=dark" alt="Your logo on my laptop" height="60" /></a>
+      </div>
     </footer>
   );
 }
